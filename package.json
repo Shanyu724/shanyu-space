@@ -9,6 +9,7 @@
     "start": "next start",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "analyze": "next build && next experimental-analyze -o",
     "prepare": "husky"
   },
   "keywords": [],
