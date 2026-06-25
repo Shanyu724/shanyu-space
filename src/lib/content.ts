@@ -45,8 +45,6 @@ export function getCategoryDescription(cat: string): string {
   return categoryDescriptions[cat] ?? "";
 }
 
-
-
 export function getAllCategories(): { id: string; label: string; description: string }[] {
   return categoryOrders
     .filter((id) => {
@@ -197,4 +195,18 @@ export function getTools(): Tool[] {
     const dateB = new Date(b.createdAt || "2000-01-01").getTime();
     return dateB - dateA;
   });
+}
+
+/**
+ * 读取某个 workshop 工具的 AI 上下文文件
+ * （专门给 AI 看的长描述，比 description 字段更细，不含代码）。
+ * 文件路径：content/workshop/<id>/ai-context.md
+ * 没文件时返回 null。
+ */
+export function getToolAIContext(id: string): string | null {
+  const filePath = path.join(workshopDir, id, "ai-context.md");
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const parsed = matter(raw);
+  return parsed.content.trim();
 }

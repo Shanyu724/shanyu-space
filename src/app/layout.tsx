@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import { Decorations } from "@/components/Decorations";
-import { FloatingHey } from "@/components/FloatingHey";
 import { AIChatPanel } from "@/components/AIChatPanel";
 import { RouteTransition } from "@/components/RouteTransition";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -72,12 +71,10 @@ export default function RootLayout({
           </div>
         </main>
 
-        {/* 右下角：AI 浮窗（浮在 Hey 浮窗左边，避免遮挡） */}
+        {/* 右下角：AI 浮窗 */}
         <div className="fixed bottom-6 right-20 z-40 print:hidden">
           <AIChatPanel variant="floating" />
         </div>
-        {/* 右下角：Hey 浮窗 */}
-        <FloatingHey />
         {/* 右下角回顶 */}
         <ScrollToTop />
         {/* 右侧贴边快捷面板（xl 屏） */}

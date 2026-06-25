@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
@@ -11,8 +12,6 @@ interface Message {
 interface AIChatPanelProps {
   /** 浮窗模式（带触发按钮）/ 嵌入模式（直接渲染） */
   variant?: "floating" | "embedded";
-  /** 浮窗模式下未展开时是否自动呼吸 */
-  breathing?: boolean;
 }
 
 const SUGGESTIONS = [
@@ -22,17 +21,25 @@ const SUGGESTIONS = [
   "说说最近在关注什么？",
 ];
 
+// 浮窗模式要隐藏的路径（这些页面已经有自己的聊天 UI）
+const FLOATING_HIDE_PATHS = new Set(["/chat"]);
+
 /**
  * AI 聊天面板：浮窗与独立页通用。
- * 调用 /api/chat，缺失 AI_API_KEY 时给出友好提示而非崩溃。
+ * 浮窗模式自动感知当前路径，把页面内容作为 context 一起发给 /api/chat。
+ * 浮窗在 /chat 页面自动隐藏（独立页已有完整聊天 UI）。
  */
 export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [configured, setConfigured] = useState<boolean | null>(null);
+  const [pageCtx, setPageCtx] = useState<{ path: string; title?: string; text?: string } | null>(
+    null,
+  );
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // 启动时探测 API 是否已配置
@@ -43,6 +50,36 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
       .catch(() => setConfigured(false));
   }, []);
 
+  // 路径变化时拉取页面 context（仅在浮窗模式）
+  useEffect(() => {
+    if (variant !== "floating" || !pathname) return;
+    if (pathname === "/chat") {
+      setPageCtx(null);
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/context?path=${encodeURIComponent(pathname)}`)
+      .then((r) => r.json())
+      .then((d) => {
+        if (cancelled) return;
+        if (d.kind && d.kind !== "none") {
+          setPageCtx({
+            path: d.path,
+            title: d.title || d.name,
+            text: typeof d.content === "string" ? d.content : undefined,
+          });
+        } else {
+          setPageCtx({ path: pathname });
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setPageCtx({ path: pathname });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname, variant]);
+
   // 新消息时自动滚到底
   useEffect(() => {
     if (scrollRef.current) {
@@ -50,39 +87,45 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
     }
   }, [messages, loading]);
 
-  const send = async (text?: string) => {
-    const content = (text ?? input).trim();
-    if (!content || loading) return;
+  const send = useCallback(
+    async (text?: string) => {
+      const content = (text ?? input).trim();
+      if (!content || loading) return;
 
-    setError(null);
-    setInput("");
-    setMessages((m) => [...m, { role: "user", content }]);
-    setLoading(true);
+      setError(null);
+      setInput("");
+      setMessages((m) => [...m, { role: "user", content }]);
+      setLoading(true);
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [...messages, { role: "user", content }],
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error || "请求失败");
-        setMessages((m) => [
-          ...m,
-          { role: "assistant", content: data.error || "（出错）" },
-        ]);
-      } else {
-        setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages: [...messages, { role: "user", content }],
+            context: pageCtx ?? undefined,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setError(data.error || "请求失败");
+          setMessages((m) => [...m, { role: "assistant", content: data.error || "（出错）" }]);
+        } else {
+          setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
+        }
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "网络错误");
+      } finally {
+        setLoading(false);
       }
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "网络错误");
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [input, loading, messages, pageCtx],
+  );
+
+  // 浮窗模式 + 在隐藏路径上 → 直接 return null
+  if (variant === "floating" && pathname && FLOATING_HIDE_PATHS.has(pathname)) {
+    return null;
+  }
 
   const panel = (
     <motion.div
@@ -101,8 +144,7 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
         <div
           className="absolute -top-2 left-1/2 w-16 h-3 rounded-sm pointer-events-none"
           style={{
-            background:
-              "linear-gradient(135deg, var(--tape-bg-from) 0%, var(--tape-bg-to) 100%)",
+            background: "linear-gradient(135deg, var(--tape-bg-from) 0%, var(--tape-bg-to) 100%)",
             transform: "translateX(-50%) rotate(-3deg)",
             boxShadow: "0 1px 2px var(--tape-shadow)",
           }}
@@ -126,8 +168,10 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
                 {configured === false
                   ? "AI 后台未配置（提示模式）"
                   : configured === null
-                  ? "连接中…"
-                  : "山雨的 AI 分身"}
+                    ? "连接中…"
+                    : pageCtx && pageCtx.text
+                      ? `正在读：${pageCtx.title || pageCtx.path}`
+                      : "山雨的 AI 分身"}
               </p>
             </div>
           </div>
@@ -143,10 +187,7 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
         </header>
 
         {/* 消息列表 */}
-        <div
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto px-4 py-3 space-y-3"
-        >
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
           {messages.length === 0 && (
             <div className="h-full flex flex-col items-center justify-center text-center px-2">
               <p
@@ -155,7 +196,9 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
               >
                 你好，我是山间的雨。
                 <br />
-                想聊点什么？
+                {pageCtx && pageCtx.text
+                  ? `我正在读「${pageCtx.title || pageCtx.path}」，关于这个页面想问什么？`
+                  : "想聊点什么？"}
               </p>
               <div className="flex flex-wrap gap-2 justify-center">
                 {SUGGESTIONS.map((s) => (
@@ -173,10 +216,7 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
           )}
 
           {messages.map((m, i) => (
-            <div
-              key={i}
-              className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-            >
+            <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
               <div
                 className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
                   m.role === "user"
@@ -193,9 +233,18 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
             <div className="flex justify-start">
               <div className="px-3 py-2 rounded-2xl bg-mint-50 border border-mint-100 rounded-bl-sm">
                 <div className="flex gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-mint-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                  <span className="w-1.5 h-1.5 rounded-full bg-mint-400 animate-bounce" style={{ animationDelay: "150ms" }} />
-                  <span className="w-1.5 h-1.5 rounded-full bg-mint-400 animate-bounce" style={{ animationDelay: "300ms" }} />
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-mint-400 animate-bounce"
+                    style={{ animationDelay: "0ms" }}
+                  />
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-mint-400 animate-bounce"
+                    style={{ animationDelay: "150ms" }}
+                  />
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-mint-400 animate-bounce"
+                    style={{ animationDelay: "300ms" }}
+                  />
                 </div>
               </div>
             </div>
@@ -247,22 +296,15 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
   }
 
   // 浮窗模式：触发按钮 + 展开面板
-  // 容器交给调用方定位（layout 里用 fixed bottom-6 right-20 避免和 Hey 重叠）
   return (
     <div className="relative select-none">
-      <AnimatePresence>
-        {open && panel}
-      </AnimatePresence>
+      <AnimatePresence>{open && panel}</AnimatePresence>
       <motion.button
         onClick={() => setOpen((o) => !o)}
         whileHover={{ scale: 1.06, rotate: -3 }}
         whileTap={{ scale: 0.95 }}
         animate={open ? { rotate: 0 } : { rotate: [-2, 4, -2] }}
-        transition={
-          open
-            ? { duration: 0.2 }
-            : { duration: 3, repeat: Infinity, ease: "easeInOut" }
-        }
+        transition={open ? { duration: 0.2 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
         className="relative w-12 h-12 rounded-full bg-mint-500 border border-mint-600 shadow-md flex items-center justify-center text-white"
         aria-label="AI 助手"
       >
