@@ -9,6 +9,12 @@ interface Message {
   content: string;
 }
 
+interface PageCtx {
+  path: string;
+  title?: string;
+  text?: string;
+}
+
 interface AIChatPanelProps {
   /** 浮窗模式（带触发按钮）/ 嵌入模式（直接渲染） */
   variant?: "floating" | "embedded";
@@ -24,10 +30,14 @@ const SUGGESTIONS = [
 // 浮窗模式要隐藏的路径（这些页面已经有自己的聊天 UI）
 const FLOATING_HIDE_PATHS = new Set(["/chat"]);
 
+// 同一会话内的页面 context 缓存，避免重复 fetch
+const ctxCache = new Map<string, PageCtx | null>();
+
 /**
  * AI 聊天面板：浮窗与独立页通用。
  * 浮窗模式自动感知当前路径，把页面内容作为 context 一起发给 /api/chat。
- * 浮窗在 /chat 页面自动隐藏（独立页已有完整聊天 UI）。
+ * 浮球在 /chat 页面自动隐藏（独立页已有完整聊天 UI）。
+ * 性能优化：context 懒加载（仅在用户点开浮球时拉取）+ 内存缓存。
  */
 export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
   const pathname = usePathname();
@@ -37,9 +47,8 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [configured, setConfigured] = useState<boolean | null>(null);
-  const [pageCtx, setPageCtx] = useState<{ path: string; title?: string; text?: string } | null>(
-    null,
-  );
+  const [pageCtx, setPageCtx] = useState<PageCtx | null>(null);
+  const [ctxLoading, setCtxLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // 启动时探测 API 是否已配置
@@ -50,35 +59,45 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
       .catch(() => setConfigured(false));
   }, []);
 
-  // 路径变化时拉取页面 context（仅在浮窗模式）
-  useEffect(() => {
-    if (variant !== "floating" || !pathname) return;
-    if (pathname === "/chat") {
-      setPageCtx(null);
+  // 懒加载页面 context：仅在浮窗展开时拉取，带内存缓存
+  const ensureCtx = useCallback(async () => {
+    if (variant !== "floating" || !pathname || pathname === "/chat") return;
+    // 命中缓存
+    if (ctxCache.has(pathname)) {
+      setPageCtx(ctxCache.get(pathname) ?? null);
       return;
     }
-    let cancelled = false;
-    fetch(`/api/context?path=${encodeURIComponent(pathname)}`)
-      .then((r) => r.json())
-      .then((d) => {
-        if (cancelled) return;
-        if (d.kind && d.kind !== "none") {
-          setPageCtx({
-            path: d.path,
-            title: d.title || d.name,
-            text: typeof d.content === "string" ? d.content : undefined,
-          });
-        } else {
-          setPageCtx({ path: pathname });
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setPageCtx({ path: pathname });
-      });
-    return () => {
-      cancelled = true;
-    };
+    setCtxLoading(true);
+    try {
+      const r = await fetch(`/api/context?path=${encodeURIComponent(pathname)}`);
+      const d = await r.json();
+      const next: PageCtx | null =
+        d.kind && d.kind !== "none"
+          ? {
+              path: d.path,
+              title: d.title || d.name,
+              text: typeof d.content === "string" ? d.content : undefined,
+            }
+          : { path: pathname };
+      ctxCache.set(pathname, next);
+      setPageCtx(next);
+    } catch {
+      const fallback: PageCtx = { path: pathname };
+      ctxCache.set(pathname, fallback);
+      setPageCtx(fallback);
+    } finally {
+      setCtxLoading(false);
+    }
   }, [pathname, variant]);
+
+  // 用户点开浮球时加载 context；点开时并行：UI 立即展开 + 异步拉 context
+  const toggle = useCallback(() => {
+    setOpen((o) => {
+      const willOpen = !o;
+      if (willOpen) void ensureCtx();
+      return willOpen;
+    });
+  }, [ensureCtx]);
 
   // 新消息时自动滚到底
   useEffect(() => {
@@ -154,8 +173,15 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
         {/* 头部 */}
         <header className="flex items-center justify-between px-4 py-3 border-b border-mint-100/60 bg-mint-50/50">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-full bg-white border border-mint-200 flex items-center justify-center text-lg shadow-sm">
-              🌧️
+            <div className="w-9 h-9 rounded-full bg-white border border-rose-100 flex items-center justify-center text-lg shadow-sm overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/mascot-flower.svg"
+                alt=""
+                width={28}
+                height={32}
+                className="-mt-0.5"
+              />
             </div>
             <div className="min-w-0">
               <h3
@@ -169,9 +195,11 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
                   ? "AI 后台未配置（提示模式）"
                   : configured === null
                     ? "连接中…"
-                    : pageCtx && pageCtx.text
-                      ? `正在读：${pageCtx.title || pageCtx.path}`
-                      : "山雨的 AI 分身"}
+                    : ctxLoading
+                      ? "正在读这一页…"
+                      : pageCtx && pageCtx.text
+                        ? `正在读：${pageCtx.title || pageCtx.path}`
+                        : "山雨的 AI 分身"}
               </p>
             </div>
           </div>
@@ -300,12 +328,14 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
     <div className="relative select-none">
       <AnimatePresence>{open && panel}</AnimatePresence>
       <motion.button
-        onClick={() => setOpen((o) => !o)}
-        whileHover={{ scale: 1.06, rotate: -3 }}
-        whileTap={{ scale: 0.95 }}
-        animate={open ? { rotate: 0 } : { rotate: [-2, 4, -2] }}
-        transition={open ? { duration: 0.2 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="relative w-12 h-12 rounded-full bg-mint-500 border border-mint-600 shadow-md flex items-center justify-center text-white"
+        onClick={toggle}
+        whileHover={{ scale: 1.08, rotate: -3 }}
+        whileTap={{ scale: 0.94 }}
+        animate={open ? { rotate: 0 } : { rotate: [-3, 4, -3], y: [0, -2, 0] }}
+        transition={
+          open ? { duration: 0.2 } : { duration: 3.5, repeat: Infinity, ease: "easeInOut" }
+        }
+        className="relative w-14 h-14 rounded-full bg-white/95 backdrop-blur-sm border border-rose-200/70 shadow-lg shadow-rose-200/30 flex items-center justify-center overflow-hidden"
         aria-label="AI 助手"
       >
         {!open && (
@@ -317,9 +347,17 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
             问我！✨
           </span>
         )}
-        <span className="text-xl">🌧️</span>
+        {/* 用 site 资源里的花朵 SVG 当作"小雨"形象 */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/mascot-flower.svg"
+          alt=""
+          width={48}
+          height={56}
+          className="relative z-[1] -mt-1"
+        />
         {!open && (
-          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-rose-400 border-2 border-mint-50 animate-pulse" />
+          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-rose-400 border-2 border-white animate-pulse" />
         )}
       </motion.button>
     </div>
