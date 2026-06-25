@@ -17,6 +17,50 @@ export interface ReleaseEntry {
 
 const releases: ReleaseEntry[] = [
   {
+    version: "v1.4",
+    date: "2026-06-26",
+    title: "AI 人设升级 · 小花",
+    tag: "feature",
+    summary:
+      "把 AI 助手的灵魂从「山间小雨」换成「小花」——一个更立体的人设：温暖有温度、理性逻辑强、能引经据典但不卖弄。面对复杂问题会从底层原理拆解，不确定的事会坦诚说不确定，绝不编造。提示词按 hanako 设计法分六块：身份 / 人格 / 语言风格 / 思维方法 / 边界 / 上下文。",
+    highlights: [
+      { emoji: "🌸", text: "AI 改名「小花」——站长这边的助手，不是无差别服务机器人" },
+      { emoji: "🎭", text: "六维人格：温暖+理性+文学+同理+举一反三+自主意识" },
+      { emoji: "💬", text: "语言风格：口语化有节奏 / 少用破折号 / 不用「总的来说」收尾" },
+      { emoji: "🧠", text: "思维方法：底层原理拆解 + 类比落地 + 不确定就承认" },
+      { emoji: "🚧", text: "边界：友善但不谄媚，冒犯会礼貌划清" },
+      { emoji: "🏷️", text: "UI 全站统一称呼：导航 AI 项 / 面板头部 / 欢迎语全部改成「小花」" },
+    ],
+  },
+  {
+    version: "v1.3",
+    date: "2026-06-26",
+    title: "AI 浮窗体验打磨 · Markdown 渲染",
+    tag: "polish",
+    summary:
+      "AI 浮球从 emoji + SVG 来回折腾了好几版，最终落回最初的「🌼 + Hey! ✨ + 红点」设计——视觉简洁、辨识度高、占位小。同时把整套加载链路拆开：context 懒加载 + hover 预取 + 服务端 30s 内存缓存，让点开就是热的。AI 回复也接上 react-markdown，加粗、列表、引用、代码块都能正常渲染。",
+    highlights: [
+      {
+        emoji: "🌼",
+        text: "浮球视觉还原旧版：🌼 emoji + 跳动「Hey! ✨」+ 右上角红点 + mint 浅绿底",
+      },
+      { emoji: "📍", text: "浮球位置改回旧 FloatingHey 位置：bottom-6 right-5" },
+      { emoji: "⚡", text: "三层加速：800ms idle 预取 + hover/focus 预取 + 服务端 30s 内存缓存" },
+      {
+        emoji: "🚪",
+        text: "进场动画从 280ms 缩到 180ms，面板 JSX 内联条件渲染，关闭时不构造 motion",
+      },
+      {
+        emoji: "📝",
+        text: "AI 回复改用 react-markdown + remark-gfm 渲染，加粗/列表/引用/代码块都正常",
+      },
+      {
+        emoji: "🎨",
+        text: "气泡样式：用户消息纯文本、AI 消息走 markdown；链接开新窗口、引用加左边线",
+      },
+    ],
+  },
+  {
     version: "v1.2",
     date: "2026-06-25",
     title: "首页重对齐 · 手账欢迎页与 Guide 浮窗",
@@ -40,7 +84,10 @@ const releases: ReleaseEntry[] = [
     highlights: [
       { emoji: "🧩", text: "Portfolio 改为左侧项目时间线 + 右侧 not a trophy wall 说明卡" },
       { emoji: "🛠️", text: "Workshop 改为左侧工具列表 + 右侧 tiny tools, real use 说明卡" },
-      { emoji: "🏷️", text: "两个页面都支持 status filter pills，并统一 timeline dot / 胶带 / info tiles" },
+      {
+        emoji: "🏷️",
+        text: "两个页面都支持 status filter pills，并统一 timeline dot / 胶带 / info tiles",
+      },
       { emoji: "🔧", text: "修正 Portfolio 中个人站技术栈描述：Next.js 15 → Next.js 16" },
     ],
   },
@@ -66,7 +113,10 @@ const releases: ReleaseEntry[] = [
     summary:
       "工具坊不再是空桌子了。第一个落地的小东西是一个番茄钟——挑这个不是因为它新，而是它每天真的会用。配色和站点同色系，环形进度、铃声、设置面板都内嵌好，关浏览器再回来也不丢进度。",
     highlights: [
-      { emoji: "🍅", text: "三模式循环：Focus 25 · Short 5 · Long 15（每 4 轮长休一次），全部可在设置里改" },
+      {
+        emoji: "🍅",
+        text: "三模式循环：Focus 25 · Short 5 · Long 15（每 4 轮长休一次），全部可在设置里改",
+      },
       { emoji: "⭕", text: "SVG 环形进度 + 文档标题同步倒计时，最小化也能瞄一眼" },
       { emoji: "🔔", text: "Web Audio API 合成「叮——咚」两声铃，无需音频文件" },
       { emoji: "⌨️", text: "空格开始/暂停，R 重置——快捷键直达" },
@@ -96,7 +146,10 @@ const releases: ReleaseEntry[] = [
     summary:
       "整体视觉做一次温和的转向——把站点主色从「奶纸 + 鼠尾草」调整为「薄荷绿 + 玫粉」。导航变成药丸形、悬停下落，多了一点手写体的轻盈。同时正式把更新日志单独成页，让每一次小改动都有地方落地。",
     highlights: [
-      { emoji: "🌿", text: "新增 mint / rose 调色板（与原有 cream/earth/sage token 并存，旧页面照常工作）" },
+      {
+        emoji: "🌿",
+        text: "新增 mint / rose 调色板（与原有 cream/earth/sage token 并存，旧页面照常工作）",
+      },
       { emoji: "📜", text: "导航重做：药丸形 + Blog 分类 hover 下拉 + Logo 轻旋转" },
       { emoji: "✒️", text: "引入 Caveat 手写体作为标题装饰字体" },
       { emoji: "📮", text: "新增 /releases 页面，每一次迭代都留个脚印" },
