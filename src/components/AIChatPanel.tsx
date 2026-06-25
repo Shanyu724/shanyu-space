@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   role: "user" | "assistant";
@@ -370,7 +372,7 @@ function PanelBody({
                   : "bg-mint-50 text-mint-800 border border-mint-100 rounded-bl-sm"
               }`}
             >
-              {m.content}
+              <MessageContent role={m.role} content={m.content} />
             </div>
           </div>
         ))}
@@ -433,6 +435,80 @@ function PanelBody({
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+/**
+ * 消息内容渲染：用户消息当纯文本，AI 消息走 markdown
+ * （避免用户发的 `**xxx**` 也被渲染成加粗）
+ */
+function MessageContent({ role, content }: { role: "user" | "assistant"; content: string }) {
+  if (role === "user") {
+    return <span className="whitespace-pre-wrap">{content}</span>;
+  }
+  return (
+    <div className="ai-md">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          // 段落
+          p: ({ children }) => <p className="my-1.5 first:mt-0 last:mb-0">{children}</p>,
+          // 标题
+          h1: ({ children }) => (
+            <h1 className="text-base font-semibold mt-2 mb-1 first:mt-0">{children}</h1>
+          ),
+          h2: ({ children }) => (
+            <h2 className="text-[15px] font-semibold mt-2 mb-1 first:mt-0">{children}</h2>
+          ),
+          h3: ({ children }) => (
+            <h3 className="text-sm font-semibold mt-2 mb-1 first:mt-0">{children}</h3>
+          ),
+          h4: ({ children }) => <h4 className="text-sm font-semibold mt-1.5 mb-0.5">{children}</h4>,
+          // 强调
+          strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+          em: ({ children }) => <em className="italic">{children}</em>,
+          // 列表
+          ul: ({ children }) => <ul className="my-1.5 ml-4 list-disc space-y-0.5">{children}</ul>,
+          ol: ({ children }) => (
+            <ol className="my-1.5 ml-4 list-decimal space-y-0.5">{children}</ol>
+          ),
+          li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+          // 链接（站内/外链都开新窗口，避免点走把聊天关掉）
+          a: ({ href, children }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-rose-500 underline underline-offset-2 hover:text-rose-600"
+            >
+              {children}
+            </a>
+          ),
+          // 行内代码
+          code: ({ children }) => (
+            <code className="px-1 py-0.5 rounded bg-mint-100/80 text-[12.5px] font-mono">
+              {children}
+            </code>
+          ),
+          // 代码块
+          pre: ({ children }) => (
+            <pre className="my-2 p-2 rounded-lg bg-mint-100/60 text-[12.5px] overflow-x-auto font-mono">
+              {children}
+            </pre>
+          ),
+          // 引用
+          blockquote: ({ children }) => (
+            <blockquote className="my-1.5 pl-2 border-l-2 border-mint-200 text-mint-700">
+              {children}
+            </blockquote>
+          ),
+          // 分隔线
+          hr: () => <hr className="my-2 border-mint-100" />,
+        }}
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   );
 }
