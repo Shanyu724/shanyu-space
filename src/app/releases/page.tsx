@@ -17,6 +17,22 @@ export interface ReleaseEntry {
 
 const releases: ReleaseEntry[] = [
   {
+    version: "v1.5",
+    date: "2026-06-26",
+    title: "右栏目录整合 · 阅读体验打磨",
+    tag: "polish",
+    summary:
+      "文章页右边的「目录」原本是 fixed 浮动在屏幕最右，在 xl 屏宽下会和右栏 article card 直接撞上，看起来像两个组件在互相挤。干脆把目录作为新章节合并进 article card——同一张卡、同一条 sticky 滚动链，再也不会错位。",
+    highlights: [
+      { emoji: "🧩", text: "目录合并进右栏 article card，统一 sticky 滚动条" },
+      { emoji: "🚫", text: "删除原本 fixed 浮动的 ScrollTOC，桌面端不再左右打架" },
+      { emoji: "📑", text: "TOC 仍保留高亮跟随阅读位置 + 点击平滑滚动到对应章节" },
+      { emoji: "📏", text: "目录区加 max-h-72 + overflow-y-auto，长文章不会撑爆右栏" },
+      { emoji: "🎨", text: "TOC 用虚线分隔和其他小节（tags / footer）保持视觉一致" },
+      { emoji: "🗑️", text: "src/components/ScrollTOC.tsx 同步删除，无死代码" },
+    ],
+  },
+  {
     version: "v1.4",
     date: "2026-06-26",
     title: "AI 人设升级 · 小花",

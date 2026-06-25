@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations";
 import { MarkdownRenderer, extractToc } from "@/components/MarkdownRenderer";
-import { ScrollTOC } from "@/components/ScrollTOC";
 import { estimateReadingTime, getCategoryMeta } from "@/lib/utils";
 import type { Post } from "@/lib/content";
+
+interface TocItem {
+  id: string;
+  text: string;
+  level: number;
+}
 
 interface PostClientProps {
   category: string;
@@ -15,12 +21,7 @@ interface PostClientProps {
   relatedPosts: Post[];
 }
 
-export function PostClient({
-  category,
-  categoryLabel,
-  post,
-  relatedPosts,
-}: PostClientProps) {
+export function PostClient({ category, categoryLabel, post, relatedPosts }: PostClientProps) {
   const readingTime = estimateReadingTime(post.content);
   const meta = getCategoryMeta(category);
   const tocItems = extractToc(post.content);
@@ -34,16 +35,11 @@ export function PostClient({
             博客
           </Link>
           <span>/</span>
-          <Link
-            href={`/blog/${category}`}
-            className="hover:text-rose-400 transition-colors"
-          >
+          <Link href={`/blog/${category}`} className="hover:text-rose-400 transition-colors">
             {categoryLabel}
           </Link>
           <span>/</span>
-          <span className="text-mint-700 truncate max-w-[220px]">
-            {post.frontmatter.title}
-          </span>
+          <span className="text-mint-700 truncate max-w-[220px]">{post.frontmatter.title}</span>
         </div>
       </FadeIn>
 
@@ -111,7 +107,10 @@ export function PostClient({
                   className="mt-5 flex flex-wrap gap-2"
                 >
                   {post.frontmatter.tags.map((tag) => (
-                    <span key={tag} className="text-xs text-mint-500 bg-mint-50/80 border border-mint-100 px-2 py-0.5 rounded-full">
+                    <span
+                      key={tag}
+                      className="text-xs text-mint-500 bg-mint-50/80 border border-mint-100 px-2 py-0.5 rounded-full"
+                    >
                       #{tag}
                     </span>
                   ))}
@@ -171,6 +170,7 @@ export function PostClient({
                 categoryLabel={categoryLabel}
                 post={post}
                 readingTime={readingTime}
+                tocItems={tocItems}
               />
 
               {relatedPosts.length > 0 && (
@@ -199,9 +199,6 @@ export function PostClient({
           </FadeIn>
         </aside>
       </div>
-
-      {/* Floating TOC（桌面端右侧） */}
-      <ScrollTOC items={tocItems} />
     </div>
   );
 }
@@ -211,11 +208,13 @@ function ArticleInfoCard({
   categoryLabel,
   post,
   readingTime,
+  tocItems,
 }: {
   category: string;
   categoryLabel: string;
   post: Post;
   readingTime: string;
+  tocItems: TocItem[];
 }) {
   const meta = getCategoryMeta(category);
   const tagCount = post.frontmatter.tags?.length || 0;
@@ -239,9 +238,7 @@ function ArticleInfoCard({
         >
           article card
         </h2>
-        <p className="text-xs text-mint-500 mt-2 line-clamp-2">
-          {post.frontmatter.title}
-        </p>
+        <p className="text-xs text-mint-500 mt-2 line-clamp-2">{post.frontmatter.title}</p>
       </div>
 
       <div className="grid grid-cols-3 gap-2 mb-5">
@@ -250,11 +247,17 @@ function ArticleInfoCard({
         <InfoTile value={categoryLabel.slice(0, 2)} label="type" />
       </div>
 
+      {/* 目录（合并自原 ScrollTOC，避免 fixed 浮动和右栏重叠） */}
+      {tocItems.length > 0 && (
+        <div className="mb-5 pt-4 border-t border-dashed border-mint-200/70">
+          <h3 className="text-[11px] uppercase tracking-widest text-mint-400 mb-2">目录</h3>
+          <TocNav items={tocItems} />
+        </div>
+      )}
+
       {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
         <div className="mb-5">
-          <h3 className="text-[11px] uppercase tracking-widest text-mint-400 mb-2">
-            tags
-          </h3>
+          <h3 className="text-[11px] uppercase tracking-widest text-mint-400 mb-2">tags</h3>
           <div className="flex flex-wrap gap-1.5">
             {post.frontmatter.tags.map((tag) => (
               <span
@@ -269,14 +272,78 @@ function ArticleInfoCard({
       )}
 
       <div className="pt-4 border-t border-dashed border-mint-200/80 text-center">
-        <p
-          className="text-base text-rose-400"
-          style={{ fontFamily: "var(--font-handwriting)" }}
-        >
+        <p className="text-base text-rose-400" style={{ fontFamily: "var(--font-handwriting)" }}>
           one page at a time
         </p>
       </div>
     </div>
+  );
+}
+
+/**
+ * 目录导航（内嵌在 ArticleInfoCard 内）
+ * - 跟随阅读位置高亮当前章节
+ * - 点击平滑滚动到对应标题
+ */
+function TocNav({ items }: { items: TocItem[] }) {
+  const [active, setActive] = useState<string>("");
+
+  useEffect(() => {
+    if (items.length === 0) return;
+    const root = document.getElementById("main-scroll");
+    if (!root) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) {
+          setActive(visible[0].target.id);
+        }
+      },
+      { root, rootMargin: "-80px 0px -60% 0px", threshold: 0 },
+    );
+
+    items.forEach((item) => {
+      const el = document.getElementById(item.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [items]);
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    const root = document.getElementById("main-scroll");
+    if (el && root) {
+      const top =
+        el.getBoundingClientRect().top - root.getBoundingClientRect().top + root.scrollTop - 80;
+      root.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <nav className="border-l border-mint-200 pl-3 space-y-1.5 max-h-72 overflow-y-auto">
+      {items.map((item) => (
+        <a
+          key={item.id}
+          href={`#${item.id}`}
+          onClick={(e) => handleClick(e, item.id)}
+          className={`block text-xs leading-snug transition-all ${item.level === 3 ? "pl-3" : ""} ${
+            active === item.id ? "text-rose-500 font-medium" : "text-mint-500 hover:text-rose-400"
+          }`}
+        >
+          <span
+            className={`inline-block transition-all ${
+              active === item.id ? "w-2 h-0.5 bg-rose-400 mr-2 align-middle" : "w-0 mr-0"
+            }`}
+          />
+          {item.text}
+        </a>
+      ))}
+    </nav>
   );
 }
 
@@ -289,9 +356,7 @@ function InfoTile({ value, label }: { value: string; label: string }) {
       >
         {value}
       </div>
-      <div className="text-[10px] uppercase tracking-wider text-mint-500 mt-1">
-        {label}
-      </div>
+      <div className="text-[10px] uppercase tracking-wider text-mint-500 mt-1">{label}</div>
     </div>
   );
 }
@@ -323,10 +388,7 @@ function RelatedPostCard({
           <span className="text-xs" aria-hidden="true">
             {meta.emoji}
           </span>
-          <span
-            className="text-sm text-rose-400"
-            style={{ fontFamily: "var(--font-handwriting)" }}
-          >
+          <span className="text-sm text-rose-400" style={{ fontFamily: "var(--font-handwriting)" }}>
             {post.frontmatter.date}
           </span>
         </div>
