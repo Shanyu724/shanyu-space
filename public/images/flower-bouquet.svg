@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" fill="none">
+  <!-- 牛皮纸袋 -->
+  <path d="M50 100L40 250L60 270L140 270L160 250L150 100Z"
+        fill="#cbb59a" opacity="0.9"/>
+  <path d="M50 100L40 250L60 270L65 268L72 100Z"
+        fill="#a89072" opacity="0.4"/>
+  <path d="M150 100L160 250L140 270L135 268L128 100Z"
+        fill="#a89072" opacity="0.4"/>
+  <!-- 袋口折叠 -->
+  <path d="M50 100L60 110L140 110L150 100L145 95L55 95Z"
+        fill="#bc9f80" opacity="0.85"/>
+  <path d="M55 95L60 110L65 102L62 95Z" fill="#a89072" opacity="0.5"/>
+  <path d="M145 95L140 110L135 102L138 95Z" fill="#a89072" opacity="0.5"/>
+
+  <!-- 茎/叶 -->
+  <g stroke-linecap="round">
+    <path d="M75 100C70 80 65 60 70 30" stroke="#6d8b67" stroke-width="2" fill="none"/>
+    <path d="M95 100C95 75 100 55 105 25" stroke="#6d8b67" stroke-width="2" fill="none"/>
+    <path d="M110 100C115 80 120 60 125 35" stroke="#4f6f4a" stroke-width="2" fill="none"/>
+    <path d="M130 100C140 85 145 65 155 50" stroke="#6d8b67" stroke-width="2" fill="none"/>
+    <path d="M85 100C82 80 78 60 85 40" stroke="#4f6f4a" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- 叶子 -->
+  <g fill="#95ad8f" opacity="0.85">
+    <path d="M73 65C68 60 65 70 70 75Z"/>
+    <path d="M105 55C110 50 115 60 110 65Z"/>
+    <path d="M125 60C130 55 135 65 130 70Z"/>
+    <path d="M85 50C90 45 95 55 90 60Z"/>
+  </g>
+
+  <!-- 雏菊 1 (粉) -->
+  <g transform="translate(70, 25)">
+    <circle cx="0" cy="0" r="5" fill="#fce7f3"/>
+    <circle cx="-6" cy="-3" r="4" fill="#fce7f3"/>
+    <circle cx="6" cy="-3" r="4" fill="#fce7f3"/>
+    <circle cx="-6" cy="3" r="4" fill="#fce7f3"/>
+    <circle cx="6" cy="3" r="4" fill="#fce7f3"/>
+    <circle cx="0" cy="-7" r="4" fill="#fce7f3"/>
+    <circle cx="0" cy="7" r="4" fill="#fce7f3"/>
+    <circle cx="0" cy="0" r="3" fill="#ebc585"/>
+  </g>
+
+  <!-- 雏菊 2 (白) -->
+  <g transform="translate(105, 18)">
+    <circle cx="0" cy="0" r="6" fill="#faf7f2"/>
+    <circle cx="-8" cy="-4" r="5" fill="#faf7f2"/>
+    <circle cx="8" cy="-4" r="5" fill="#faf7f2"/>
+    <circle cx="-8" cy="4" r="5" fill="#faf7f2"/>
+    <circle cx="8" cy="4" r="5" fill="#faf7f2"/>
+    <circle cx="0" cy="-9" r="5" fill="#faf7f2"/>
+    <circle cx="0" cy="9" r="5" fill="#faf7f2"/>
+    <circle cx="0" cy="0" r="3.5" fill="#d4a76a"/>
+  </g>
+
+  <!-- 雏菊 3 (淡黄) -->
+  <g transform="translate(125, 30)">
+    <circle cx="0" cy="0" r="5" fill="#fef3c7"/>
+    <circle cx="-7" cy="-3" r="4" fill="#fef3c7"/>
+    <circle cx="7" cy="-3" r="4" fill="#fef3c7"/>
+    <circle cx="-7" cy="3" r="4" fill="#fef3c7"/>
+    <circle cx="7" cy="3" r="4" fill="#fef3c7"/>
+    <circle cx="0" cy="-7" r="4" fill="#fef3c7"/>
+    <circle cx="0" cy="7" r="4" fill="#fef3c7"/>
+    <circle cx="0" cy="0" r="3" fill="#d4a76a"/>
+  </g>
+
+  <!-- 小花 4 (紫) -->
+  <g transform="translate(155, 48)">
+    <circle cx="0" cy="0" r="4" fill="#dbeafe"/>
+    <circle cx="-5" cy="-2" r="3" fill="#dbeafe"/>
+    <circle cx="5" cy="-2" r="3" fill="#dbeafe"/>
+    <circle cx="-5" cy="2" r="3" fill="#dbeafe"/>
+    <circle cx="5" cy="2" r="3" fill="#dbeafe"/>
+    <circle cx="0" cy="0" r="2" fill="#faefdb"/>
+  </g>
+
+  <!-- 小花 5 (浅绿/绣球感) -->
+  <g transform="translate(85, 38)" opacity="0.9">
+    <circle cx="-3" cy="-2" r="3" fill="#d9f99d"/>
+    <circle cx="3" cy="-2" r="3" fill="#d9f99d"/>
+    <circle cx="0" cy="3" r="3" fill="#d9f99d"/>
+    <circle cx="-3" cy="2" r="2.5" fill="#95ad8f"/>
+    <circle cx="3" cy="2" r="2.5" fill="#95ad8f"/>
+    <circle cx="0" cy="-3" r="2.5" fill="#95ad8f"/>
+  </g>
+
+  <!-- 袋身印花（极简） -->
+  <g opacity="0.25">
+    <circle cx="80" cy="180" r="2" fill="#8b7658"/>
+    <circle cx="100" cy="200" r="1.5" fill="#8b7658"/>
+    <circle cx="120" cy="175" r="2" fill="#8b7658"/>
+    <circle cx="90" cy="220" r="1.5" fill="#8b7658"/>
+    <circle cx="115" cy="235" r="2" fill="#8b7658"/>
+  </g>
+</svg>

@@ -1,0 +1,10 @@
+{
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "shortest",
+  "useMarkdownLinks": false,
+  "newFileLocation": "current",
+  "attachmentFolderPath": "content/assets",
+  "showLineNumber": true,
+  "spellcheck": true,
+  "showInlineTitle": true
+}

@@ -1,0 +1,83 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+
+const QUICK_LINKS = [
+  { href: "/blog", label: "博客", emoji: "✍️" },
+  { href: "/portfolio", label: "作品集", emoji: "🧩" },
+  { href: "/workshop", label: "工具坊", emoji: "🛠️" },
+  { href: "/about", label: "关于我", emoji: "🌿" },
+  { href: "/behind", label: "幕后", emoji: "🪟" },
+  { href: "/releases", label: "更新日志", emoji: "📮" },
+];
+
+/**
+ * 右侧贴边面板：xl 屏（≥1280px）才显示。
+ * 默认贴在屏幕右沿只露一条小标签，hover 时整个面板滑出。
+ * 参考站同款结构（rounded-l-xl + border-r-0 贴边设计）。
+ */
+export function SideQuickPanel() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <aside
+      className="hidden xl:block fixed top-1/2 right-0 z-30 -translate-y-1/2"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <div className="relative flex items-stretch">
+        {/* 贴边小标签（始终可见） */}
+        <button
+          type="button"
+          aria-label="快捷导航"
+          className="relative z-10 px-1.5 py-4 bg-white/90 backdrop-blur-sm rounded-l-xl border border-r-0 border-mint-200/70 shadow-md flex flex-col items-center gap-1.5 text-mint-600 hover:text-rose-400 transition-colors cursor-pointer"
+        >
+          <span className="text-base">📑</span>
+          <span
+            className="text-[10px] font-medium tracking-wide [writing-mode:vertical-rl] [text-orientation:mixed]"
+          >
+            quick nav
+          </span>
+        </button>
+
+        {/* 弹出主面板（hover 时滑入） */}
+        <div
+          className={`absolute top-0 right-full pointer-events-${open ? "auto" : "none"} transition-all duration-300 ${
+            open ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0"
+          }`}
+        >
+          <div className="bg-white/95 backdrop-blur-sm rounded-l-xl shadow-lg border border-r-0 border-mint-200/70 p-4 min-w-[200px]">
+            <div className="text-xs uppercase tracking-widest text-mint-500 mb-3 flex items-center gap-2">
+              <span aria-hidden="true">📌</span>
+              <span>quick links</span>
+            </div>
+            <nav className="flex flex-col gap-0.5">
+              {QUICK_LINKS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-mint-800 hover:bg-mint-50 hover:text-rose-400 transition-colors"
+                >
+                  <span className="text-base" aria-hidden="true">
+                    {l.emoji}
+                  </span>
+                  <span>{l.label}</span>
+                  <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-rose-400">
+                    →
+                  </span>
+                </Link>
+              ))}
+            </nav>
+            <p
+              className="mt-3 pt-3 border-t border-mint-100 text-[10px] text-mint-400 text-center"
+              style={{ fontFamily: "var(--font-handwriting)", fontSize: "0.85rem" }}
+            >
+              hover me · explore
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+}

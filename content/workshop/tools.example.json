@@ -1,0 +1,34 @@
+[
+  {
+    "id": "sample-counter",
+    "emoji": "🧮",
+    "name": "示例：番茄钟",
+    "description": "把这个文件复制为 tools.json 即可添加真实工具。每个条目按下面字段填即可。",
+    "status": "wip",
+    "kind": "external",
+    "url": "https://example.com",
+    "tags": ["效率", "时间管理"],
+    "tech": ["Next.js", "Tailwind"],
+    "highlights": [
+      "支持自定义工作 / 休息时长",
+      "本地存储进度，刷新不丢失",
+      "可选铃声"
+    ],
+    "createdAt": "2026-07-01",
+    "builtWith": ["Claude", "Cursor"]
+  },
+  {
+    "id": "sample-embed",
+    "emoji": "📊",
+    "name": "示例：内嵌型小工具",
+    "description": "当 kind 为 embedded 时，会用 iframe 把 url 内嵌进卡片。",
+    "status": "alpha",
+    "kind": "embedded",
+    "url": "https://example.com/widget",
+    "tags": ["可视化"],
+    "tech": ["React", "D3"],
+    "highlights": ["拖入数据自动渲染图表"],
+    "createdAt": "2026-06-15",
+    "builtWith": ["Claude"]
+  }
+]

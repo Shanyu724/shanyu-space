@@ -1,0 +1,22 @@
+[
+  {
+    "id": "pomodoro",
+    "emoji": "🍅",
+    "name": "番茄钟",
+    "description": "一个安静的番茄工作法计时器：专注 25 分钟 · 短休 5 分钟 · 每 4 轮长休 15 分钟。设置全部本地存储，关掉浏览器再回来也不丢；空格键开始/暂停，R 键重置。",
+    "status": "live",
+    "kind": "in-site",
+    "url": "/workshop/pomodoro",
+    "tags": ["效率", "时间管理", "专注"],
+    "tech": ["Next.js", "React", "Framer Motion", "Web Audio API"],
+    "highlights": [
+      "三种模式（Focus / Short Break / Long Break）一键切换",
+      "环形进度可视化 + 文档标题同步倒计时",
+      "Web Audio 合成「叮咚」铃声，零外部音频依赖",
+      "本地存储设置和累计 focus 数，刷新不丢",
+      "支持自定义时长 / 长休间隔 / 自动连跑下一轮"
+    ],
+    "createdAt": "2026-06-25",
+    "builtWith": ["Claude"]
+  }
+]

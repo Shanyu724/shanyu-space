@@ -1,0 +1,1295 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+@theme {
+  --color-cream-50: #faf7f2;
+  --color-cream-100: #f5f0e8;
+  --color-cream-200: #ede4d6;
+  --color-cream-300: #ddd0ba;
+  --color-cream-400: #cbb59a;
+  --color-cream-500: #bc9f80;
+
+  --color-earth-50: #f2efe9;
+  --color-earth-100: #e5dfd3;
+  --color-earth-200: #ccc2b0;
+  --color-earth-300: #b3a48d;
+  --color-earth-400: #9a876a;
+  --color-earth-500: #8a7658;
+
+  --color-sage-50: #f0f3ef;
+  --color-sage-100: #dce4da;
+  --color-sage-200: #bccbb7;
+  --color-sage-300: #95ad8f;
+  --color-sage-400: #6d8b67;
+  --color-sage-500: #4f6f4a;
+  --color-sage-600: #3e573a;
+  --color-sage-700: #334630;
+
+  --color-mist-50: #f0f2f5;
+  --color-mist-100: #d8dde6;
+  --color-mist-200: #b3bdd0;
+  --color-mist-300: #8b9bb5;
+  --color-mist-400: #6a7d9c;
+  --color-mist-500: #536685;
+  --color-mist-600: #43516b;
+
+  --color-warm-50: #fdf8f0;
+  --color-warm-100: #faefdb;
+  --color-warm-200: #f4ddb3;
+  --color-warm-300: #ebc585;
+  --color-warm-400: #d4a76a;
+  --color-warm-500: #c08d4f;
+
+  /* ── Mint：薄荷绿主调（受 Floria-Wonderland 启发的换肤主色） ── */
+  --color-mint-50: #f6f7f6;
+  --color-mint-100: #e8ede9;
+  --color-mint-200: #c8d5ca;
+  --color-mint-300: #a3b5a6;
+  --color-mint-400: #97ab9d;
+  --color-mint-500: #7a9482;
+  --color-mint-600: #627668;
+  --color-mint-700: #505f54;
+  --color-mint-800: #434e46;
+  --color-mint-900: #3a423c;
+
+  /* ── Rose：玫粉色 hover / accent ── */
+  --color-rose-50: #f9f6f6;
+  --color-rose-100: #f1e9e9;
+  --color-rose-300: #d2b0b0;
+  --color-rose-400: #be8b8b;
+  --color-rose-500: #a96a6a;
+  --color-rose-600: #8f5555;
+  --color-rose-700: #774545;
+  --color-rose-800: #623a3a;
+
+  --font-serif: "Noto Serif SC", "Source Han Serif CN", "STSong", "SimSun", serif;
+  --font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  --font-handwriting: "Caveat", "Patrick Hand", "Comic Sans MS", cursive;
+}
+
+/* ── Dark Theme Tokens ──
+ * Tailwind v4 的 @theme 不支持在 @media 查询中嵌套（PostCSS 会合并，
+ * 最后一个 @theme 会覆盖前一个）。改为直接在 :root 上覆盖 CSS 变量，
+ * 让所有 `bg-cream-50` / `text-sage-500` 等工具类通过 var() 自动跟随。
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Cream：纸感中性色，dark 下作为卡片/抬升面 */
+    --color-cream-50: #252220;
+    --color-cream-100: #1f1d1b;
+    --color-cream-200: #353029;
+    --color-cream-300: #4a4239;
+    --color-cream-400: #7a7165;
+    --color-cream-500: #a89889;
+
+    /* Earth：土系文字色 */
+    --color-earth-50: #2a2724;
+    --color-earth-100: #353029;
+    --color-earth-200: #4a4239;
+    --color-earth-300: #6a6359;
+    --color-earth-400: #a89682;
+    --color-earth-500: #c4b299;
+
+    /* Sage：主品牌色，dark 下整体提亮一档 */
+    --color-sage-50: #1f2520;
+    --color-sage-100: #283029;
+    --color-sage-200: #3d4a3d;
+    --color-sage-300: #7a9a7a;
+    --color-sage-400: #95b395;
+    --color-sage-500: #a8c8a8;
+    --color-sage-600: #bccbb7;
+    --color-sage-700: #d4e0cf;
+
+    /* Mist：偏冷辅助色，dark 下也整体提亮 */
+    --color-mist-50: #1f2128;
+    --color-mist-100: #2a2d36;
+    --color-mist-200: #3a3f4d;
+    --color-mist-300: #6b7588;
+    --color-mist-400: #8a96ad;
+    --color-mist-500: #a8b3c8;
+    --color-mist-600: #c4cee0;
+
+    /* Warm：暖色装饰 */
+    --color-warm-50: #2a241d;
+    --color-warm-100: #3a3024;
+    --color-warm-200: #5a4a35;
+    --color-warm-300: #c08d4f;
+    --color-warm-400: #d4a76a;
+    --color-warm-500: #e0bb80;
+
+    /* Mint：暗色下整体提亮 */
+    --color-mint-50: #1c2520;
+    --color-mint-100: #243029;
+    --color-mint-200: #3a4d40;
+    --color-mint-300: #7a9a82;
+    --color-mint-400: #95b39c;
+    --color-mint-500: #a8c8af;
+    --color-mint-600: #bcd4c0;
+    --color-mint-700: #d0e0d3;
+    --color-mint-800: #e0ece2;
+    --color-mint-900: #ecf3ee;
+
+    /* Rose：暗色下保留暖意但降低饱和 */
+    --color-rose-50: #2a201f;
+    --color-rose-100: #3a2828;
+    --color-rose-300: #b88a8a;
+    --color-rose-400: #cba0a0;
+    --color-rose-500: #dab8b8;
+    --color-rose-600: #e5cccc;
+    --color-rose-700: #ecd8d8;
+    --color-rose-800: #f0e0e0;
+  }
+}
+
+/* ── Runtime variables：body / prose / 装饰用的硬编码颜色全部 token 化 ── */
+:root {
+  /* 页面基础 */
+  --bg-base: #f3efe6;
+  --bg-elevated: #faf7f2;
+  --bg-elevated-soft: rgba(250, 247, 242, 0.85);
+  --bg-elevated-softer: rgba(250, 247, 242, 0.60);
+  --bg-noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+
+  /* 文字层级 */
+  --text-primary: #3a342c;
+  --text-secondary: #6b6559;
+  --text-muted: #8a7658;
+  --text-subtle: #b3a48d;
+
+  /* 边框 */
+  --border-default: #ede4d6;
+  --border-soft: rgba(237, 228, 214, 0.7);
+  --border-strong: #ddd0ba;
+
+  /* 代码块 */
+  --code-bg: #ede4d6;
+  --pre-bg: #2c2a26;
+  --pre-text: #f5f0e8;
+  --pre-icon-color: rgba(245, 240, 232, 0.45);
+
+  /* 链接 */
+  --link-color: #536685;
+  --link-decoration: #b3bdd0;
+  --link-color-hover: #43516b;
+
+  /* 引用块 */
+  --quote-border: #bccbb7;
+  --quote-text: #6b6559;
+  --quote-mark-color: #bccbb7;
+
+  /* 标题 */
+  --heading-h2: #3e573a;
+  --heading-h3: #334630;
+
+  /* 表格 */
+  --table-border: #e5dfd3;
+  --table-th-bg: #f5f0e8;
+
+  /* 分割线 */
+  --hr-color: #e5dfd3;
+
+  /* 纸张纹理 */
+  --paper-line-color: rgba(139, 155, 181, 0.04);
+
+  /* 装饰 */
+  --tape-bg-from: rgba(243, 239, 230, 0.92);
+  --tape-bg-to: rgba(220, 210, 190, 0.65);
+  --tape-shadow: rgba(0, 0, 0, 0.06);
+  --paper-edge-shadow: rgba(74, 82, 64, 0.10);
+  --paper-edge-shadow-hover: rgba(74, 82, 64, 0.15);
+
+  /* 荧光笔高亮（默认 light） */
+  --highlight-from: rgba(236, 197, 105, 0.55);
+  --highlight-to: rgba(236, 197, 105, 0.25);
+
+  /* 浮动装饰元素 */
+  --deco-sage: #4f6f4a;
+  --deco-mist: #8b9bb5;
+
+  /* ── 圆点底纹（polka dot，受 Floria 启发的全局氛围） ── */
+  --dot-color: rgba(122, 148, 130, 0.18);
+
+  /* ── 回形针 / 鼠标 / Polaroid（精致化升级用） ── */
+  --paperclip-fill: #c8d5ca;
+  --paperclip-stroke: #95ad8f;
+  --paperclip-shadow: rgba(74, 82, 64, 0.18);
+  --mouse-wheel-color: #a96a6a;
+  --polaroid-shadow: 0 18px 36px -16px rgba(74, 82, 64, 0.22);
+  --polaroid-shadow-hover: 0 24px 44px -18px rgba(74, 82, 64, 0.30);
+
+  /* 分隔器点缀专用色 */
+  --deco-rose: #be8b8b;
+  --deco-warm: #d4a76a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-base: #1c1a18;
+    --bg-elevated: #252220;
+    --bg-elevated-soft: rgba(37, 34, 32, 0.78);
+    --bg-elevated-softer: rgba(37, 34, 32, 0.55);
+    --bg-noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+
+    --text-primary: #e8e0d4;
+    --text-secondary: #b8b0a4;
+    --text-muted: #9a9082;
+    --text-subtle: #6a6359;
+
+    --border-default: rgba(232, 224, 212, 0.10);
+    --border-soft: rgba(232, 224, 212, 0.14);
+    --border-strong: rgba(232, 224, 212, 0.20);
+
+    --code-bg: rgba(232, 224, 212, 0.08);
+    --pre-bg: #16140f;
+    --pre-text: #d8d0c4;
+    --pre-icon-color: rgba(216, 208, 196, 0.40);
+
+    --link-color: #a8b3c8;
+    --link-decoration: #5a6580;
+    --link-color-hover: #c4cee0;
+
+    --quote-border: #4d5a4d;
+    --quote-text: #b8b0a4;
+    --quote-mark-color: #4d5a4d;
+
+    --heading-h2: #bccbb7;
+    --heading-h3: #95ad8f;
+
+    --table-border: rgba(232, 224, 212, 0.10);
+    --table-th-bg: rgba(232, 224, 212, 0.04);
+
+    --hr-color: rgba(232, 224, 212, 0.10);
+
+    --paper-line-color: rgba(232, 224, 212, 0.025);
+
+    --tape-bg-from: rgba(58, 54, 49, 0.85);
+    --tape-bg-to: rgba(42, 39, 36, 0.55);
+    --tape-shadow: rgba(0, 0, 0, 0.25);
+    --paper-edge-shadow: rgba(0, 0, 0, 0.35);
+    --paper-edge-shadow-hover: rgba(0, 0, 0, 0.5);
+
+    --highlight-from: rgba(236, 197, 105, 0.32);
+    --highlight-to: rgba(236, 197, 105, 0.10);
+
+    --deco-sage: #7a9a7a;
+    --deco-mist: #6b7588;
+
+    /* 暗色下圆点偏冷白、低不透明度 */
+    --dot-color: rgba(184, 200, 188, 0.10);
+
+    --paperclip-fill: #6b7580;
+    --paperclip-stroke: #8a96a3;
+    --paperclip-shadow: rgba(0, 0, 0, 0.35);
+    --mouse-wheel-color: #dab8b8;
+    --polaroid-shadow: 0 18px 36px -16px rgba(0, 0, 0, 0.55);
+    --polaroid-shadow-hover: 0 24px 44px -18px rgba(0, 0, 0, 0.7);
+
+    --deco-rose: #cba0a0;
+    --deco-warm: #e0bb80;
+  }
+}
+
+/* ── Paper Texture via SVG Noise ── */
+body {
+  background-color: var(--bg-base);
+  background-image: var(--bg-noise-url);
+  background-repeat: repeat;
+  background-size: 300px 300px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* ── Subtle lined-paper overlay ── */
+.paper-lines {
+  position: relative;
+}
+
+.paper-lines::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      var(--paper-line-color) 31px,
+      var(--paper-line-color) 32px
+    );
+}
+
+/* ── Sticky Note Styles ── */
+.sticky-note {
+  position: relative;
+  box-shadow:
+    /* 顶部胶带阴影 */
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    /* 主阴影 */
+    0 4px 12px var(--paper-edge-shadow),
+    0 1px 2px rgba(74, 82, 64, 0.05),
+    /* 底部卷起阴影（更深的羽化） */
+    0 12px 28px -8px var(--paper-edge-shadow);
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sticky-note::after {
+  /* 底部卷起的暗影（细微的卷纸感） */
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 14px;
+  background: linear-gradient(to bottom, transparent, var(--paper-edge-shadow));
+  border-radius: 0 0 0.5rem 0.5rem;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.sticky-note:hover {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 12px 32px var(--paper-edge-shadow-hover),
+    0 4px 8px rgba(74, 82, 64, 0.06),
+    0 20px 40px -10px var(--paper-edge-shadow-hover);
+  z-index: 10;
+}
+
+.sticky-note:hover::after {
+  opacity: 0.85;
+}
+
+/* ── Skeleton Shimmer ── */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* ── Navbar 下落动画（受 Floria 站点启发） ── */
+@keyframes navbarDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  60% {
+    transform: translateY(2px) scale(1.002);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-navbarDrop {
+  animation: navbarDrop 0.65s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+/* ── Logo 轻旋转 ── */
+@keyframes gentle-spin {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes gentle-spin-fast {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-gentle-spin {
+  animation: gentle-spin 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.group:hover .group-hover\:animate-gentle-spin-fast,
+.animate-gentle-spin-fast {
+  animation: gentle-spin-fast 1.2s ease-in-out;
+}
+
+/* ── Releases 时间线 ── */
+.release-card {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-color 0.3s ease;
+}
+
+.release-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 28px -10px rgba(122, 148, 130, 0.28),
+    0 4px 10px -2px rgba(122, 148, 130, 0.10);
+}
+
+.release-card::before {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  left: -1.6rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: var(--color-mint-200);
+  border: 3px solid var(--color-mint-500);
+  box-shadow: 0 0 0 3px var(--color-mint-50);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.release-card:hover::before {
+  background: var(--color-rose-300);
+  transform: scale(1.15);
+}
+
+.release-timeline {
+  position: relative;
+}
+
+.release-timeline::before {
+  content: "";
+  position: absolute;
+  left: -1.2rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-mint-200) 8%,
+    var(--color-mint-200) 92%,
+    transparent 100%
+  );
+  border-radius: 2px;
+}
+
+/* ── Float Slow：标题旁小装饰的轻飘动 ── */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(3deg);
+  }
+}
+
+/* ── 手绘下划线 ── */
+.hand-underline {
+  background-image: linear-gradient(transparent 88%, rgba(143, 165, 124, 0.45) 88%, rgba(143, 165, 124, 0.45) 96%, transparent 96%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-bottom: 2px;
+}
+
+/* ── 便条纸缝合边 ── */
+.stitched {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4px,
+      rgba(139, 118, 88, 0.4) 4px,
+      rgba(139, 118, 88, 0.4) 5px
+    );
+}
+
+/* ── 文章正文 heading 锚点偏移 ── */
+.prose h2, .prose h3 {
+  scroll-margin-top: 80px;
+}
+
+/* ── Prose Styles for Blog Content ── */
+.prose {
+  max-width: 65ch;
+  line-height: 1.8;
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  color: var(--text-primary);
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+  color: var(--heading-h2);
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  color: var(--heading-h3);
+  font-family: var(--font-sans);
+}
+
+.prose p {
+  margin-bottom: 1.25em;
+}
+
+.prose a {
+  color: var(--link-color);
+  text-decoration: underline;
+  text-decoration-color: var(--link-decoration);
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.prose a:hover {
+  color: var(--link-color-hover);
+}
+
+/* ── 引用块 ──
+ * 暗色模式下边框与文字色由 token 自动覆盖；
+ * ::before 加一个低饱和度的装饰引号 SVG。
+ */
+.prose blockquote {
+  position: relative;
+  border-left: 3px solid var(--quote-border);
+  padding-left: 1.5em;
+  padding-top: 0.5em;
+  margin: 1.75em 0;
+  color: var(--quote-text);
+  font-style: italic;
+}
+
+.prose blockquote::before {
+  content: "";
+  position: absolute;
+  top: -0.1em;
+  left: 0.35em;
+  width: 1.6em;
+  height: 1.6em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 8C5.5 9.5 3 12.5 3 16.5C3 20 5.5 22.5 8.5 22.5C11 22.5 13 20.5 13 18C13 15.5 11 13.5 9 14C9 11.5 10.5 9.5 13 8.5L12 6C11 6.3 10 7 9 8ZM22 8C18.5 9.5 16 12.5 16 16.5C16 20 18.5 22.5 21.5 22.5C24 22.5 26 20.5 26 18C26 15.5 24 13.5 22 14C22 11.5 23.5 9.5 26 8.5L25 6C24 6.3 23 7 22 8Z' fill='%23bccbb7' fill-opacity='0.7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose blockquote::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 8C5.5 9.5 3 12.5 3 16.5C3 20 5.5 22.5 8.5 22.5C11 22.5 13 20.5 13 18C13 15.5 11 13.5 9 14C9 11.5 10.5 9.5 13 8.5L12 6C11 6.3 10 7 9 8ZM22 8C18.5 9.5 16 12.5 16 16.5C16 20 18.5 22.5 21.5 22.5C24 22.5 26 20.5 26 18C26 15.5 24 13.5 22 14C22 11.5 23.5 9.5 26 8.5L25 6C24 6.3 23 7 22 8Z' fill='%237a9a7a' fill-opacity='0.55'/%3E%3C/svg%3E");
+  }
+}
+
+.prose ul, .prose ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.prose li {
+  margin-bottom: 0.4em;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+/* ── 代码块 ──
+ * ::before 加一个"文件"图标 + 极淡窗口控件（红黄绿三圆点），
+ * 暗色模式下颜色随之降低对比度。
+ */
+.prose pre {
+  position: relative;
+  background: var(--pre-bg);
+  color: var(--pre-text);
+  padding: 1.75em 1.25em 1.25em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.prose pre::before {
+  content: "";
+  position: absolute;
+  top: 0.75em;
+  left: 1em;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--pre-icon-color);
+  box-shadow:
+    0.85em 0 0 var(--pre-icon-color),
+    1.7em 0 0 var(--pre-icon-color);
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+}
+
+.prose img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1.5em auto;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--hr-color);
+  margin: 2em 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.9375rem;
+}
+
+.prose th, .prose td {
+  border: 1px solid var(--table-border);
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+
+.prose th {
+  background: var(--table-th-bg);
+  font-weight: 600;
+}
+
+/* ── Utilities ── */
+.text-balance {
+  text-wrap: balance;
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--quote-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.25s ease;
+}
+
+.link-underline:hover {
+  text-decoration-color: var(--color-sage-400);
+}
+
+/* ── 文章标题 hover ── */
+.title-hover {
+  transition: color 0.25s ease;
+}
+
+.title-hover:hover {
+  color: var(--color-sage-400);
+}
+
+/* ── 顶部装饰渐变线（Behind 页 section 卡片顶部用） ── */
+.deco-top-line {
+  position: relative;
+}
+
+.deco-top-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #bccbb7 18%,
+    #8a9c89 50%,
+    #d4a76a 82%,
+    transparent 100%
+  );
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.deco-top-line:hover::before {
+  opacity: 1;
+}
+
+/* ── 主按钮：亮色下深底白字，暗色下浅底深字 ── */
+.btn-primary {
+  background-color: var(--color-sage-500);
+  color: #ffffff;
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn-primary {
+    background-color: var(--color-sage-400);
+    color: #1c1a18;
+  }
+}
+
+/* ── 不对称抬起（Blog 列表卡片用）：右侧微微翘起 ── */
+.lift-asymmetric {
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.3s ease;
+  will-change: transform;
+}
+
+.lift-asymmetric:hover {
+  transform: perspective(900px) rotateY(-2.5deg) translateY(-3px) translateX(1px);
+  box-shadow:
+    -6px 8px 24px -8px var(--paper-edge-shadow),
+    0 2px 6px rgba(74, 82, 64, 0.06);
+  border-color: var(--border-strong);
+}
+
+/* ── 此刻区块的左侧 sage 装饰竖线 ── */
+.now-line {
+  position: relative;
+}
+
+.now-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    #95ad8f 20%,
+    #95ad8f 80%,
+    transparent 100%
+  );
+  opacity: 0.85;
+}
+
+@media (prefers-color-scheme: dark) {
+  .now-line::before {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      #7a9a7a 20%,
+      #7a9a7a 80%,
+      transparent 100%
+    );
+  }
+}
+
+/* ── 项目卡片顶部渐变条 ── */
+.deco-gradient-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.deco-gradient-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    #6d8b67 0%,
+    #8a9c89 30%,
+    #b3a48d 60%,
+    #d4a76a 100%
+  );
+  border-radius: 12px 12px 0 0;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.deco-gradient-bar:hover::before {
+  opacity: 1;
+  height: 4px;
+}
+
+/* ── 荧光笔下划线效果 ──
+ * 模拟黄色荧光笔从左往右划过的渐变覆盖。透过文字底层显示。
+ * 用在 .highlight 或 .highlight-soft 上。
+ */
+.highlight {
+  background-image: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 8%,
+    var(--highlight-from) 8%,
+    var(--highlight-to) 92%,
+    transparent 92%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.1em;
+  border-radius: 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.highlight-soft {
+  background-image: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 6%,
+    var(--highlight-to) 6%,
+    transparent 96%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 0 0.1em;
+  border-radius: 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ── 装饰分隔波浪 ──
+ * 升级版 WavyDivider：一条更长的连续波浪 + 中央一颗菱形点缀。
+ * 用于分类和最新文章之间。
+ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3.5rem 0;
+  opacity: 0.55;
+  color: var(--deco-mist);
+}
+
+.section-divider svg.wave {
+  flex: 1;
+  max-width: 180px;
+  height: 12px;
+  color: var(--deco-mist);
+}
+
+.section-divider .diamond {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .section-divider {
+    opacity: 0.45;
+  }
+}
+
+/* ── 三点装饰（小圆点连缀，用于段落起始） ── */
+.dot-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+  opacity: 0.35;
+}
+
+.dot-row span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--deco-mist);
+}
+
+.dot-row span:nth-child(2) {
+  width: 4px;
+  height: 4px;
+  opacity: 0.7;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dot-row {
+    opacity: 0.45;
+  }
+}
+
+/* ── 暗色模式：Tailwind 工具类的具体覆盖 ──
+ * 与上面的 token 变量策略互补。token 处理动态 var() 引用，
+ * 这里专门覆盖直接写在 className 上的硬编码颜色，以及
+ * 带透明度修饰的类（Tailwind 生成的类选择器需要用 \/ 转义斜杠）。
+ */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1c1a18;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    color: #d9d0c4;
+  }
+
+  .bg-white\/60 {
+    background-color: rgba(44, 42, 38, 0.5) !important;
+  }
+
+  .border-cream-200 {
+    border-color: #3a342c !important;
+  }
+
+  .text-earth-400 {
+    color: #a09886 !important;
+  }
+
+  .text-earth-300 {
+    color: #8a806e !important;
+  }
+
+  .text-sage-700 {
+    color: #95ad8f !important;
+  }
+
+  .text-sage-600 {
+    color: #8aa084 !important;
+  }
+
+  .text-mist-400 {
+    color: #8b9bb5 !important;
+  }
+
+  .bg-cream-50 {
+    background-color: #2c2a26 !important;
+  }
+
+  .bg-cream-100 {
+    background-color: #3a342c !important;
+  }
+
+  .bg-sage-100 {
+    background-color: rgba(79, 111, 74, 0.25) !important;
+  }
+
+  .bg-sage-50 {
+    background-color: rgba(79, 111, 74, 0.12) !important;
+  }
+
+  .prose {
+    color: #d9d0c4;
+  }
+
+  .prose h2, .prose h3, .prose h4 {
+    color: #95ad8f;
+  }
+
+  .prose blockquote {
+    color: #a09886;
+    border-left-color: #6d8b67;
+  }
+
+  .prose code {
+    background: #3a342c;
+    color: #d9d0c4;
+  }
+
+  .prose pre {
+    background: #0a0a08;
+  }
+
+  .prose th {
+    background: #3a342c;
+  }
+
+  .prose th, .prose td {
+    border-color: #4a4438;
+  }
+
+  /* Header 胶囊 */
+  .bg-cream-50\/85 {
+    background-color: rgba(28, 26, 24, 0.85) !important;
+  }
+
+  .border-cream-200\/70 {
+    border-color: rgba(58, 52, 44, 0.7) !important;
+  }
+
+  /* Sticky notes 适配 */
+  [style*="background-color: #fef3c7"] {
+    background-color: #4a3f20 !important;
+  }
+  [style*="background-color: #fce7f3"] {
+    background-color: #4a2035 !important;
+  }
+  [style*="background-color: #dbeafe"] {
+    background-color: #1a2a45 !important;
+  }
+  [style*="background-color: #d9f99d"] {
+    background-color: #2a3f15 !important;
+  }
+
+  /* Footer */
+  footer {
+    border-top-color: #3a342c;
+  }
+}
+
+/* ── 「页面=浮卡」结构（受 Floria 站点启发的核心 layout 模式） ── */
+.main-background {
+  position: relative;
+}
+
+/* 浮卡四角的极淡晕染（用 ::before / ::after 给最外圈一点呼吸） */
+.main-background::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -5;
+  background:
+    radial-gradient(60% 40% at 12% 18%, rgba(190, 139, 139, 0.10) 0%, transparent 65%),
+    radial-gradient(50% 35% at 88% 82%, rgba(122, 148, 130, 0.12) 0%, transparent 70%);
+}
+
+/* 浮卡内部滚动容器：自定义滚动条更轻 */
+#main-scroll {
+  scroll-behavior: smooth;
+}
+
+#main-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+#main-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#main-scroll::-webkit-scrollbar-thumb {
+  background: rgba(122, 148, 130, 0.18);
+  border-radius: 4px;
+}
+
+#main-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(122, 148, 130, 0.30);
+}
+
+/* ── 导航虚线下划线（参考站最有辨识度的细节） ──
+ * 普通项：hover 时浮出一条 dashed 下划线
+ * 当前项：常驻一条 rose-400 dashed 下划线
+ */
+.nav-dashed {
+  position: relative;
+  padding: 0.125rem 0.25rem;
+  font-weight: 500;
+  color: var(--color-mint-800);
+  border-bottom: 2px dashed transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.nav-dashed:hover {
+  color: var(--color-rose-400);
+  border-bottom-color: var(--color-mint-300);
+}
+
+.nav-dashed.is-active {
+  color: var(--color-rose-500);
+  border-bottom-color: var(--color-rose-400);
+}
+
+/* ── 入口卡片：首页 2x2 grid 用 ── */
+.entry-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.25rem 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(232, 237, 233, 0.7);
+  box-shadow: 0 2px 8px -2px rgba(122, 148, 130, 0.10);
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+              border-color 0.3s ease;
+}
+
+.entry-card:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  border-color: var(--color-rose-300);
+  box-shadow: 0 10px 24px -8px rgba(190, 139, 139, 0.25),
+              0 2px 6px -1px rgba(122, 148, 130, 0.12);
+}
+
+.entry-card-title {
+  font-family: var(--font-handwriting);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-mint-700);
+}
+
+.entry-card:hover .entry-card-title {
+  color: var(--color-rose-500);
+}
+
+/* ── 首页头像圆框 ── */
+.avatar-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 10px 25px -10px rgba(122, 148, 130, 0.35),
+              0 4px 10px -3px rgba(190, 139, 139, 0.15);
+  padding: 0.5rem;
+}
+
+.avatar-frame > * {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--color-mint-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-mint-50);
+  font-size: 2.5rem;
+}
+
+/* ── 手写体便利班 ── */
+.font-handwriting {
+  font-family: var(--font-handwriting);
+}
+
+/* ── 首页浮动便利贴 ── */
+.welcome-sticker {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(232, 237, 233, 0.8);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(122, 148, 130, 0.15);
+  font-size: 0.75rem;
+  color: var(--color-mint-700);
+}
+
+/* ───────────────────────────────────────────────────────────
+ * 精致化升级样式（受 Floria-Wonderland 启发）
+ * ─────────────────────────────────────────────────────────── */
+
+/* 全局圆点底纹 — 比 paper noise 更轻，与 bg-noise-url 分层共存 */
+.dot-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -6; /* 比 .main-background::before（-5）更靠后 */
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.55;
+}
+
+/* 虚线缝合边（参考站最有辨识度的细节） */
+.stitched-border {
+  border: 1.5px dashed var(--color-mint-200);
+}
+
+@media (prefers-color-scheme: dark) {
+  .stitched-border {
+    border-color: rgba(232, 224, 212, 0.18) !important;
+  }
+}
+
+/* Polaroid 卡：白底 + 大圆角 + 轻微倾斜 + Polaroid 阴影 */
+.card-polaroid {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(232, 237, 233, 0.7);
+  border-radius: 1.75rem;
+  box-shadow: var(--polaroid-shadow);
+  transform: rotate(-1.5deg);
+  transform-origin: center;
+  transition:
+    transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* 让 JS / 父级 inline style 覆盖 rotate 时不会把整卡推崩 */
+  --card-rotate: -1.5deg;
+  transform: rotate(var(--card-rotate));
+}
+
+.card-polaroid:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: var(--polaroid-shadow-hover);
+}
+
+@media (prefers-color-scheme: dark) {
+  .card-polaroid {
+    background: rgba(58, 54, 49, 0.85);
+    border-color: rgba(232, 224, 212, 0.12);
+  }
+}
+
+/* 鼠标滚动提示：轻浮动动画 + 鼠标 + 文字 */
+.mouse-scroll-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.75;
+  color: var(--color-mint-600);
+  animation: mouse-hint-float 2.4s ease-in-out infinite;
+}
+
+@keyframes mouse-hint-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.mouse-scroll-hint .mouse-icon {
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid currentColor;
+  border-radius: 11px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.mouse-scroll-hint .mouse-icon::before {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--mouse-wheel-color);
+  animation: mouse-wheel 1.6s ease-in-out infinite;
+}
+
+@keyframes mouse-wheel {
+  0% { opacity: 0; transform: translateY(0); }
+  20% { opacity: 1; }
+  80% { opacity: 0.4; transform: translateY(8px); }
+  100% { opacity: 0; transform: translateY(10px); }
+}
+
+@media (prefers-color-scheme: dark) {
+  .mouse-scroll-hint {
+    color: var(--color-mint-300);
+  }
+}
+
+/* 角落吉祥物浮动（继承现有 float-slow 节奏） */
+.mascot-float {
+  animation: float-slow 5s ease-in-out infinite;
+}
+

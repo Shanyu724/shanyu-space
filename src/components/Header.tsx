@@ -1,0 +1,156 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Logo } from "./Logo";
+
+interface NavLink {
+  href: string;
+  label: string;
+}
+
+interface NavItem {
+  href: string;
+  label: string;
+  icon?: string;
+  description?: string;
+  children?: NavLink[];
+}
+
+const navItems: NavItem[] = [
+  { href: "/blog", label: "Blog", icon: "/images/icon-blog.svg", description: "随便写的" },
+  { href: "/portfolio", label: "Portfolio", icon: "/images/icon-portfolio.svg", description: "AI 辅助开发的项目作品集" },
+  { href: "/workshop", label: "Workshop", icon: "/images/icon-behind.svg", description: "AI 小工具" },
+  { href: "/chat", label: "AI", icon: "/images/icon-portfolio.svg", description: "山间的雨 — AI 助手" },
+  {
+    href: "/about",
+    label: "About",
+    icon: "/images/icon-me.svg",
+    children: [
+      { href: "/about", label: "Me" },
+      { href: "/behind", label: "Behind" },
+      { href: "/releases", label: "Releases" },
+    ],
+  },
+];
+
+export default function Header() {
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  return (
+    <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b border-mint-100/40 shadow-sm rounded-b-2xl animate-navbarDrop">
+      <div className="container max-w-[26rem] md:max-w-none flex flex-row py-3 px-6 sm:px-10 items-center justify-between text-center">
+        <Link
+          href="/"
+          className="flex items-center gap-2 whitespace-nowrap text-2xl font-extrabold text-mint-500 tracking-tight select-none drop-shadow-sm hover:text-rose-400 transition-colors duration-200 group"
+        >
+          <span className="w-7 h-7 inline-flex items-center justify-center animate-gentle-spin group-hover:animate-gentle-spin-fast">
+            <Logo />
+          </span>
+          <span className="font-handwriting text-3xl" style={{ fontFamily: "var(--font-handwriting)" }}>
+            Wonderland
+          </span>
+        </Link>
+
+        <nav className="navigation-bar hidden md:flex whitespace-nowrap gap-2 sm:gap-4 md:gap-7 items-center">
+          {navItems.map((item) => {
+            const active = isActive(item.href);
+            const content = (
+              <>
+                {item.icon && (
+                  <Image src={item.icon} alt="" width={20} height={20} className="inline-block" />
+                )}
+                <span>{item.label}</span>
+              </>
+            );
+
+            if (item.children) {
+              return (
+                <div key={item.href} className="relative group">
+                  <Link
+                    href={item.href}
+                    title={item.description}
+                    className={`nav-dashed text-base inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}
+                  >
+                    {content}
+                    <svg width="10" height="10" viewBox="0 0 10 10" className="transition-transform duration-200 group-hover:rotate-180 opacity-70">
+                      <path d="M2 4l3 3 3-3" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+                    </svg>
+                  </Link>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div className="bg-white/95 backdrop-blur rounded-xl border border-mint-100 shadow-lg py-2 min-w-[140px]">
+                      {item.children.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          className={`block px-4 py-2 text-sm transition-colors ${
+                            isActive(sub.href)
+                              ? "text-rose-500 font-medium"
+                              : "text-mint-800 hover:bg-mint-50 hover:text-rose-400"
+                          }`}
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                title={item.description}
+                className={`nav-dashed text-base inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}
+              >
+                {content}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-xl border border-mint-200/80 bg-white/80 shadow-sm"
+          aria-label="Toggle menu"
+        >
+          <span className="relative w-5 h-3.5 inline-block">
+            <span className={`absolute left-0 top-0 h-[2px] w-5 bg-mint-800 transition-transform ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
+            <span className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-5 bg-mint-800 transition-opacity ${menuOpen ? "opacity-0" : "opacity-100"}`} />
+            <span className={`absolute left-0 bottom-0 h-[2px] w-5 bg-mint-800 transition-transform ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+          </span>
+        </button>
+      </div>
+
+      {menuOpen && (
+        <div className="md:hidden border-t border-mint-100/60 bg-white/95 backdrop-blur px-6 py-3">
+          <nav className="flex flex-col gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className={`flex items-center gap-2 px-2 py-2 text-base ${
+                  isActive(item.href)
+                    ? "text-rose-500 font-medium border-b-2 border-dashed border-rose-400 w-fit"
+                    : "text-mint-800 hover:text-rose-400"
+                }`}
+              >
+                {item.icon && <Image src={item.icon} alt="" width={22} height={22} />}
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}
