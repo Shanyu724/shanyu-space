@@ -10,11 +10,14 @@ export default function ChatPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 md:py-14 h-[calc(100dvh-160px)] min-h-[480px] flex flex-col">
       <header className="mb-6 text-center">
-        <span className="inline-block text-xs tracking-[0.35em] text-rose-500 mb-2 px-2 py-0.5 rounded-sm -rotate-2" style={{ backgroundColor: "rgba(235,197,133,0.4)" }}>
+        <span
+          className="inline-block text-xs tracking-[0.35em] text-rose-500 mb-2 px-2 py-0.5 rounded-sm -rotate-2"
+          style={{ backgroundColor: "rgba(235,197,133,0.4)" }}
+        >
           AI 分身
         </span>
         <h1 className="text-4xl md:text-5xl font-serif font-bold text-mint-800 tracking-tight">
-          山间小雨
+          小花
         </h1>
         <p className="mt-3 text-sm text-mint-600">
           这是山雨的 AI 分身。可以聊聊天、问网站里有什么、或者随便扯点想法。

@@ -316,7 +316,7 @@ function PanelBody({
               className="text-base text-mint-800 leading-tight"
               style={{ fontFamily: "var(--font-handwriting)" }}
             >
-              山间小雨
+              小花
             </h3>
             <p className="text-[10px] text-mint-500 leading-tight truncate">{statusText}</p>
           </div>
