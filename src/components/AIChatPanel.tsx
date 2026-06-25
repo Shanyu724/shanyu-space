@@ -173,15 +173,10 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
         {/* 头部 */}
         <header className="flex items-center justify-between px-4 py-3 border-b border-mint-100/60 bg-mint-50/50">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-full bg-white border border-rose-100 flex items-center justify-center text-lg shadow-sm overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/mascot-flower.svg"
-                alt=""
-                width={28}
-                height={32}
-                className="-mt-0.5"
-              />
+            <div className="w-9 h-9 rounded-full bg-mint-50 border border-mint-100 flex items-center justify-center text-lg shadow-sm">
+              <span role="img" aria-label="花">
+                🌼
+              </span>
             </div>
             <div className="min-w-0">
               <h3
@@ -324,40 +319,36 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
   }
 
   // 浮窗模式：触发按钮 + 展开面板
+  // 视觉沿用旧 FloatingHey：花朵 emoji + 跳动的「Hey! ✨」+ 右上角红点
   return (
-    <div className="relative select-none">
+    <div className="fixed bottom-6 right-5 z-40 select-none">
       <AnimatePresence>{open && panel}</AnimatePresence>
       <motion.button
         onClick={toggle}
         whileHover={{ scale: 1.08, rotate: -3 }}
         whileTap={{ scale: 0.94 }}
-        animate={open ? { rotate: 0 } : { rotate: [-3, 4, -3], y: [0, -2, 0] }}
-        transition={
-          open ? { duration: 0.2 } : { duration: 3.5, repeat: Infinity, ease: "easeInOut" }
-        }
-        className="relative w-14 h-14 rounded-full bg-white/95 backdrop-blur-sm border border-rose-200/70 shadow-lg shadow-rose-200/30 flex items-center justify-center overflow-hidden"
+        animate={open ? { rotate: 0 } : { rotate: [-2, 4, -2] }}
+        transition={open ? { duration: 0.2 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="relative w-12 h-12 rounded-full bg-mint-100 border border-mint-200 shadow-md flex items-center justify-center text-rose-400"
         aria-label="AI 助手"
       >
+        {/* 顶部「Hey! ✨」浮签：浮窗收起时浮现并轻轻跳动 */}
         {!open && (
           <span
             className="absolute -top-9 right-0 whitespace-nowrap animate-bounce text-base text-rose-500 select-none pointer-events-none"
             aria-hidden="true"
             style={{ fontFamily: "var(--font-handwriting)" }}
           >
-            问我！✨
+            Hey! ✨
           </span>
         )}
-        {/* 用 site 资源里的花朵 SVG 当作"小雨"形象 */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/mascot-flower.svg"
-          alt=""
-          width={48}
-          height={56}
-          className="relative z-[1] -mt-1"
-        />
+        {/* 花朵 emoji 作为"小雨"形象 */}
+        <span className="text-xl" role="img" aria-label="花">
+          🌼
+        </span>
+        {/* 旁边小红点 */}
         {!open && (
-          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-rose-400 border-2 border-white animate-pulse" />
+          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-rose-400 border-2 border-mint-50 animate-pulse" />
         )}
       </motion.button>
     </div>

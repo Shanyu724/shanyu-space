@@ -71,8 +71,8 @@ export default function RootLayout({
           </div>
         </main>
 
-        {/* 右下角：AI 浮窗 */}
-        <div className="fixed bottom-6 right-20 z-40 print:hidden">
+        {/* 右下角：AI 浮窗（自身 fixed 定位） */}
+        <div className="print:hidden">
           <AIChatPanel variant="floating" />
         </div>
         {/* 右下角回顶 */}
