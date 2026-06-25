@@ -7,13 +7,34 @@ import { AIChatPanel } from "@/components/AIChatPanel";
 import { RouteTransition } from "@/components/RouteTransition";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { SideQuickPanel } from "@/components/SideQuickPanel";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_AUTHOR } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "山雨 | 个人站",
+    default: SITE_NAME,
     template: "%s | 山雨",
   },
-  description: "山雨的个人数字花园——地缘观察、金融制度、学习笔记与随笔",
+  description: SITE_DESCRIPTION,
+  authors: [{ name: SITE_AUTHOR }],
+  creator: SITE_AUTHOR,
+  openGraph: {
+    type: "website",
+    locale: "zh_CN",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

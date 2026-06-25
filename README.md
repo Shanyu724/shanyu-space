@@ -4,6 +4,13 @@
 
 基于 Next.js 15 + Tailwind CSS v4 + TypeScript 构建，Markdown 驱动内容，Vercel 免费托管。
 
+🌐 **在线访问**：https://shanyu-space.vercel.app
+
+[![CI](https://github.com/Shanyu724/shanyu-space/actions/workflows/ci.yml/badge.svg)](https://github.com/Shanyu724/shanyu-space/actions/workflows/ci.yml)
+[![Vercel](https://img.shields.io/github/deployments/Shanyu724/shanyu-space/production?style=flat&logo=vercel&label=vercel)](https://vercel.com/shanyu0724/shanyu-space)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Node](https://img.shields.io/badge/node-%E2%89%A520-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+
 ## 项目结构
 
 ```
@@ -101,19 +108,19 @@ npm start          # 运行生产版本
 2. 登录 [vercel.com](https://vercel.com)（用 GitHub 账号）
 3. 点击 "Add New → Project"，选择这个仓库
 4. 保持默认设置，点 "Deploy"
-5. 部署完成后你会得到一个 `xxx.vercel.app` 的域名
+5. 部署完成后你会得到一个 `xxx.vercel.app` 的域名（本站为 [shanyu-space.vercel.app](https://shanyu-space.vercel.app)）
 6. 可以在 Settings → Domains 里绑定自己的域名
 
 ## 技术栈
 
-| 层面 | 技术 |
-|------|------|
-| 框架 | Next.js 15 (App Router) |
-| 语言 | TypeScript |
-| 样式 | Tailwind CSS v4 |
-| 内容 | Markdown + gray-matter |
+| 层面 | 技术                        |
+| ---- | --------------------------- |
+| 框架 | Next.js 15 (App Router)     |
+| 语言 | TypeScript                  |
+| 样式 | Tailwind CSS v4             |
+| 内容 | Markdown + gray-matter      |
 | 渲染 | react-markdown + remark-gfm |
-| 部署 | Vercel (免费版) |
+| 部署 | Vercel (免费版)             |
 
 ## 配色
 
@@ -123,5 +130,4 @@ npm start          # 运行生产版本
 - 主色：`#4f6f4a` 山色
 - 辅色：`#8b9bb5` 雾蓝
 - 强调：`#d4a76a` 暖琥珀
-"" 
-
+  ""
