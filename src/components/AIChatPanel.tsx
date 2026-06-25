@@ -340,7 +340,7 @@ function PanelBody({
               className="text-sm text-mint-700 mb-3"
               style={{ fontFamily: "var(--font-handwriting)" }}
             >
-              你好，我是山间的雨。
+              你好，我是小花，山雨的助手。
               <br />
               {pageCtx && pageCtx.text
                 ? `我正在读「${pageCtx.title || pageCtx.path}」，关于这个页面想问什么？`

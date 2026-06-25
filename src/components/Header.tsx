@@ -21,9 +21,19 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: "/blog", label: "Blog", icon: "/images/icon-blog.svg", description: "随便写的" },
-  { href: "/portfolio", label: "Portfolio", icon: "/images/icon-portfolio.svg", description: "AI 辅助开发的项目作品集" },
-  { href: "/workshop", label: "Workshop", icon: "/images/icon-behind.svg", description: "AI 小工具" },
-  { href: "/chat", label: "AI", icon: "/images/icon-portfolio.svg", description: "山间的雨 — AI 助手" },
+  {
+    href: "/portfolio",
+    label: "Portfolio",
+    icon: "/images/icon-portfolio.svg",
+    description: "AI 辅助开发的项目作品集",
+  },
+  {
+    href: "/workshop",
+    label: "Workshop",
+    icon: "/images/icon-behind.svg",
+    description: "AI 小工具",
+  },
+  { href: "/chat", label: "AI", icon: "/images/icon-portfolio.svg", description: "小花 — AI 助手" },
   {
     href: "/about",
     label: "About",
@@ -40,8 +50,7 @@ export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b border-mint-100/40 shadow-sm rounded-b-2xl animate-navbarDrop">
@@ -53,7 +62,10 @@ export default function Header() {
           <span className="w-7 h-7 inline-flex items-center justify-center animate-gentle-spin group-hover:animate-gentle-spin-fast">
             <Logo />
           </span>
-          <span className="font-handwriting text-3xl" style={{ fontFamily: "var(--font-handwriting)" }}>
+          <span
+            className="font-handwriting text-3xl"
+            style={{ fontFamily: "var(--font-handwriting)" }}
+          >
             Wonderland
           </span>
         </Link>
@@ -79,8 +91,19 @@ export default function Header() {
                     className={`nav-dashed text-base inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}
                   >
                     {content}
-                    <svg width="10" height="10" viewBox="0 0 10 10" className="transition-transform duration-200 group-hover:rotate-180 opacity-70">
-                      <path d="M2 4l3 3 3-3" stroke="currentColor" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      className="transition-transform duration-200 group-hover:rotate-180 opacity-70"
+                    >
+                      <path
+                        d="M2 4l3 3 3-3"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                        fill="none"
+                        strokeLinecap="round"
+                      />
                     </svg>
                   </Link>
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
@@ -123,9 +146,15 @@ export default function Header() {
           aria-label="Toggle menu"
         >
           <span className="relative w-5 h-3.5 inline-block">
-            <span className={`absolute left-0 top-0 h-[2px] w-5 bg-mint-800 transition-transform ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`} />
-            <span className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-5 bg-mint-800 transition-opacity ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-            <span className={`absolute left-0 bottom-0 h-[2px] w-5 bg-mint-800 transition-transform ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`} />
+            <span
+              className={`absolute left-0 top-0 h-[2px] w-5 bg-mint-800 transition-transform ${menuOpen ? "translate-y-[7px] rotate-45" : ""}`}
+            />
+            <span
+              className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-5 bg-mint-800 transition-opacity ${menuOpen ? "opacity-0" : "opacity-100"}`}
+            />
+            <span
+              className={`absolute left-0 bottom-0 h-[2px] w-5 bg-mint-800 transition-transform ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
+            />
           </span>
         </button>
       </div>
