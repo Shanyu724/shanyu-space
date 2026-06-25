@@ -36,12 +36,13 @@ yarn-error.log*
 .vscode/
 .idea/
 
-# Obsidian — 保留 .obsidian/ 下的配置，但忽略临时/缓存文件
+# Obsidian — 保留 .obsidian/ 下的核心配置，但忽略临时/缓存/用户级插件
 .obsidian/workspace
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 .obsidian/cache/
 .obsidian/themes/
+.obsidian/plugins/
 
 # Next.js 缓存
 .turbo/

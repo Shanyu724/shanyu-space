@@ -73,14 +73,6 @@ export default function AboutPage() {
         </h1>
       </FadeIn>
 
-      {/* ── 部署测试横幅（验证用，看完可删） ── */}
-      <div
-        data-test="deploy-banner"
-        className="mt-8 p-3 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 text-center text-sm"
-      >
-        🚀 部署测试横幅 · commit <code className="font-mono">DEPLOY_TEST</code> · 如果你看到这条说明自动部署链路完全跑通
-      </div>
-
       {/* ── 自我介绍 ── */}
       <FadeIn delay={0.08} y={12}>
         <div className="mt-10 p-6 rounded-xl bg-white/70 border border-mint-100/70 relative">
