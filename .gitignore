@@ -46,3 +46,6 @@ yarn-error.log*
 # Next.js 缓存
 .turbo/
 .next/
+
+# Vercel CLI 还会写 .env*，单独再加一条兜底
+.env*
