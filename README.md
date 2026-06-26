@@ -1,137 +1,138 @@
-# 山雨·个人站 🌿
+# 山雨
 
-一个集博客、作品集、关于页于一体的个人网站。
+一个以中文写作为核心的个人网站，收纳博客、作品集、工具实验和版本迭代记录。整体视觉偏古风、静谧、克制，内容层则更重视长期积累而不是即时热闹。
 
-基于 Next.js 15 + Tailwind CSS v4 + TypeScript 构建，Markdown 驱动内容，Vercel 免费托管。
-
-🌐 **在线访问**：https://shanyu-space.vercel.app
+线上地址：[shanyu-space.vercel.app](https://shanyu-space.vercel.app)
 
 [![CI](https://github.com/Shanyu724/shanyu-space/actions/workflows/ci.yml/badge.svg)](https://github.com/Shanyu724/shanyu-space/actions/workflows/ci.yml)
 [![Vercel](https://img.shields.io/github/deployments/Shanyu724/shanyu-space/production?style=flat&logo=vercel&label=vercel)](https://vercel.com/shanyu0724/shanyu-space)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A520-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 
-## 项目结构
+## 站点结构
 
-```
+- 首页 `/`
+  - 站点总入口与海报式导览
+- 博客 `/blog`
+  - 六个分类的文章归档与详情页
+- 作品集 `/portfolio`
+  - 项目陈列与阶段性成果展示
+- 工具坊 `/workshop`
+  - 小型 AI 协作工具与实验页面
+- 关于 `/about`
+  - 个人介绍与当前关注
+- 更新日志 `/releases`
+  - 版本迭代与设计调整记录
+
+## 博客分类
+
+当前博客分为六类：
+
+1. 数模推演 `modeling`
+2. 金融洞察 `finance`
+3. 研习札记 `study`
+4. 标的解构 `assets`
+5. 宏观视野 `macro`
+6. 随笔杂谈 `essays`
+
+分类名称与描述由 `src/lib/content.ts` 维护。
+
+## 内容目录
+
+```text
 shanyu-space/
 ├── content/
 │   ├── blog/
-│   │   ├── modeling/     # 数模推演
-│   │   ├── finance/      # 金融洞察
-│   │   ├── study/        # 研习札记
-│   │   ├── assets/       # 标的解构
-│   │   ├── macro/        # 宏观视野
-│   │   └── essays/       # 随笔杂谈
-│   └── portfolio/
-│       └── projects.json # 作品集数据
+│   │   ├── modeling/
+│   │   ├── finance/
+│   │   ├── study/
+│   │   ├── assets/
+│   │   ├── macro/
+│   │   ├── essays/
+│   │   └── geo/              # 兼容旧文章目录
+│   ├── portfolio/
+│   │   └── projects.json
+│   ├── workshop/
+│   │   ├── tools.json
+│   │   └── pomodoro/
+│   └── me.json
 ├── public/
-│   └── images/           # 存放图片
+│   └── images/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx             # 首页
-│   │   ├── blog/                # 博客页
-│   │   ├── portfolio/           # 作品集
-│   │   ├── about/               # 关于我
-│   │   └── behind/              # 幕后
-│   ├── components/              # 通用组件
+│   ├── components/
 │   └── lib/
-│       └── content.ts           # 内容读取引擎
 └── package.json
 ```
 
-## 如何添加新文章
+## 内容维护
 
-非常简单，不需要懂代码：
+### 新增博客文章
 
-### 1. 新建 Markdown 文件
-
-在 `content/blog/` 下对应的分类文件夹里创建一个 `.md` 文件，例如：
-
-```
-content/blog/macro/multi-source-methodology.md
-```
-
-> 说明：旧的 `geo/` 目录已经迁移到 `macro/`，如果你还想保留旧路径，可以单独放迁移占位文件，但网页不会展示模板文章。
-
-### 2. 文件内容格式
+在对应分类目录下新建 `.md` 或 `.mdx` 文件，例如：
 
 ```markdown
 ---
-title: "文章的标题"
-date: "2026-06-25"
-description: "一段简短的文章描述，会显示在卡片上"
+title: "文章标题"
+date: "2026-06-27"
+description: "会显示在列表卡片中的摘要"
 tags: ["标签1", "标签2"]
 published: true
 ---
 
-这里是正文，用 Markdown 格式写。
-
-## 二级标题
-
-段落文字。
-
-- 列表项 1
-- 列表项 2
-
-> 引用文字
+正文从这里开始。
 ```
 
-### 3. 添加到作品集
+支持 Markdown 扩展：
 
-编辑 `content/portfolio/projects.json`，按 JSON 格式添加项目。
+- `remark-gfm`：表格、任务列表、删除线
+- `remark-math` + `rehype-katex`：行内公式与块级公式
 
-### 4. 推送到 GitHub
+### 新增作品集项目
 
-```
-git add .
-git commit -m "添加新文章"
-git push
-```
+编辑 `content/portfolio/projects.json`，按现有字段补一条项目数据。
 
-Vercel 会自动重新部署，几分钟后网站就更新了。
+### 新增工具坊项目
 
-## 如何修改个人信息
+编辑 `content/workshop/tools.json`。如果是站内工具，再在 `content/workshop/<tool-id>/` 下补充 `ai-context.md` 等说明文件。
 
-- **关于我** → 编辑 `src/app/about/page.tsx`
-- **博客分类** → 编辑 `src/lib/content.ts` 中的 `categoryLabels` 和 `categoryDescriptions`
-- **站点信息** → 编辑 `src/app/layout.tsx` 中的 metadata
+### 修改个人信息
+
+- 个人文本数据：`content/me.json`
+- 页面内容：`src/app/about/`
+- 站点 metadata：`src/app/layout.tsx`
+
+## 技术栈
+
+| 层面          | 技术                               |
+| ------------- | ---------------------------------- |
+| 框架          | Next.js 16.2.9                     |
+| 语言          | TypeScript                         |
+| UI            | React 19                           |
+| 样式          | Tailwind CSS v4                    |
+| 动画          | Framer Motion                      |
+| 内容解析      | gray-matter                        |
+| Markdown 渲染 | react-markdown + remark-gfm        |
+| 数学公式      | remark-math + rehype-katex + KaTeX |
+| 部署          | Vercel                             |
 
 ## 本地开发
 
 ```bash
-npm install        # 安装依赖
-npm run dev        # 启动开发服务器，访问 http://localhost:3000
-npm run build      # 构建生产版本
-npm start          # 运行生产版本
+npm install
+npm run dev
+npm run build
+npm start
 ```
 
-## 部署到 Vercel（免费）
+默认开发地址为 [http://127.0.0.1:3000](http://127.0.0.1:3000)。
 
-1. 把项目推送到 GitHub 仓库
-2. 登录 [vercel.com](https://vercel.com)（用 GitHub 账号）
-3. 点击 "Add New → Project"，选择这个仓库
-4. 保持默认设置，点 "Deploy"
-5. 部署完成后你会得到一个 `xxx.vercel.app` 的域名（本站为 [shanyu-space.vercel.app](https://shanyu-space.vercel.app)）
-6. 可以在 Settings → Domains 里绑定自己的域名
+## 发布流程
 
-## 技术栈
+```bash
+git add .
+git commit -m "feat: 描述你的改动"
+git push
+```
 
-| 层面 | 技术                        |
-| ---- | --------------------------- |
-| 框架 | Next.js 15 (App Router)     |
-| 语言 | TypeScript                  |
-| 样式 | Tailwind CSS v4             |
-| 内容 | Markdown + gray-matter      |
-| 渲染 | react-markdown + remark-gfm |
-| 部署 | Vercel (免费版)             |
-
-## 配色
-
-以「山雨」为灵感——鼠尾草绿、雾蓝、暖米色纸张底色。
-
-- 背景：`#faf7f2` 奶油米白
-- 主色：`#4f6f4a` 山色
-- 辅色：`#8b9bb5` 雾蓝
-- 强调：`#d4a76a` 暖琥珀
-  ""
+推送后会触发 GitHub Actions 与 Vercel 自动部署。版本说明页 `/releases` 可同步记录本次迭代。

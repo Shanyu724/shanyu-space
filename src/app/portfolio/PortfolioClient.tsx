@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
 import { SiteIcon } from "@/components/SiteIcon";
 import type { Project } from "@/lib/content";
@@ -27,18 +28,32 @@ export function PortfolioClient({ projects }: PortfolioClientProps) {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 md:py-14">
       <FadeIn>
-        <section className="relative mb-20 overflow-hidden rounded-[1.75rem] border border-mint-900/10 bg-[linear-gradient(135deg,rgba(252,251,247,0.98),rgba(243,238,228,0.88))] px-6 py-16 text-center shadow-[0_28px_70px_-48px_rgba(24,53,39,0.45)]">
+        <section className="relative mb-20 overflow-hidden rounded-[1.75rem] border border-mint-950/20 px-6 py-18 text-center shadow-[0_30px_80px_-48px_rgba(15,36,28,0.7)] sm:px-8 md:py-24">
+          <Image
+            src="/images/portfolio-hero-bamboo.png"
+            alt=""
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="(min-width: 1024px) 960px, 100vw"
+          />
           <div
             aria-hidden="true"
-            className="absolute inset-0 opacity-[0.32] pointer-events-none"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,24,21,0.38),rgba(11,24,21,0.52))] pointer-events-none"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-70 pointer-events-none"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 20% 20%, var(--gradient-rose-fade), transparent 32%), radial-gradient(circle at 80% 70%, var(--gradient-sage-fade), transparent 36%)",
+                "linear-gradient(135deg, rgba(247,244,237,0.2), transparent 36%), radial-gradient(circle at 50% 45%, rgba(243,239,230,0.18), transparent 30%), linear-gradient(0deg, rgba(247,243,235,0.12), rgba(247,243,235,0.12))",
             }}
           />
           <div className="relative z-10 mx-auto max-w-3xl">
-            <p className="text-[11px] uppercase tracking-[0.34em] text-earth-300">Selected Works</p>
-            <h1 className="mt-5 font-serif text-[clamp(3.4rem,8vw,6.5rem)] leading-[0.88] text-mint-800">
+            <p className="text-[11px] uppercase tracking-[0.34em] text-stone-100/88">
+              Selected Works
+            </p>
+            <h1 className="mt-5 font-serif text-[clamp(2.7rem,6vw,4.9rem)] leading-[0.92] text-stone-50">
               作品集
             </h1>
           </div>
