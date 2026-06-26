@@ -14,18 +14,15 @@ interface CategoryClientProps {
 }
 
 const CATEGORY_NOTES: Record<string, string[]> = {
-  geo: ["多源交叉验证", "不急着站队", "先看信息来源的动机"],
+  modeling: ["从假设出发", "把直觉翻译成公式", "先验证再下结论"],
   finance: ["从制度机制切入", "看激励结构", "少讲结论，多拆过程"],
   study: ["把概念讲给未来的自己", "公式背后要有直觉", "考研笔记也可以有结构美"],
+  assets: ["拆条款看激励", "顺着现金流走", "结构比标签更重要"],
+  macro: ["多源交叉验证", "不急着站队", "先看信息来源的动机"],
   essays: ["不追热点", "允许未完成", "用小题目保存真实想法"],
 };
 
-export function CategoryClient({
-  category,
-  posts,
-  label,
-  description,
-}: CategoryClientProps) {
+export function CategoryClient({ category, posts, label, description }: CategoryClientProps) {
   const meta = getCategoryMeta(category);
   const notes = CATEGORY_NOTES[category] || ["慢慢写", "慢慢改", "慢慢沉淀"];
 
@@ -225,9 +222,7 @@ function InfoTile({ value, label }: { value: string; label: string }) {
       >
         {value}
       </div>
-      <div className="text-[10px] uppercase tracking-wider text-mint-500 mt-1">
-        {label}
-      </div>
+      <div className="text-[10px] uppercase tracking-wider text-mint-500 mt-1">{label}</div>
     </div>
   );
 }

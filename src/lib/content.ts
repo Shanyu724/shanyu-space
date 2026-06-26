@@ -22,20 +22,24 @@ export interface Post {
 }
 
 const categoryLabels: Record<string, string> = {
-  geo: "地缘观察",
-  finance: "金融制度",
-  study: "学习笔记",
-  essays: "随笔",
+  modeling: "数模推演",
+  finance: "金融洞察",
+  study: "研习札记",
+  assets: "标的解构",
+  macro: "宏观视野",
+  essays: "随笔杂谈",
 };
 
 const categoryDescriptions: Record<string, string> = {
-  geo: "跨越多个智库信息源的地缘政治交叉验证与观察记录",
-  finance: "从机制设计底层原理拆解金融制度与市场结构",
-  study: "考研路上沉淀下来的学科笔记与概念辨析",
+  modeling: "用数学与模型推导机制，把抽象规律落到可计算的形态",
+  finance: "从机制设计与市场结构出发，拆解金融现象的底层逻辑",
+  study: "研习路上的学科笔记、概念辨析与方法沉淀",
+  assets: "拆解具体资产、工具与契约条款，看清条款里的激励与风险",
+  macro: "跨越多源信息的地缘与宏观观察，验证与互校之间寻找锚点",
   essays: "不设限的自由书写——阅读随想、日常观察与思考碎片",
 };
 
-const categoryOrders = ["geo", "finance", "study", "essays"];
+const categoryOrders = ["modeling", "finance", "study", "assets", "macro", "essays"];
 
 export function getCategoryLabel(cat: string): string {
   return categoryLabels[cat] ?? cat;

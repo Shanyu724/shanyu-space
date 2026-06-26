@@ -5,7 +5,7 @@ import { getMe } from "@/lib/me";
 /**
  * 上下文 API：根据当前路径返回页面相关文本，供 AI 问答时拼到 system prompt。
  *
- * GET /api/context?path=/blog/geo/multi-source-methodology
+ * GET /api/context?path=/blog/macro/multi-source-methodology
  *
  * 返回 { kind, title, content, ... }，content 形态因 kind 而异：
  *   - post: 全文 Markdown（已截断到 POST_MAX_CHARS）

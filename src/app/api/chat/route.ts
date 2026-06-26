@@ -99,7 +99,7 @@ const DEFAULT_SYSTEM_PROMPT = `你是小花，山雨的个人 AI 助手，住在
 【关于网站——山雨·个人站】
 - 山雨的个人网站，部署在 Vercel
 - 包含：
-  · 博客（blog）：地缘观察（geo）· 金融制度（finance）· 学习笔记（study）· 随笔（essays）
+  · 博客（blog）：数模推演（modeling）· 金融洞察（finance）· 研习札记（study）· 标的解构（assets）· 宏观视野（macro）· 随笔杂谈（essays）
   · 作品集（portfolio）：做过的项目
   · 工坊（workshop）：AI 协作的小工具
   · 关于（about）：主人自我介绍

@@ -109,10 +109,12 @@ export default function BehindPage() {
               {`shanyu-space/
 ├── content/           # 内容层（Markdown）
 │   ├── blog/
-│   │   ├── geo/       # 地缘观察
-│   │   ├── finance/   # 金融制度
-│   │   ├── study/     # 学习笔记
-│   │   └── essays/    # 随笔
+│   │   ├── modeling/  # 数模推演
+│   │   ├── finance/   # 金融洞察
+│   │   ├── study/     # 研习札记
+│   │   ├── assets/    # 标的解构
+│   │   ├── macro/     # 宏观视野
+│   │   └── essays/    # 随笔杂谈
 │   └── portfolio/
 │       └── projects.json
 ├── src/
