@@ -1,5 +1,4 @@
-import fs from "fs";
-import path from "path";
+import meData from "../../content/me.json";
 
 /**
  * 「我」相关内容的单一数据源
@@ -31,9 +30,6 @@ export interface Me {
   };
 }
 
-const meFile = path.join(process.cwd(), "content", "me.json");
-
 export function getMe(): Me {
-  const raw = fs.readFileSync(meFile, "utf-8");
-  return JSON.parse(raw) as Me;
+  return meData as Me;
 }

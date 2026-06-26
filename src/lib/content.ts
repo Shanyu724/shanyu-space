@@ -41,6 +41,15 @@ const categoryDescriptions: Record<string, string> = {
 
 const categoryOrders = ["modeling", "finance", "study", "assets", "macro", "essays"];
 
+function normalizePostFrontmatter(data: Record<string, unknown>): PostFrontmatter {
+  const date = data.date;
+
+  return {
+    ...(data as unknown as PostFrontmatter),
+    date: date instanceof Date ? date.toISOString().slice(0, 10) : String(date ?? ""),
+  };
+}
+
 export function getCategoryLabel(cat: string): string {
   return categoryLabels[cat] ?? cat;
 }
@@ -81,7 +90,7 @@ export function getAllPosts(): Post[] {
       posts.push({
         slug,
         category: cat,
-        frontmatter: data as PostFrontmatter,
+        frontmatter: normalizePostFrontmatter(data),
         content,
       });
     }
@@ -114,7 +123,7 @@ export function getPostsByCategory(category: string): Post[] {
     posts.push({
       slug,
       category,
-      frontmatter: data as PostFrontmatter,
+      frontmatter: normalizePostFrontmatter(data),
       content,
     });
   }
@@ -138,7 +147,7 @@ export function getPost(category: string, slug: string): Post | null {
       return {
         slug,
         category,
-        frontmatter: data as PostFrontmatter,
+        frontmatter: normalizePostFrontmatter(data),
         content,
       };
     }
