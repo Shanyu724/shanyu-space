@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations";
+import { SiteIcon } from "@/components/SiteIcon";
 
 const colorSwatches = [
   { name: "薄荷绿", hex: "#7a9482", text: "#ffffff" },
@@ -39,7 +40,10 @@ export default function BehindPage() {
         {/* ── 概览 ── */}
         <FadeIn y={16}>
           <section className="deco-top-line p-6 md:p-8 rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">🌱 概览</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="sprout" className="h-5 w-5" />
+              概览
+            </h2>
             <div className="prose text-sm text-earth-400 space-y-3">
               <p>
                 灵感来自{" "}
@@ -62,7 +66,10 @@ export default function BehindPage() {
         {/* ── 设计理念 ── */}
         <FadeIn y={16} delay={0.06}>
           <section className="deco-top-line p-6 md:p-8 md:pl-[calc(2rem+4px)] rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">💭 设计理念</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="quote" className="h-5 w-5" />
+              设计理念
+            </h2>
             <div className="space-y-3 text-sm text-earth-400">
               <div className="flex items-start gap-3">
                 <span className="shrink-0 w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">
@@ -104,7 +111,10 @@ export default function BehindPage() {
         {/* ── 项目结构 ── */}
         <FadeIn y={16} delay={0.1}>
           <section className="deco-top-line p-6 md:p-8 rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">📁 项目结构</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="file-tree" className="h-5 w-5" />
+              项目结构
+            </h2>
             <div className="bg-cream-100 rounded-lg p-4 text-xs font-mono text-earth-400 leading-relaxed whitespace-pre overflow-x-auto">
               {`shanyu-space/
 ├── content/           # 内容层（Markdown）
@@ -131,7 +141,10 @@ export default function BehindPage() {
         {/* ── 内容管理 ── */}
         <FadeIn y={16} delay={0.14}>
           <section className="deco-top-line p-6 md:p-8 md:pl-[calc(2rem+4px)] rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">📝 内容管理</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="draft" className="h-5 w-5" />
+              内容管理
+            </h2>
             <div className="space-y-4 text-sm text-earth-400">
               <div>
                 <h3 className="font-medium text-sage-500 mb-1">文章发布流程</h3>
@@ -161,7 +174,10 @@ export default function BehindPage() {
         {/* ── 自动化 ── */}
         <FadeIn y={16} delay={0.18}>
           <section className="deco-top-line p-6 md:p-8 rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">⚡ 自动化</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="spark" className="h-5 w-5" />
+              自动化
+            </h2>
             <div className="space-y-3 text-sm text-earth-400">
               <div className="flex items-start gap-3">
                 <span className="shrink-0 mt-0.5">1.</span>
@@ -191,7 +207,10 @@ export default function BehindPage() {
         {/* ── 技术栈 ── */}
         <FadeIn y={16} delay={0.22}>
           <section className="deco-top-line p-6 md:p-8 md:pl-[calc(2rem+4px)] rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">🛠 技术栈</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="hammer" className="h-5 w-5" />
+              技术栈
+            </h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -224,7 +243,10 @@ export default function BehindPage() {
         {/* ── 配色 ── */}
         <FadeIn y={16} delay={0.26}>
           <section className="deco-top-line p-6 md:p-8 rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">🎨 配色</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="palette" className="h-5 w-5" />
+              配色
+            </h2>
             <p className="text-sm text-earth-400 mb-4 leading-relaxed">
               整体调色经过一次温和转向：从奶纸 + 鼠尾草绿，调成
               <strong className="text-mint-700">薄荷绿 + 玫粉</strong>
@@ -257,7 +279,10 @@ export default function BehindPage() {
         {/* ── 致谢 ── */}
         <FadeIn y={16} delay={0.3}>
           <section className="deco-top-line p-6 md:p-8 md:pl-[calc(2rem+4px)] rounded-xl bg-cream-50/60 border border-cream-200">
-            <h2 className="text-xl font-semibold text-sage-600 mb-4">🙏 致谢</h2>
+            <h2 className="text-xl font-semibold text-sage-600 mb-4 inline-flex items-center gap-2">
+              <SiteIcon name="flower" className="h-5 w-5" />
+              致谢
+            </h2>
             <p className="text-sm text-earth-400 leading-relaxed">
               特别感谢 Floria 的{" "}
               <a

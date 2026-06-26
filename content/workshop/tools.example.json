@@ -1,7 +1,7 @@
 [
   {
     "id": "sample-counter",
-    "emoji": "🧮",
+    "icon": "clock",
     "name": "示例：番茄钟",
     "description": "把这个文件复制为 tools.json 即可添加真实工具。每个条目按下面字段填即可。",
     "status": "wip",
@@ -19,7 +19,7 @@
   },
   {
     "id": "sample-embed",
-    "emoji": "📊",
+    "icon": "chart",
     "name": "示例：内嵌型小工具",
     "description": "当 kind 为 embedded 时，会用 iframe 把 url 内嵌进卡片。",
     "status": "alpha",

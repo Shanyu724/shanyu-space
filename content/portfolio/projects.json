@@ -1,7 +1,7 @@
 [
   {
     "id": "financial-system-design",
-    "emoji": "🏦",
+    "icon": "building",
     "title": "债券评级付费模式与机制设计",
     "description": "从激励结构入手，拆解评级机构「发行人付费」模式的内在矛盾，分析评级通胀的制度根源。投资者付费能解决问题吗？比结论更重要的，是理解所有第三方评估制度设计中共通的机制困境。",
     "status": "case-study",
@@ -14,7 +14,7 @@
   },
   {
     "id": "geopolitics-framework",
-    "emoji": "🌏",
+    "icon": "globe",
     "title": "地缘多源观察框架",
     "description": "从单一信息源到多智库交叉验证的方法演进。并行扫 EAF、CSIS、CIIS、FT 等多个信息源，建立含分歧矩阵的主观评估体系，产出可追溯、可复检的观察简报。",
     "status": "case-study",
@@ -27,7 +27,7 @@
   },
   {
     "id": "ai-productivity-impact",
-    "emoji": "🤖",
+    "icon": "ai",
     "title": "AI与社会组织生产",
     "description": "长期跟踪 AI 如何重塑社会生产组织形式。关注的不是狭隘的「AI 辅助编程」，而是 AI 作为通用技术对产业链组织、就业结构、平台经济的系统性冲击。",
     "status": "product-lab",
@@ -40,18 +40,16 @@
   },
   {
     "id": "knowledge-system",
-    "emoji": "📚",
+    "icon": "book",
     "title": "Obsidian 知识库自动化",
     "description": "基于 Obsidian 的个人知识管理系统。拍照→OCR→自动归类→笔记入库→复盘日报的完整流水线。覆盖考研四科的学科笔记、地缘观察简报、公众号文章等。",
     "status": "in-production",
     "tags": ["知识管理", "Obsidian", "自动化"],
-    "highlights": [
-      "拍照转笔记的自动化流水线"
-    ]
+    "highlights": ["拍照转笔记的自动化流水线"]
   },
   {
     "id": "personal-website",
-    "emoji": "🌿",
+    "icon": "leaf",
     "title": "山雨·个人站",
     "description": "基于 Next.js 16 搭建的个人网站。Markdown 驱动内容，Framer Motion 驱动动画，Vercel 免费托管。设计上追求薄荷色毛玻璃浮卡 + 手账质感，内容上承载地缘、金融、学习、随笔四块输出。",
     "status": "in-production",

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { SiteIcon, type SiteIconName } from "@/components/SiteIcon";
 
 /* ── 类型 ── */
 type Mode = "focus" | "short" | "long";
@@ -33,29 +34,34 @@ function getDuration(mode: Mode, s: Settings): number {
 }
 
 function format(secs: number): string {
-  const mm = Math.floor(secs / 60).toString().padStart(2, "0");
+  const mm = Math.floor(secs / 60)
+    .toString()
+    .padStart(2, "0");
   const ss = (secs % 60).toString().padStart(2, "0");
   return `${mm}:${ss}`;
 }
 
-const MODE_META: Record<Mode, { label: string; emoji: string; color: string; bgFrom: string; bgTo: string }> = {
+const MODE_META: Record<
+  Mode,
+  { label: string; icon: SiteIconName; color: string; bgFrom: string; bgTo: string }
+> = {
   focus: {
     label: "Focus",
-    emoji: "🔥",
+    icon: "fire",
     color: "var(--color-rose-500)",
     bgFrom: "rgba(241, 233, 233, 0.5)",
     bgTo: "rgba(232, 237, 233, 0.4)",
   },
   short: {
     label: "Short Break",
-    emoji: "☕",
+    icon: "tea",
     color: "var(--color-mint-600)",
     bgFrom: "rgba(232, 237, 233, 0.5)",
     bgTo: "rgba(232, 237, 233, 0.3)",
   },
   long: {
     label: "Long Break",
-    emoji: "🌿",
+    icon: "leaf",
     color: "var(--color-mint-700)",
     bgFrom: "rgba(200, 213, 202, 0.5)",
     bgTo: "rgba(232, 237, 233, 0.4)",
@@ -100,10 +106,7 @@ export function PomodoroClient() {
   useEffect(() => {
     if (!hydrated) return;
     try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({ settings, focusesCompleted })
-      );
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ settings, focusesCompleted }));
     } catch {
       // 忽略配额错误
     }
@@ -305,7 +308,7 @@ export function PomodoroClient() {
               mode === m ? "is-active" : ""
             }`}
           >
-            <span aria-hidden="true">{MODE_META[m].emoji}</span>
+            <SiteIcon name={MODE_META[m].icon} className="h-4 w-4" />
             <span>{MODE_META[m].label}</span>
           </button>
         ))}
@@ -378,7 +381,7 @@ export function PomodoroClient() {
                 transition={{ duration: 0.25 }}
                 className="text-[11px] uppercase tracking-[0.2em] text-mint-500 mb-1.5 flex items-center justify-center gap-1.5"
               >
-                <span>{meta.emoji}</span>
+                <SiteIcon name={meta.icon} className="h-3.5 w-3.5" />
                 <span>{meta.label}</span>
               </motion.div>
             </AnimatePresence>
@@ -444,8 +447,8 @@ export function PomodoroClient() {
                   done
                     ? "bg-rose-400"
                     : current
-                    ? "bg-rose-300 ring-2 ring-rose-400/30 ring-offset-2 ring-offset-white animate-pulse"
-                    : "bg-mint-200"
+                      ? "bg-rose-300 ring-2 ring-rose-400/30 ring-offset-2 ring-offset-white animate-pulse"
+                      : "bg-mint-200"
                 }`}
                 aria-label={done ? "已完成" : current ? "进行中" : "未开始"}
               />
@@ -457,17 +460,21 @@ export function PomodoroClient() {
       {/* 快捷键 + 设置 toggle */}
       <div className="flex items-center justify-between text-xs text-mint-500 mb-3">
         <p>
-          <kbd className="px-1.5 py-0.5 rounded bg-mint-50 border border-mint-100 text-mint-700 mr-1">Space</kbd>
+          <kbd className="px-1.5 py-0.5 rounded bg-mint-50 border border-mint-100 text-mint-700 mr-1">
+            Space
+          </kbd>
           开始/暂停
           <span className="mx-2 text-mint-300">·</span>
-          <kbd className="px-1.5 py-0.5 rounded bg-mint-50 border border-mint-100 text-mint-700 mr-1">R</kbd>
+          <kbd className="px-1.5 py-0.5 rounded bg-mint-50 border border-mint-100 text-mint-700 mr-1">
+            R
+          </kbd>
           重置
         </p>
         <button
           onClick={() => setShowSettings((s) => !s)}
           className="text-mint-600 hover:text-rose-400 transition-colors inline-flex items-center gap-1"
         >
-          <span>⚙</span>
+          <SiteIcon name="settings" className="h-3.5 w-3.5" />
           <span>{showSettings ? "收起设置" : "设置"}</span>
         </button>
       </div>

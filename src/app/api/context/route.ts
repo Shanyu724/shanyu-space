@@ -84,7 +84,7 @@ export async function GET(req: NextRequest) {
       path,
       id: tool.id,
       name: tool.name,
-      emoji: tool.emoji,
+      icon: tool.icon,
       description: tool.description,
       status: tool.status,
       tech: tool.tech,
@@ -98,7 +98,7 @@ export async function GET(req: NextRequest) {
     const tools = getTools().map((t) => ({
       id: t.id,
       name: t.name,
-      emoji: t.emoji,
+      icon: t.icon,
       description: t.description,
       status: t.status,
     }));

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import { SiteIcon } from "@/components/SiteIcon";
 import remarkGfm from "remark-gfm";
 
 interface Message {
@@ -242,16 +243,14 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
       >
         {!open && (
           <span
-            className="absolute -top-9 right-0 whitespace-nowrap animate-bounce text-base text-rose-500 select-none pointer-events-none"
-            aria-hidden="true"
+            className="absolute -top-9 right-0 whitespace-nowrap animate-bounce text-base text-rose-500 select-none pointer-events-none inline-flex items-center gap-1"
             style={{ fontFamily: "var(--font-handwriting)" }}
           >
-            Hey! ✨
+            <span>Hey!</span>
+            <span aria-hidden="true">✨</span>
           </span>
         )}
-        <span className="text-xl" role="img" aria-label="花">
-          🌼
-        </span>
+        <SiteIcon name="flower" className="h-5 w-5" title="花" />
         {!open && (
           <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-rose-400 border-2 border-mint-50 animate-pulse" />
         )}
@@ -308,10 +307,8 @@ function PanelBody({
       {/* 头部 */}
       <header className="flex items-center justify-between px-4 py-3 border-b border-mint-100/60 bg-mint-50/50">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-full bg-mint-50 border border-mint-100 flex items-center justify-center text-lg shadow-sm">
-            <span role="img" aria-label="花">
-              🌼
-            </span>
+          <div className="w-9 h-9 rounded-full bg-mint-50 border border-mint-100 flex items-center justify-center shadow-sm">
+            <SiteIcon name="flower" className="h-5 w-5 text-rose-400" title="花" />
           </div>
           <div className="min-w-0">
             <h3

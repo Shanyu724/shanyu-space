@@ -8,6 +8,7 @@ import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
 import { NotebookCard } from "@/components/NotebookCard";
 import { SectionDivider } from "@/components/decorative";
 import { MouseScrollHint } from "@/components/MouseScrollHint";
+import { SiteIcon } from "@/components/SiteIcon";
 import { getCategoryMeta } from "@/lib/utils";
 import type { Post } from "@/lib/content";
 import type { Me } from "@/lib/me";
@@ -81,7 +82,8 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
                 />
                 <div className="min-w-0">
                   <h3 className="text-sm font-medium text-mint-700 flex items-center gap-1">
-                    💡 关于这个网站
+                    <SiteIcon name="spark" className="h-4 w-4 text-warm-500" />
+                    <span>关于这个网站</span>
                   </h3>
                   <p className="text-[11px] text-mint-500 mt-1 leading-relaxed">
                     灵感由 AI 和我联袂赞助，托管在 Vercel 上，慢慢长成一个像 QQ
@@ -97,8 +99,14 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
                 </button>
               </div>
               <div className="pl-[70px] text-[11px] text-mint-600 leading-relaxed space-y-1">
-                <p>💻 Next / React / TS / Tailwind</p>
-                <p>🌿 Blog · Portfolio · Workshop · About</p>
+                <p className="inline-flex items-center gap-1.5">
+                  <SiteIcon name="code" className="h-3.5 w-3.5" />
+                  <span>Next / React / TS / Tailwind</span>
+                </p>
+                <p className="inline-flex items-center gap-1.5">
+                  <SiteIcon name="leaf" className="h-3.5 w-3.5" />
+                  <span>Blog · Portfolio · Workshop · About</span>
+                </p>
                 <p className="text-rose-400">感觉越来越像自己的小院子了……</p>
               </div>
             </motion.aside>
@@ -161,7 +169,7 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
             <div className="relative z-10">
               <div className="avatar-frame mb-5 mx-auto">
                 <div>
-                  <span>🌄</span>
+                  <SiteIcon name="botany" className="h-9 w-9 text-sage-500" />
                 </div>
               </div>
               <p className="text-[11px] tracking-[0.28em] text-mint-500 uppercase">
@@ -247,7 +255,7 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
                           <NotebookCard accentColor={meta.color} className="p-4 h-full">
                             <div className="pl-2">
                               <div className="flex items-center gap-2 mb-2">
-                                <span className="text-xl">{meta.emoji}</span>
+                                <SiteIcon name={meta.icon} className="h-5 w-5" />
                                 <h3 className="font-medium text-mint-700 title-hover">
                                   {cat.label}
                                 </h3>
@@ -294,7 +302,10 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
                                 className="text-xs px-2 py-0.5 rounded-full"
                                 style={{ backgroundColor: `${meta.color}18`, color: meta.color }}
                               >
-                                {meta.emoji} {labels[post.category] || post.category}
+                                <span className="inline-flex items-center gap-1.5">
+                                  <SiteIcon name={meta.icon} className="h-3.5 w-3.5" />
+                                  {labels[post.category] || post.category}
+                                </span>
                               </span>
                               <span
                                 className="font-handwriting text-base text-rose-400"

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations";
 import { WavyDivider, Tape } from "@/components/decorative";
+import { SiteIcon, type SiteIconName } from "@/components/SiteIcon";
 import { getMe } from "@/lib/me";
 
 const quotes = [
@@ -35,13 +36,13 @@ const stickyNotes = [
   { bg: "#d9f99d", rotate: "1.8", textColor: "#3f6212" },
 ];
 
-const photoPlaceholders = [
-  { emoji: "📷", label: "山里" },
-  { emoji: "📚", label: "书行" },
-  { emoji: "🍳", label: "早餐" },
-  { emoji: "🥐", label: "黄油" },
-  { emoji: "🎯", label: "目标" },
-  { emoji: "🌱", label: "生长" },
+const photoPlaceholders: { icon: SiteIconName; label: string }[] = [
+  { icon: "photo", label: "山里" },
+  { icon: "book", label: "书行" },
+  { icon: "tea", label: "早餐" },
+  { icon: "cloud", label: "黄油" },
+  { icon: "target", label: "目标" },
+  { icon: "sprout", label: "生长" },
 ];
 
 export default function AboutPage() {
@@ -80,7 +81,7 @@ export default function AboutPage() {
           <div className="flex items-center gap-5 mb-4">
             <div className="avatar-frame shrink-0" style={{ width: 72, height: 72 }}>
               <div style={{ fontSize: "1.85rem" }}>
-                <span>🌿</span>
+                <SiteIcon name="leaf" className="h-8 w-8 text-sage-500" />
               </div>
             </div>
             <div>
@@ -101,7 +102,7 @@ export default function AboutPage() {
             {me.about.interests.map((item, i) => (
               <FadeIn key={i} delay={0.18 + i * 0.05} y={10}>
                 <div className="flex items-center gap-3 p-4 rounded-lg bg-cream-50/60 border-l-4 border-sage-400 border border-cream-200 hover:border-sage-300 transition-colors">
-                  <span className="text-xl">{item.emoji}</span>
+                  <SiteIcon name={item.icon} className="h-5 w-5 text-sage-500" />
                   <span className="text-sm text-earth-400">{item.label}</span>
                 </div>
               </FadeIn>
@@ -116,7 +117,10 @@ export default function AboutPage() {
       <FadeIn delay={0.25} y={12}>
         <section className="p-6 rounded-xl bg-cream-50/60 border border-cream-200 relative">
           <Tape />
-          <h2 className="text-sm font-semibold text-sage-600 mb-3">🌿 当前状态</h2>
+          <h2 className="text-sm font-semibold text-sage-600 mb-3 inline-flex items-center gap-2">
+            <SiteIcon name="leaf" className="h-4 w-4" />
+            当前状态
+          </h2>
           <div className="space-y-2 text-sm text-earth-400 leading-relaxed">
             {me.about.currentStatus.map((line, i) => (
               <p key={i}>{line}</p>
@@ -128,7 +132,10 @@ export default function AboutPage() {
       {/* ── 关于这个站 ── */}
       <FadeIn delay={0.3} y={12}>
         <section className="mt-6 p-6 rounded-xl bg-cream-50/60 border border-cream-200">
-          <h2 className="text-sm font-semibold text-sage-600 mb-3">🌱 关于这个站</h2>
+          <h2 className="text-sm font-semibold text-sage-600 mb-3 inline-flex items-center gap-2">
+            <SiteIcon name="sprout" className="h-4 w-4" />
+            关于这个站
+          </h2>
           <p className="text-sm text-earth-400 leading-relaxed">{me.tagline}</p>
           <p className="mt-2 text-sm text-earth-400 leading-relaxed">
             受 Floria Wonderland 启发构建。
@@ -206,7 +213,10 @@ export default function AboutPage() {
 
       {/* ── 照片展区占位 ── */}
       <section>
-        <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-5">🌿 一些瞬间</h2>
+        <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-5 inline-flex items-center gap-2">
+          <SiteIcon name="leaf" className="h-4 w-4" />
+          一些瞬间
+        </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {photoPlaceholders.map((p, i) => (
             <motion.div
@@ -219,7 +229,7 @@ export default function AboutPage() {
               className="aspect-square rounded-lg bg-cream-100 border border-cream-200 flex flex-col items-center justify-center gap-1.5 transition-all duration-300 hover:bg-cream-50 hover:border-sage-200 hover:shadow-md cursor-default"
             >
               <span className="text-3xl select-none" aria-hidden="true">
-                {p.emoji}
+                <SiteIcon name={p.icon} className="h-9 w-9 text-sage-500" />
               </span>
               <span className="text-xs text-earth-400">{p.label}</span>
             </motion.div>

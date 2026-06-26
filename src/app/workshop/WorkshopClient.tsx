@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { SiteIcon } from "@/components/SiteIcon";
 import type { Tool } from "@/lib/content";
 
 interface WorkshopClientProps {
@@ -14,10 +15,10 @@ const STATUS_STYLE: Record<Tool["status"], { label: string; title: string; subti
   wip: { label: "在做", title: "施工中", subtitle: "work in progress" },
 };
 
-const KIND_HINT: Record<Tool["kind"], { emoji: string; label: string }> = {
-  external: { emoji: "↗", label: "外站打开" },
-  embedded: { emoji: "▣", label: "内嵌使用" },
-  "in-site": { emoji: "·", label: "站内页面" },
+const KIND_HINT: Record<Tool["kind"], { label: string }> = {
+  external: { label: "外站打开" },
+  embedded: { label: "内嵌使用" },
+  "in-site": { label: "站内页面" },
 };
 
 export function WorkshopClient({ tools }: WorkshopClientProps) {
@@ -36,8 +37,8 @@ export function WorkshopClient({ tools }: WorkshopClientProps) {
             tiny tools, real use
           </p>
           <p className="relative z-10 mt-6 text-sm md:text-base text-mint-700 leading-relaxed max-w-xl">
-            不追求“像产品发布会”，只放那些我真的会打开用的小东西。
-            Claude 帮我加速，我负责判断它值不值得留下。
+            不追求“像产品发布会”，只放那些我真的会打开用的小东西。 Claude
+            帮我加速，我负责判断它值不值得留下。
           </p>
           <a
             href="#tools"
@@ -98,11 +99,10 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle: string })
     <div className="mb-6 flex items-end justify-between gap-4">
       <div>
         <h2 className="text-2xl md:text-3xl font-serif font-bold text-mint-800">
-          ✏ {title}
+          <SiteIcon name="pencil" className="inline h-5 w-5 mr-1 text-mint-700 align-baseline" />
+          {title}
         </h2>
-        <p className="mt-1 text-xs uppercase tracking-[0.25em] text-mint-400">
-          {subtitle}
-        </p>
+        <p className="mt-1 text-xs uppercase tracking-[0.25em] text-mint-400">{subtitle}</p>
       </div>
       <span className="hidden sm:block flex-1 border-t border-dashed border-mint-200/80 translate-y-[-0.7rem]" />
     </div>
@@ -121,7 +121,19 @@ function ToolShowCard({ tool, index }: { tool: Tool; index: number }) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(190,139,139,0.36),transparent_30%),radial-gradient(circle_at_78%_72%,rgba(122,148,130,0.35),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.85),rgba(232,237,233,0.45))]" />
         <div className="absolute inset-5 rounded-2xl border border-white/70 bg-white/35 backdrop-blur-[1px]" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-7xl drop-shadow-sm select-none">{tool.emoji || "🛠️"}</span>
+          {tool.icon ? (
+            <SiteIcon
+              name={tool.icon}
+              className="h-20 w-20 drop-shadow-sm select-none"
+              style={{ color: "var(--color-rose-500)" }}
+            />
+          ) : (
+            <SiteIcon
+              name="hammer"
+              className="h-20 w-20 drop-shadow-sm select-none"
+              style={{ color: "var(--color-rose-500)" }}
+            />
+          )}
         </div>
         <div className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.24em] px-2 py-1 rounded-full bg-white/80 text-mint-600 border border-white/70">
           {STATUS_STYLE[tool.status].label}
@@ -130,7 +142,10 @@ function ToolShowCard({ tool, index }: { tool: Tool; index: number }) {
 
       <div className="p-6">
         <div className="flex items-start gap-3 mb-2">
-          <span className="text-2xl select-none">{tool.emoji || "🛠️"}</span>
+          <SiteIcon
+            name={tool.icon || "hammer"}
+            className="h-7 w-7 shrink-0 select-none text-sage-600"
+          />
           <div>
             <h3 className="text-2xl font-serif font-bold text-mint-800 group-hover:text-rose-500 transition-colors leading-tight">
               {tool.url ? (
@@ -145,15 +160,24 @@ function ToolShowCard({ tool, index }: { tool: Tool; index: number }) {
                 tool.name
               )}
             </h3>
-            <p className="text-sm text-rose-500 mt-1">
-              {KIND_HINT[tool.kind].emoji} {KIND_HINT[tool.kind].label} · {tool.createdAt}
+            <p className="text-sm text-rose-500 mt-1 inline-flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-1">
+                {tool.kind === "external" ? (
+                  <SiteIcon name="arrow-up" className="h-3.5 w-3.5 -rotate-45" />
+                ) : tool.kind === "embedded" ? (
+                  <SiteIcon name="layers" className="h-3.5 w-3.5" />
+                ) : (
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-rose-400" />
+                )}
+                {KIND_HINT[tool.kind].label}
+              </span>
+              <span className="text-mint-300">·</span>
+              <span>{tool.createdAt}</span>
             </p>
           </div>
         </div>
 
-        <p className="text-sm text-mint-700 leading-relaxed mb-4">
-          {tool.description}
-        </p>
+        <p className="text-sm text-mint-700 leading-relaxed mb-4">{tool.description}</p>
 
         {tool.highlights[0] && (
           <blockquote className="mb-4 border-l-2 border-rose-300 pl-3 text-sm text-mint-600 italic leading-relaxed">
@@ -164,7 +188,10 @@ function ToolShowCard({ tool, index }: { tool: Tool; index: number }) {
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-wrap gap-1.5">
             {tool.tech.slice(0, 3).map((tech) => (
-              <span key={tech} className="text-xs px-2 py-0.5 rounded-full bg-mint-50 border border-mint-100 text-mint-600">
+              <span
+                key={tech}
+                className="text-xs px-2 py-0.5 rounded-full bg-mint-50 border border-mint-100 text-mint-600"
+              >
                 {tech}
               </span>
             ))}
@@ -201,7 +228,7 @@ function EmptyState() {
           boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
         }}
       />
-      <span className="inline-block text-5xl mb-4 select-none">🛠️</span>
+      <SiteIcon name="hammer" className="inline-block mb-4 h-12 w-12 select-none text-rose-400" />
       <h3
         className="text-3xl md:text-4xl text-mint-700 mb-2"
         style={{ fontFamily: "var(--font-handwriting)" }}

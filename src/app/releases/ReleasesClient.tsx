@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { SiteIcon } from "@/components/SiteIcon";
 import type { ReleaseEntry } from "./page";
 
-const TAG_STYLE: Record<
-  ReleaseEntry["tag"],
-  { label: string; bg: string; color: string }
-> = {
+const TAG_STYLE: Record<ReleaseEntry["tag"], { label: string; bg: string; color: string }> = {
   feature: { label: "新功能", bg: "bg-mint-100", color: "text-mint-700" },
   polish: { label: "打磨", bg: "bg-rose-100", color: "text-rose-600" },
   refactor: { label: "重构", bg: "bg-mist-100", color: "text-mist-500" },
@@ -82,20 +80,13 @@ export function ReleasesClient({ releases }: { releases: ReleaseEntry[] }) {
                   </h2>
 
                   {/* 摘要 */}
-                  <p className="text-sm text-mint-700 leading-relaxed mb-5">
-                    {r.summary}
-                  </p>
+                  <p className="text-sm text-mint-700 leading-relaxed mb-5">{r.summary}</p>
 
                   {/* highlights */}
                   <ul className="space-y-2">
                     {r.highlights.map((h, i) => (
-                      <li
-                        key={i}
-                        className="flex items-baseline gap-2.5 text-sm text-mint-700"
-                      >
-                        <span className="text-base shrink-0" aria-hidden="true">
-                          {h.emoji}
-                        </span>
+                      <li key={i} className="flex items-baseline gap-2.5 text-sm text-mint-700">
+                        <SiteIcon name={h.icon} className="h-4 w-4 shrink-0 text-sage-500" />
                         <span className="leading-relaxed">{h.text}</span>
                       </li>
                     ))}
@@ -116,9 +107,7 @@ export function ReleasesClient({ releases }: { releases: ReleaseEntry[] }) {
           >
             to be continued...
           </p>
-          <p className="mt-3 text-xs text-mint-500 italic">
-            慢一点没关系。这个站会一直长下去。
-          </p>
+          <p className="mt-3 text-xs text-mint-500 italic">慢一点没关系。这个站会一直长下去。</p>
         </div>
       </FadeIn>
     </div>

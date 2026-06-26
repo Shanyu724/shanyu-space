@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import type { SiteIconName } from "@/components/SiteIcon";
 
 const blogDir = path.join(process.cwd(), "content", "blog");
 const portfolioDir = path.join(process.cwd(), "content", "portfolio");
@@ -157,7 +158,7 @@ export function getPost(category: string, slug: string): Post | null {
 
 export interface Project {
   id: string;
-  emoji?: string;
+  icon?: SiteIconName;
   title: string;
   description: string;
   status: string;
@@ -177,7 +178,7 @@ export function getProjects(): Project[] {
 /* ── Workshop（AI 协作小工具） ── */
 export interface Tool {
   id: string;
-  emoji?: string;
+  icon?: SiteIconName;
   name: string;
   description: string;
   /** live：上线可用；alpha：内测；wip：还在做 */

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { SiteIcon } from "@/components/SiteIcon";
 import { getCategoryMeta } from "@/lib/utils";
 import type { Post } from "@/lib/content";
 
@@ -44,7 +45,11 @@ export function CategoryClient({ category, posts, label, description }: Category
           <FadeIn delay={0.06}>
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-4xl select-none">{meta.emoji}</span>
+                <SiteIcon
+                  name={meta.icon}
+                  className="h-10 w-10 select-none"
+                  style={{ color: meta.color }}
+                />
                 <div>
                   <p
                     className="font-handwriting text-base text-rose-400 leading-none"
@@ -128,7 +133,9 @@ export function CategoryClient({ category, posts, label, description }: Category
           ) : (
             <FadeIn delay={0.12}>
               <div className="py-20 text-center text-mint-400 rounded-2xl bg-white/60 border border-mint-100/70">
-                <div className="text-4xl mb-4">🌱</div>
+                <div className="mb-4 flex justify-center">
+                  <SiteIcon name="sprout" className="h-10 w-10 text-mint-400" />
+                </div>
                 <p
                   className="font-handwriting text-2xl"
                   style={{ fontFamily: "var(--font-handwriting)" }}
@@ -155,7 +162,11 @@ export function CategoryClient({ category, posts, label, description }: Category
               />
 
               <div className="text-center mb-6">
-                <span className="text-5xl inline-block mb-2">{meta.emoji}</span>
+                <SiteIcon
+                  name={meta.icon}
+                  className="inline-block mb-2 h-12 w-12"
+                  style={{ color: meta.color }}
+                />
                 <h2
                   className="text-4xl text-mint-700"
                   style={{ fontFamily: "var(--font-handwriting)" }}

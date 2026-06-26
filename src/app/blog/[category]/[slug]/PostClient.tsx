@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations";
 import { MarkdownRenderer, extractToc } from "@/components/MarkdownRenderer";
 import { estimateReadingTime, getCategoryMeta } from "@/lib/utils";
+import { SiteIcon } from "@/components/SiteIcon";
 import type { Post } from "@/lib/content";
 
 interface TocItem {
@@ -66,7 +67,7 @@ export function PostClient({ category, categoryLabel, post, relatedPosts }: Post
                     color: meta.color,
                   }}
                 >
-                  <span>{meta.emoji}</span>
+                  <SiteIcon name={meta.icon} className="h-3.5 w-3.5" />
                   <span>{categoryLabel}</span>
                 </span>
                 <span
@@ -132,7 +133,10 @@ export function PostClient({ category, categoryLabel, post, relatedPosts }: Post
           {relatedPosts.length > 0 && (
             <section className="mt-10 lg:hidden">
               <h2 className="text-xs uppercase tracking-widest text-mint-500 mb-5">
-                📚 同一主题的其他文章
+                <span className="inline-flex items-center gap-1.5">
+                  <SiteIcon name="book" className="h-3.5 w-3.5" />
+                  同一主题的其他文章
+                </span>
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {relatedPosts.map((rp, i) => (
@@ -231,7 +235,11 @@ function ArticleInfoCard({
       />
 
       <div className="text-center mb-5">
-        <span className="text-4xl inline-block mb-2">{meta.emoji}</span>
+        <SiteIcon
+          name={meta.icon}
+          className="inline-block mb-2 h-10 w-10"
+          style={{ color: meta.color }}
+        />
         <h2
           className="text-3xl text-mint-700 leading-none"
           style={{ fontFamily: "var(--font-handwriting)" }}
@@ -385,9 +393,7 @@ function RelatedPostCard({
         }`}
       >
         <div className="flex items-center gap-2 mb-1.5">
-          <span className="text-xs" aria-hidden="true">
-            {meta.emoji}
-          </span>
+          <SiteIcon name={meta.icon} className="h-3.5 w-3.5" />
           <span className="text-sm text-rose-400" style={{ fontFamily: "var(--font-handwriting)" }}>
             {post.frontmatter.date}
           </span>

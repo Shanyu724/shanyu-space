@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { SiteIcon, type SiteIconName } from "@/components/SiteIcon";
 
-const QUICK_LINKS = [
-  { href: "/blog", label: "博客", emoji: "✍️" },
-  { href: "/portfolio", label: "作品集", emoji: "🧩" },
-  { href: "/workshop", label: "工具坊", emoji: "🛠️" },
-  { href: "/about", label: "关于我", emoji: "🌿" },
-  { href: "/behind", label: "幕后", emoji: "🪟" },
-  { href: "/releases", label: "更新日志", emoji: "📮" },
+const QUICK_LINKS: { href: string; label: string; icon: SiteIconName }[] = [
+  { href: "/blog", label: "博客", icon: "feather" },
+  { href: "/portfolio", label: "作品集", icon: "layers" },
+  { href: "/workshop", label: "工具坊", icon: "hammer" },
+  { href: "/about", label: "关于我", icon: "leaf" },
+  { href: "/behind", label: "幕后", icon: "compass" },
+  { href: "/releases", label: "更新日志", icon: "clipboard" },
 ];
 
 /**
@@ -33,10 +34,8 @@ export function SideQuickPanel() {
           aria-label="快捷导航"
           className="relative z-10 px-1.5 py-4 bg-white/90 backdrop-blur-sm rounded-l-xl border border-r-0 border-mint-200/70 shadow-md flex flex-col items-center gap-1.5 text-mint-600 hover:text-rose-400 transition-colors cursor-pointer"
         >
-          <span className="text-base">📑</span>
-          <span
-            className="text-[10px] font-medium tracking-wide [writing-mode:vertical-rl] [text-orientation:mixed]"
-          >
+          <SiteIcon name="clipboard" className="h-4 w-4" />
+          <span className="text-[10px] font-medium tracking-wide [writing-mode:vertical-rl] [text-orientation:mixed]">
             quick nav
           </span>
         </button>
@@ -49,7 +48,7 @@ export function SideQuickPanel() {
         >
           <div className="bg-white/95 backdrop-blur-sm rounded-l-xl shadow-lg border border-r-0 border-mint-200/70 p-4 min-w-[200px]">
             <div className="text-xs uppercase tracking-widest text-mint-500 mb-3 flex items-center gap-2">
-              <span aria-hidden="true">📌</span>
+              <SiteIcon name="pin" className="h-3.5 w-3.5" />
               <span>quick links</span>
             </div>
             <nav className="flex flex-col gap-0.5">
@@ -59,9 +58,7 @@ export function SideQuickPanel() {
                   href={l.href}
                   className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-mint-800 hover:bg-mint-50 hover:text-rose-400 transition-colors"
                 >
-                  <span className="text-base" aria-hidden="true">
-                    {l.emoji}
-                  </span>
+                  <SiteIcon name={l.icon} className="h-4 w-4" />
                   <span>{l.label}</span>
                   <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-rose-400">
                     →

@@ -1,4 +1,5 @@
 import meData from "../../content/me.json";
+import type { SiteIconName } from "@/components/SiteIcon";
 
 /**
  * 「我」相关内容的单一数据源
@@ -8,7 +9,7 @@ import meData from "../../content/me.json";
  */
 
 export interface MeInterest {
-  emoji: string;
+  icon: SiteIconName;
   label: string;
 }
 
