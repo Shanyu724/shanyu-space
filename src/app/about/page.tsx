@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/animations";
 import { WavyDivider, Tape } from "@/components/decorative";
+import { getMe } from "@/lib/me";
 
 const quotes = [
   {
@@ -11,8 +12,7 @@ const quotes = [
     tag: "名字",
   },
   {
-    text:
-      "世界上只有一种英雄主义，就是看清生活的真相之后，依然热爱生活。",
+    text: "世界上只有一种英雄主义，就是看清生活的真相之后，依然热爱生活。",
     source: "罗曼·罗兰",
     tag: "哲学",
   },
@@ -22,8 +22,7 @@ const quotes = [
     tag: "思考",
   },
   {
-    text:
-      "金钱只是通往最终价值的桥梁，而人是无法栖居在桥上的。",
+    text: "金钱只是通往最终价值的桥梁，而人是无法栖居在桥上的。",
     source: "叔本华",
     tag: "日常",
   },
@@ -36,13 +35,6 @@ const stickyNotes = [
   { bg: "#d9f99d", rotate: "1.8", textColor: "#3f6212" },
 ];
 
-const currentInterests = [
-  { emoji: "🌍", label: "地缘政治的多源交叉验证" },
-  { emoji: "🏦", label: "金融制度的机制设计分析" },
-  { emoji: "🤖", label: "AI 对社会组织生产的深层影响" },
-  { emoji: "🌱", label: "系统性思考与深度内容创作" },
-];
-
 const photoPlaceholders = [
   { emoji: "📷", label: "山里" },
   { emoji: "📚", label: "书行" },
@@ -53,6 +45,8 @@ const photoPlaceholders = [
 ];
 
 export default function AboutPage() {
+  const me = getMe();
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-12 md:py-16">
       <FadeIn>
@@ -71,6 +65,12 @@ export default function AboutPage() {
         >
           关于我
         </h1>
+        <p
+          className="mt-4 text-center text-base md:text-lg text-rose-500 italic"
+          style={{ fontFamily: "var(--font-handwriting)" }}
+        >
+          {me.signature}
+        </p>
       </FadeIn>
 
       {/* ── 自我介绍 ── */}
@@ -84,33 +84,21 @@ export default function AboutPage() {
               </div>
             </div>
             <div>
-              <p className="font-handwriting text-2xl text-rose-500 leading-tight">
-                山雨
-              </p>
-              <p className="text-xs text-mint-500 mt-1">
-                一个正在构建知识体系的人
-              </p>
+              <p className="font-handwriting text-2xl text-rose-500 leading-tight">{me.name}</p>
+              <p className="text-xs text-mint-500 mt-1">一个还在认真生活的人</p>
             </div>
           </div>
-          <p className="text-sm text-mint-700 leading-relaxed">
-            「山雨」来自苏轼那句「山色空蒙雨亦奇」——湖光山色在雨幕中反而别有一番朦胧。
-            它提醒我：换一个角度，习以为常的事物也能呈现不一样的风景。
-          </p>
-          <p className="mt-3 text-sm text-mint-700 leading-relaxed">
-            目前备考金融工程方向的研究生。长期关注地缘政治、金融制度设计，
-            以及 AI 技术对经济生产组织方式的深层影响。
-          </p>
+          <p className="text-sm text-mint-700 leading-relaxed">{me.about.nameOrigin}</p>
+          <p className="mt-3 text-sm text-mint-700 leading-relaxed">{me.about.whatIDo}</p>
         </div>
       </FadeIn>
 
       {/* ── 长期关注 ── */}
       <FadeIn delay={0.14} y={12}>
         <section className="mt-8">
-          <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-4">
-            长期关注
-          </h2>
+          <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-4">长期关注</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {currentInterests.map((item, i) => (
+            {me.about.interests.map((item, i) => (
               <FadeIn key={i} delay={0.18 + i * 0.05} y={10}>
                 <div className="flex items-center gap-3 p-4 rounded-lg bg-cream-50/60 border-l-4 border-sage-400 border border-cream-200 hover:border-sage-300 transition-colors">
                   <span className="text-xl">{item.emoji}</span>
@@ -130,13 +118,9 @@ export default function AboutPage() {
           <Tape />
           <h2 className="text-sm font-semibold text-sage-600 mb-3">🌿 当前状态</h2>
           <div className="space-y-2 text-sm text-earth-400 leading-relaxed">
-            <p>考研备考中。数学三、英语一、经济学 802、政治——四门课的系统推进。</p>
-            <p>
-              日常坚持的学习节奏：高数 / 线代双线并行 + 英语单词打卡 +
-              经济学教材精读 + 政治三件套秘诀（提问 → 回顾 → 纠偏）。
-            </p>
-            <p>持续维护个人的 Obsidian 知识库，把各学科笔记沉淀为可检索、可链接的数字资产。</p>
-            <p>公众号不定期更新，写一些金融制度设计方向的深度内容。</p>
+            {me.about.currentStatus.map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
           </div>
         </section>
       </FadeIn>
@@ -146,7 +130,7 @@ export default function AboutPage() {
         <section className="mt-6 p-6 rounded-xl bg-cream-50/60 border border-cream-200">
           <h2 className="text-sm font-semibold text-sage-600 mb-3">🌱 关于这个站</h2>
           <p className="text-sm text-earth-400 leading-relaxed">
-            一个数字花园，存放学习中的沉淀、研究中的发现，以及日常的思考碎片。
+            {me.tagline}一个数字花园，存放学习中的沉淀、研究中的发现，以及日常的思考碎片。
             不追热点，只想保持深度、真诚和独立思考的底色。
           </p>
           <p className="mt-2 text-sm text-earth-400 leading-relaxed">
@@ -159,9 +143,7 @@ export default function AboutPage() {
 
       {/* ── 便利贴墙：读过的句子 ── */}
       <section>
-        <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-5">
-          读过的句子
-        </h2>
+        <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-5">读过的句子</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {quotes.map((q, i) => (
             <motion.div
@@ -198,7 +180,10 @@ export default function AboutPage() {
                 }}
               />
 
-              <p className="text-sm leading-relaxed relative" style={{ color: stickyNotes[i].textColor }}>
+              <p
+                className="text-sm leading-relaxed relative"
+                style={{ color: stickyNotes[i].textColor }}
+              >
                 &ldquo;{q.text}&rdquo;
               </p>
               <div className="mt-3 flex items-center gap-2 relative">
@@ -224,9 +209,7 @@ export default function AboutPage() {
 
       {/* ── 照片展区占位 ── */}
       <section>
-        <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-5">
-          🌿 一些瞬间
-        </h2>
+        <h2 className="text-xs uppercase tracking-widest text-earth-300 mb-5">🌿 一些瞬间</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           {photoPlaceholders.map((p, i) => (
             <motion.div
@@ -245,9 +228,7 @@ export default function AboutPage() {
             </motion.div>
           ))}
         </div>
-        <p className="mt-4 text-xs text-earth-300 text-center italic">
-          （等放了照片会更生动）
-        </p>
+        <p className="mt-4 text-xs text-earth-300 text-center italic">（等放了照片会更生动）</p>
       </section>
     </div>
   );

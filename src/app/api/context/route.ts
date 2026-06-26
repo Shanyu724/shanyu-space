@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAllPosts, getPost, getTools, getProjects, getToolAIContext } from "@/lib/content";
+import { getMe } from "@/lib/me";
 
 /**
  * 上下文 API：根据当前路径返回页面相关文本，供 AI 问答时拼到 system prompt。
@@ -16,13 +17,15 @@ import { getAllPosts, getPost, getTools, getProjects, getToolAIContext } from "@
  *   - none: 仅返回 path
  */
 
-const ABOUT_CONTEXT = `关于"山雨"
-- 「山雨」取自苏轼"山色空蒙雨亦奇"——雨中的世界反而有种特别的清晰
-- 一个正在构建知识体系的人
-- 目前备考金融工程方向的研究生
-- 长期关注：地缘政治的多源交叉验证、金融制度的机制设计分析、AI 对社会组织生产的深层影响、系统性思考与深度内容创作
-- 当前状态：考研备考中，数学三 / 英语一 / 经济学 802 / 政治四门并行
-- 数字花园的定位：不追热点，只放深度、真诚、独立思考的内容`;
+const ABOUT_CONTEXT = (() => {
+  const me = getMe();
+  return `关于"${me.name}"
+- 名字来源：${me.about.nameOrigin}
+- 当前在做什么：${me.about.whatIDo}
+- 长期关注：${me.about.interests.map((i) => i.label).join("、")}
+- 当前状态：${me.about.currentStatus.join("；")}
+- 站点定位：${me.tagline}`;
+})();
 
 const BEHIND_CONTEXT = `关于"幕后"
 - 这是山雨·个人站的"幕后"页面，介绍站点是怎么做的、为什么这么做

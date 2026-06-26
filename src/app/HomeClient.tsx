@@ -10,6 +10,7 @@ import { SectionDivider } from "@/components/decorative";
 import { MouseScrollHint } from "@/components/MouseScrollHint";
 import { getCategoryMeta } from "@/lib/utils";
 import type { Post } from "@/lib/content";
+import type { Me } from "@/lib/me";
 
 interface CategoryInfo {
   id: string;
@@ -18,6 +19,7 @@ interface CategoryInfo {
 }
 
 interface HomeClientProps {
+  me: Me;
   categories: CategoryInfo[];
   latestPosts: Post[];
   labels: Record<string, string>;
@@ -25,18 +27,22 @@ interface HomeClientProps {
 
 const ENTRIES: { href: string; icon: string; label: string; sub: string }[] = [
   { href: "/blog", icon: "/images/icon-blog.svg", label: "Blog", sub: "随便写的" },
-  { href: "/portfolio", icon: "/images/icon-portfolio.svg", label: "Portfolio", sub: "AI 协助下的项目作品集" },
-  { href: "/workshop", icon: "/images/icon-behind.svg", label: "Workshop", sub: "用 AI 做的小工具" },
+  {
+    href: "/portfolio",
+    icon: "/images/icon-portfolio.svg",
+    label: "Portfolio",
+    sub: "AI 协助下的项目作品集",
+  },
+  {
+    href: "/workshop",
+    icon: "/images/icon-behind.svg",
+    label: "Workshop",
+    sub: "用 AI 做的小工具",
+  },
   { href: "/about", icon: "/images/icon-me.svg", label: "Me", sub: "介绍一下我自己" },
 ];
 
-const NOW_ITEMS: { emoji: string; label: string; text: string }[] = [
-  { emoji: "📖", label: "在读", text: "等你更新……" },
-  { emoji: "✍️", label: "在写", text: "等你更新……" },
-  { emoji: "👀", label: "在关注", text: "等你更新……" },
-];
-
-export function HomeClient({ categories, latestPosts, labels }: HomeClientProps) {
+export function HomeClient({ me, categories, latestPosts, labels }: HomeClientProps) {
   const [guideOpen, setGuideOpen] = useState(true);
 
   return (
@@ -66,13 +72,20 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
             >
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 rounded-sm opacity-60 rotate-[-4deg] bg-rose-100 shadow-sm" />
               <div className="flex items-start gap-3 mb-3">
-                <Image src="/images/home-guide-sticker.svg" alt="guide" width={58} height={48} className="shrink-0" />
+                <Image
+                  src="/images/home-guide-sticker.svg"
+                  alt="guide"
+                  width={58}
+                  height={48}
+                  className="shrink-0"
+                />
                 <div className="min-w-0">
                   <h3 className="text-sm font-medium text-mint-700 flex items-center gap-1">
                     💡 关于这个网站
                   </h3>
                   <p className="text-[11px] text-mint-500 mt-1 leading-relaxed">
-                    灵感由 AI 和我联袂赞助，托管在 Vercel 上，慢慢长成一个像 QQ 空间又像手账的个人站。
+                    灵感由 AI 和我联袂赞助，托管在 Vercel 上，慢慢长成一个像 QQ
+                    空间又像手账的个人站。
                   </p>
                 </div>
                 <button
@@ -151,21 +164,23 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
                   <span>🌄</span>
                 </div>
               </div>
+              <p className="text-[11px] tracking-[0.28em] text-mint-500 uppercase">
+                Hi, this is {me.name}
+              </p>
               <h1
-                className="text-4xl md:text-6xl text-mint-800 leading-tight italic tracking-tight"
+                className="mt-3 text-4xl md:text-5xl text-mint-800 leading-tight italic tracking-tight"
                 style={{ fontFamily: "var(--font-handwriting)" }}
               >
-                Welcome to My Wonderland
+                {me.signature}
               </h1>
-              <p className="mt-3 text-[11px] tracking-[0.28em] text-mint-500 uppercase">
-                Hi, this is 山雨
-              </p>
               <p className="mt-4 text-sm text-mint-700 max-w-[30rem] mx-auto leading-relaxed">
-                地缘观察 · 金融制度 · 学习笔记 · 随笔。
-                这里不是信息流，是慢慢长出来的个人小院。
+                {me.about.whatIDo}
               </p>
 
-              <nav aria-label="Main sections" className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+              <nav
+                aria-label="Main sections"
+                className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto"
+              >
                 {ENTRIES.map((e, i) => (
                   <motion.div
                     key={e.href}
@@ -186,7 +201,9 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
                           style={{ fontFamily: "var(--font-handwriting)" }}
                         >
                           {e.label}
-                          <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                          <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            →
+                          </span>
                         </span>
                         <span className="block text-xs text-mint-500 leading-snug mt-0.5">
                           {e.sub}
@@ -212,7 +229,10 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
           <section className="mb-16">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xs uppercase tracking-widest text-mint-600">分类</h2>
-              <span className="font-handwriting text-base text-rose-400" style={{ fontFamily: "var(--font-handwriting)" }}>
+              <span
+                className="font-handwriting text-base text-rose-400"
+                style={{ fontFamily: "var(--font-handwriting)" }}
+              >
                 {categories.length} ways to wander
               </span>
             </div>
@@ -228,7 +248,9 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
                             <div className="pl-2">
                               <div className="flex items-center gap-2 mb-2">
                                 <span className="text-xl">{meta.emoji}</span>
-                                <h3 className="font-medium text-mint-700 title-hover">{cat.label}</h3>
+                                <h3 className="font-medium text-mint-700 title-hover">
+                                  {cat.label}
+                                </h3>
                               </div>
                               <p className="text-xs text-mint-600 leading-relaxed line-clamp-3">
                                 {cat.description}
@@ -251,7 +273,10 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
           <section className="mb-16">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xs uppercase tracking-widest text-mint-600">最新文章</h2>
-              <Link href="/blog" className="text-sm text-mint-600 hover:text-rose-400 transition-colors inline-flex items-center gap-1">
+              <Link
+                href="/blog"
+                className="text-sm text-mint-600 hover:text-rose-400 transition-colors inline-flex items-center gap-1"
+              >
                 查看全部<span>→</span>
               </Link>
             </div>
@@ -265,10 +290,16 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
                         <NotebookCard accentColor={meta.color} className="p-5 h-full">
                           <div className="pl-2">
                             <div className="flex items-center gap-2 mb-3">
-                              <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: `${meta.color}18`, color: meta.color }}>
+                              <span
+                                className="text-xs px-2 py-0.5 rounded-full"
+                                style={{ backgroundColor: `${meta.color}18`, color: meta.color }}
+                              >
                                 {meta.emoji} {labels[post.category] || post.category}
                               </span>
-                              <span className="font-handwriting text-base text-rose-400" style={{ fontFamily: "var(--font-handwriting)" }}>
+                              <span
+                                className="font-handwriting text-base text-rose-400"
+                                style={{ fontFamily: "var(--font-handwriting)" }}
+                              >
                                 {post.frontmatter.date}
                               </span>
                             </div>
@@ -288,28 +319,6 @@ export function HomeClient({ categories, latestPosts, labels }: HomeClientProps)
                 })}
               </div>
             </StaggerContainer>
-          </section>
-        </FadeIn>
-
-        <FadeIn delay={0.2}>
-          <section className="mb-12 now-line">
-            <div className="pl-6 py-5 rounded-xl bg-mint-50/80 border border-mint-100">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-base">🌱</span>
-                <h2 className="text-xs uppercase tracking-widest text-mint-700 font-medium">此刻</h2>
-                <span className="ml-auto font-handwriting text-base text-rose-400" style={{ fontFamily: "var(--font-handwriting)" }}>山雨 · now</span>
-              </div>
-              <ul className="space-y-2.5">
-                {NOW_ITEMS.map((item, i) => (
-                  <li key={i} className="flex items-baseline gap-3 group">
-                    <span className="text-base shrink-0 select-none" aria-hidden="true">{item.emoji}</span>
-                    <span className="text-xs text-mint-600 shrink-0 w-10">{item.label}</span>
-                    <span className="text-sm text-mint-700/90 font-serif italic tracking-wide">{item.text}</span>
-                    <span aria-hidden="true" className="flex-1 border-b border-dotted border-mint-200/80 translate-y-[-3px] opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </li>
-                ))}
-              </ul>
-            </div>
           </section>
         </FadeIn>
       </div>
