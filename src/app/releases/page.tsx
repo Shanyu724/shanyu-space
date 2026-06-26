@@ -17,6 +17,24 @@ export interface ReleaseEntry {
 
 const releases: ReleaseEntry[] = [
   {
+    version: "v1.6",
+    date: "2026-06-26",
+    title: "Blog 分类重构 · 从 4 类扩到 6 类",
+    tag: "refactor",
+    summary:
+      "4 类太粗——把内容切得更准：把「数模推演」和「标的解构」拆出来单立，旧 4 类保留但改名精化。现有 5 篇文章位置不动，只改 label 和目录 slug。",
+    highlights: [
+      { emoji: "📐", text: "新增「数模推演」(modeling) — 数学与模型推导" },
+      { emoji: "🏗️", text: "新增「标的解构」(assets) — 拆具体资产、工具与契约" },
+      { emoji: "🌐", text: "地缘观察 → 宏观视野 (macro)，geo/ 目录同步迁到 macro/" },
+      { emoji: "🏦", text: "金融制度 → 金融洞察 (finance)" },
+      { emoji: "📚", text: "学习笔记 → 研习札记 (study)" },
+      { emoji: "✍️", text: "随笔 → 随笔杂谈 (essays)" },
+      { emoji: "🎨", text: "utils.categoryMeta 同步：6 类配色 / emoji 全更新" },
+      { emoji: "🤖", text: "AI 提示词 + SITE_DESCRIPTION + 6 处代码引用全部同步" },
+    ],
+  },
+  {
     version: "v1.5",
     date: "2026-06-26",
     title: "右栏目录整合 · 阅读体验打磨",
