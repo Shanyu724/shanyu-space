@@ -1,26 +1,39 @@
+import { type ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
+import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import type { Components } from "react-markdown";
 
-/**
- * 把任意字符串转成 URL 友好的 slug
- * - 中文 → 保留（用 encodeURIComponent 编码）
- * - 空格 → -
- * - 特殊字符 → 移除
- */
 function slugify(text: string): string {
   return text
     .trim()
     .toLowerCase()
     .replace(/[\s]+/g, "-")
-    .replace(/[^\p{L}\p{N}\-一-龥]/gu, "")
+    .replace(/[^\p{L}\p{N}\-]/gu, "")
     .replace(/^-+|-+$/g, "");
+}
+
+function getNodeText(node: ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") {
+    return String(node);
+  }
+
+  if (Array.isArray(node)) {
+    return node.map((item) => getNodeText(item)).join("");
+  }
+
+  if (node && typeof node === "object" && "props" in node) {
+    const props = node.props as { children?: ReactNode };
+    return getNodeText(props.children);
+  }
+
+  return "";
 }
 
 const components: Components = {
   h2: ({ children, ...props }) => {
-    const text = String(children ?? "");
-    const id = slugify(text);
+    const id = slugify(getNodeText(children));
     return (
       <h2 id={id} {...props}>
         {children}
@@ -28,8 +41,7 @@ const components: Components = {
     );
   },
   h3: ({ children, ...props }) => {
-    const text = String(children ?? "");
-    const id = slugify(text);
+    const id = slugify(getNodeText(children));
     return (
       <h3 id={id} {...props}>
         {children}
@@ -47,7 +59,7 @@ const components: Components = {
     </a>
   ),
   img: ({ src, alt, ...props }) => (
-    <span className="block my-6">
+    <span className="my-6 block">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
@@ -62,13 +74,16 @@ const components: Components = {
 
 export function MarkdownRenderer({ content }: { content: string }) {
   return (
-    <ReactMarkdown components={components} remarkPlugins={[remarkGfm]}>
+    <ReactMarkdown
+      components={components}
+      remarkPlugins={[remarkGfm, remarkMath]}
+      rehypePlugins={[rehypeKatex]}
+    >
       {content}
     </ReactMarkdown>
   );
 }
 
-/* Extract TOC items from markdown content */
 export function extractToc(content: string): { id: string; text: string; level: number }[] {
   const lines = content.replace(/\r\n?/g, "\n").split("\n");
   const items: { id: string; text: string; level: number }[] = [];

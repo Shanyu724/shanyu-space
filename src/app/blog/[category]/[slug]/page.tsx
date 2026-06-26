@@ -1,6 +1,11 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllPosts, getPost, getCategoryLabel, getPostsByCategory } from "@/lib/content";
+import {
+  getAllCategories,
+  getAllPosts,
+  getCategoryLabel,
+  getPost,
+  getPostsByCategory,
+} from "@/lib/content";
 import { PostClient } from "./PostClient";
 
 export function generateStaticParams() {
@@ -17,12 +22,13 @@ export default async function PostPage({
 }) {
   const { category, slug } = await params;
   const post = getPost(category, slug);
+  const categories = getAllCategories();
+  const allPosts = getAllPosts();
 
   if (!post) {
     notFound();
   }
 
-  // 同分类的其他文章（最多 3 篇，排除当前文章）
   const relatedPosts = getPostsByCategory(category)
     .filter((p) => p.slug !== slug)
     .slice(0, 3);
@@ -33,6 +39,8 @@ export default async function PostPage({
       categoryLabel={getCategoryLabel(category)}
       post={post}
       relatedPosts={relatedPosts}
+      categories={categories}
+      allPosts={allPosts}
     />
   );
 }

@@ -18,6 +18,23 @@ export interface ReleaseEntry {
 
 const releases: ReleaseEntry[] = [
   {
+    version: "v1.7",
+    date: "2026-06-27",
+    title: "古风静谧化收束 · 首页 / Blog / 作品集联动调整",
+    tag: "polish",
+    summary:
+      "这一版不是继续加东西，而是把前面几轮堆出来的视觉和布局重新收口。首页修掉乱码与无效提示，Blog 首页删去多余统计块、统一书架文案，作品集首屏从手帐式装饰退回更安静的展陈感；同时把文章页的目录与返回文案清理干净，并正式接入数学公式渲染。",
+    highlights: [
+      { icon: "image", text: "首页入口卡片右侧乱码箭头修复，海报首屏中文文案恢复正常" },
+      { icon: "layers", text: "Blog 左侧书架标题改为“博客 Blog”，中部 3 个统计块删除" },
+      { icon: "book", text: "文章页返回按钮、目录标题、相关推荐等可见文案统一清理" },
+      { icon: "focus", text: "作品集首屏改为更克制的展陈式结构，移除纸夹/胶带/共创标签/滚动提示" },
+      { icon: "ruler", text: "Header 手机端按钮右对齐策略调整，移动端观感更自然" },
+      { icon: "draft", text: "MarkdownRenderer 接入 remark-math + rehype-katex，公式可专业排版" },
+      { icon: "spark", text: "关闭 Next devIndicators，开发态不再出现左下角 3 Issues 红色提示块" },
+    ],
+  },
+  {
     version: "v1.6",
     date: "2026-06-26",
     title: "Blog 分类重构 · 从 4 类扩到 6 类",

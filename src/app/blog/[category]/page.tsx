@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { getPostsByCategory, getCategoryLabel, getCategoryDescription } from "@/lib/content";
+import { getAllCategories, getAllPosts, getPostsByCategory, getCategoryLabel, getCategoryDescription } from "@/lib/content";
 import { CategoryClient } from "./CategoryClient";
 
 export function generateStaticParams() {
@@ -12,8 +11,17 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   const posts = getPostsByCategory(category);
   const label = getCategoryLabel(category);
   const description = getCategoryDescription(category);
+  const categories = getAllCategories();
+  const allPosts = getAllPosts();
 
   return (
-    <CategoryClient category={category} posts={posts} label={label} description={description} />
+    <CategoryClient
+      category={category}
+      posts={posts}
+      label={label}
+      description={description}
+      categories={categories}
+      allPosts={allPosts}
+    />
   );
 }

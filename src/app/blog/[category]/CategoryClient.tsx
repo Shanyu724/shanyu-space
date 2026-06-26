@@ -2,238 +2,181 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { FadeIn } from "@/components/animations";
+import { BlogShelfNav } from "@/components/BlogShelfNav";
 import { SiteIcon } from "@/components/SiteIcon";
-import { getCategoryMeta } from "@/lib/utils";
 import type { Post } from "@/lib/content";
+import { getCategoryMeta } from "@/lib/utils";
+
+interface CategoryInfo {
+  id: string;
+  label: string;
+  description: string;
+}
 
 interface CategoryClientProps {
   category: string;
   posts: Post[];
   label: string;
   description: string;
+  categories: CategoryInfo[];
+  allPosts: Post[];
 }
 
-const CATEGORY_NOTES: Record<string, string[]> = {
-  modeling: ["从假设出发", "把直觉翻译成公式", "先验证再下结论"],
-  finance: ["从制度机制切入", "看激励结构", "少讲结论，多拆过程"],
-  study: ["把概念讲给未来的自己", "公式背后要有直觉", "考研笔记也可以有结构美"],
-  assets: ["拆条款看激励", "顺着现金流走", "结构比标签更重要"],
-  macro: ["多源交叉验证", "不急着站队", "先看信息来源的动机"],
-  essays: ["不追热点", "允许未完成", "用小题目保存真实想法"],
-};
-
-export function CategoryClient({ category, posts, label, description }: CategoryClientProps) {
+export function CategoryClient({
+  category,
+  posts,
+  label,
+  description,
+  categories,
+  allPosts,
+}: CategoryClientProps) {
   const meta = getCategoryMeta(category);
-  const notes = CATEGORY_NOTES[category] || ["慢慢写", "慢慢改", "慢慢沉淀"];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-14">
-      {/* 顶部返回 + 标题 */}
-      <FadeIn>
-        <Link
-          href="/blog"
-          className="text-sm text-mint-500 hover:text-rose-400 transition-colors mb-8 inline-flex items-center gap-1"
-        >
-          <span>←</span> 返回博客
-        </Link>
-      </FadeIn>
+    <div className="mx-auto max-w-[94rem] px-4 py-8 sm:px-6 md:py-10">
+      <div className="blog-shell grid gap-6 xl:grid-cols-[18.5rem_minmax(0,1fr)]">
+        <BlogShelfNav categories={categories} posts={allPosts} currentCategory={category} />
 
-      <div className="lg:flex lg:gap-8 lg:items-start">
-        {/* 左栏：分类文章列表 */}
-        <main className="lg:w-[56%] lg:min-w-0 mb-12 lg:mb-0">
-          <FadeIn delay={0.06}>
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-2">
-                <SiteIcon
-                  name={meta.icon}
-                  className="h-10 w-10 select-none"
+        <main className="min-w-0 space-y-6">
+          <FadeIn>
+            <section className="blog-surface rounded-[1.45rem] px-5 py-5 md:px-7 md:py-7">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 rounded-full border border-mint-900/10 bg-white/38 px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-earth-300 transition-colors hover:text-rose-500"
+              >
+                <span>←</span>
+                <span>返回目录</span>
+              </Link>
+
+              <div className="mt-6 flex items-start gap-4">
+                <span
+                  className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-mint-900/10 bg-white/48"
                   style={{ color: meta.color }}
-                />
-                <div>
-                  <p
-                    className="font-handwriting text-base text-rose-400 leading-none"
-                    style={{ fontFamily: "var(--font-handwriting)" }}
-                  >
-                    category
-                  </p>
-                  <h1 className="text-3xl md:text-4xl font-serif font-bold text-mint-800 leading-tight">
+                >
+                  <SiteIcon name={meta.icon} className="h-7 w-7" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[11px] uppercase tracking-[0.34em] text-earth-300">Volume</p>
+                  <h1 className="mt-2 font-serif text-[clamp(2.5rem,4vw,3.8rem)] leading-[0.94] text-mint-900">
                     {label}
                   </h1>
+                  <p className="mt-4 max-w-[40rem] text-sm leading-7 text-mint-700 md:text-[15px]">
+                    {description}
+                  </p>
                 </div>
               </div>
-              {description && (
-                <p className="text-sm text-mint-600 leading-relaxed max-w-xl ml-14">
-                  {description}
-                </p>
-              )}
-            </div>
+            </section>
           </FadeIn>
 
-          {posts.length > 0 ? (
-            <StaggerContainer staggerDelay={0.07}>
-              <div className="relative pl-5 border-l border-dashed border-mint-200/80 space-y-5">
-                {posts.map((post) => (
-                  <StaggerItem key={post.slug}>
-                    <motion.article
-                      whileHover={{ x: 3 }}
-                      transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                      className="relative"
-                    >
-                      {/* 时间线圆点 */}
-                      <span
-                        className="absolute -left-[1.72rem] top-5 w-3 h-3 rounded-full border-2 border-white shadow-sm"
-                        style={{ backgroundColor: meta.color }}
-                        aria-hidden="true"
-                      />
-                      <Link
-                        href={`/blog/${category}/${post.slug}`}
-                        className="group block p-5 rounded-2xl bg-white/75 border border-mint-100/70 backdrop-blur-sm hover:border-rose-300 transition-colors"
+          <FadeIn delay={0.08}>
+            <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_18rem]">
+              <div className="blog-surface rounded-[1.5rem] px-5 py-5 md:px-7 md:py-7">
+                <div className="flex items-center justify-between gap-3 border-b border-mint-900/10 pb-4">
+                  <div>
+                    <p className="text-[11px] uppercase tracking-[0.32em] text-earth-300">Archive</p>
+                    <h2 className="mt-2 font-serif text-[2rem] leading-none text-mint-900">这一卷的文章</h2>
+                  </div>
+                  <span className="rounded-full border border-mint-900/10 bg-white/45 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-earth-300">
+                    {posts.length} 篇
+                  </span>
+                </div>
+
+                {posts.length > 0 ? (
+                  <div className="mt-5 space-y-4">
+                    {posts.map((post, index) => (
+                      <motion.article
+                        key={post.slug}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, delay: 0.08 + index * 0.05 }}
                       >
-                        <div className="flex items-center gap-2 mb-2">
-                          <span
-                            className="text-[11px] px-2 py-0.5 rounded-full"
-                            style={{
-                              backgroundColor: `${meta.color}18`,
-                              color: meta.color,
-                            }}
-                          >
-                            {label}
-                          </span>
-                          <span
-                            className="font-handwriting text-base text-rose-400"
-                            style={{ fontFamily: "var(--font-handwriting)" }}
-                          >
-                            {post.frontmatter.date}
-                          </span>
-                        </div>
-                        <h2 className="font-handwriting text-2xl text-mint-800 group-hover:text-rose-500 transition-colors leading-snug">
-                          {post.frontmatter.title}
-                        </h2>
-                        {post.frontmatter.description && (
-                          <p className="mt-2 text-sm text-mint-600 line-clamp-2 leading-relaxed">
-                            {post.frontmatter.description}
-                          </p>
-                        )}
-                        {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-1.5">
-                            {post.frontmatter.tags.map((tag) => (
-                              <span key={tag} className="text-xs text-mint-400">
-                                #{tag}
-                              </span>
-                            ))}
+                        <Link
+                          href={`/blog/${category}/${post.slug}`}
+                          className="group block rounded-[1.25rem] border border-mint-900/8 bg-white/55 px-5 py-5 transition-all hover:-translate-y-0.5 hover:border-mint-900/16 hover:bg-white/72"
+                        >
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span
+                              className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px]"
+                              style={{ backgroundColor: `${meta.color}18`, color: meta.color }}
+                            >
+                              <SiteIcon name={meta.icon} className="h-3.5 w-3.5" />
+                              <span>{label}</span>
+                            </span>
+                            <span className="text-[11px] tracking-[0.08em] text-earth-300">
+                              {post.frontmatter.date.replace(/-/g, ".")}
+                            </span>
                           </div>
-                        )}
-                      </Link>
-                    </motion.article>
-                  </StaggerItem>
-                ))}
+
+                          <h3 className="mt-4 font-serif text-[1.9rem] leading-tight text-mint-900 transition-colors group-hover:text-rose-500">
+                            {post.frontmatter.title}
+                          </h3>
+
+                          {post.frontmatter.description && (
+                            <p className="mt-3 max-w-[44rem] text-sm leading-7 text-mint-700">
+                              {post.frontmatter.description}
+                            </p>
+                          )}
+
+                          {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+                            <div className="mt-4 flex flex-wrap gap-2">
+                              {post.frontmatter.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="rounded-full border border-mint-900/8 bg-white/48 px-2 py-1 text-[11px] text-mint-500"
+                                >
+                                  #{tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </Link>
+                      </motion.article>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-5 rounded-[1.25rem] border border-dashed border-mint-100/90 bg-white/35 px-5 py-10 text-center">
+                    <SiteIcon name="sprout" className="mx-auto h-8 w-8 text-mint-400" />
+                    <p className="mt-4 font-serif text-2xl text-mint-800">这一卷还未展开</p>
+                    <p className="mt-2 text-sm text-mint-500">目录已经放好，文章会慢慢补进来。</p>
+                  </div>
+                )}
               </div>
-            </StaggerContainer>
-          ) : (
-            <FadeIn delay={0.12}>
-              <div className="py-20 text-center text-mint-400 rounded-2xl bg-white/60 border border-mint-100/70">
-                <div className="mb-4 flex justify-center">
-                  <SiteIcon name="sprout" className="h-10 w-10 text-mint-400" />
+
+              <div className="blog-surface rounded-[1.5rem] px-5 py-5 md:px-6">
+                <p className="text-[11px] uppercase tracking-[0.32em] text-earth-300">Volumes</p>
+                <div className="mt-4 space-y-3">
+                  {categories
+                    .filter((item) => item.id !== category)
+                    .map((item) => {
+                      const itemMeta = getCategoryMeta(item.id);
+                      return (
+                        <Link
+                          key={item.id}
+                          href={`/blog/${item.id}`}
+                          className="group flex items-start gap-3 rounded-[1.1rem] border border-mint-900/8 bg-white/40 px-4 py-3 transition-all hover:border-mint-900/14 hover:bg-white/65"
+                        >
+                          <span
+                            className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-full border border-mint-900/10 bg-white/60"
+                            style={{ color: itemMeta.color }}
+                          >
+                            <SiteIcon name={itemMeta.icon} className="h-4 w-4" />
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-medium text-mint-900 transition-colors group-hover:text-rose-500">
+                              {item.label}
+                            </h3>
+                            <p className="mt-1 text-xs leading-6 text-mint-600">{item.description}</p>
+                          </div>
+                        </Link>
+                      );
+                    })}
                 </div>
-                <p
-                  className="font-handwriting text-2xl"
-                  style={{ fontFamily: "var(--font-handwriting)" }}
-                >
-                  this category is sprouting
-                </p>
-                <p className="text-xs mt-1">这个分类还没有文章</p>
               </div>
-            </FadeIn>
-          )}
-        </main>
-
-        {/* 右栏：分类说明卡 */}
-        <aside className="hidden lg:block lg:flex-1 lg:min-w-0 lg:sticky lg:top-2">
-          <FadeIn delay={0.14}>
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-mint-100/70 p-7">
-              <div
-                className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-20 h-3 rounded-sm opacity-60 rotate-[-2deg]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(241,233,233,0.92) 0%, rgba(210,176,176,0.55) 100%)",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
-                }}
-              />
-
-              <div className="text-center mb-6">
-                <SiteIcon
-                  name={meta.icon}
-                  className="inline-block mb-2 h-12 w-12"
-                  style={{ color: meta.color }}
-                />
-                <h2
-                  className="text-4xl text-mint-700"
-                  style={{ fontFamily: "var(--font-handwriting)" }}
-                >
-                  {label}
-                </h2>
-                <p className="text-sm text-mint-500 mt-2 leading-relaxed">
-                  {description || "一个正在慢慢长出来的分类。"}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2 mb-7">
-                <InfoTile value={posts.length.toString()} label="articles" />
-                <InfoTile value="slow" label="pace" />
-                <InfoTile value="notes" label="form" />
-              </div>
-
-              <div className="mb-7">
-                <h3
-                  className="text-2xl text-mint-700 mb-3 text-center"
-                  style={{ fontFamily: "var(--font-handwriting)" }}
-                >
-                  这个分类怎么写
-                </h3>
-                <ul className="space-y-2.5">
-                  {notes.map((note, i) => (
-                    <motion.li
-                      key={note}
-                      initial={{ opacity: 0, x: -5 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.22 + i * 0.06 }}
-                      className="flex items-baseline gap-2 text-sm text-mint-700"
-                    >
-                      <span className="text-rose-400">·</span>
-                      <span>{note}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="pt-5 border-t border-dashed border-mint-200/80 text-center">
-                <Link
-                  href="/blog"
-                  className="inline-flex items-center gap-1 text-sm text-mint-600 hover:text-rose-400 transition-colors"
-                >
-                  <span>←</span>
-                  <span>回到 Blog 总览</span>
-                </Link>
-              </div>
-            </div>
+            </section>
           </FadeIn>
-        </aside>
+        </main>
       </div>
-    </div>
-  );
-}
-
-function InfoTile({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-xl bg-mint-50/70 border border-mint-100/80 p-3 text-center">
-      <div
-        className="text-2xl text-rose-400 leading-none"
-        style={{ fontFamily: "var(--font-handwriting)" }}
-      >
-        {value}
-      </div>
-      <div className="text-[10px] uppercase tracking-wider text-mint-500 mt-1">{label}</div>
     </div>
   );
 }
