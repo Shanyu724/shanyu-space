@@ -70,7 +70,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
 
 /* Extract TOC items from markdown content */
 export function extractToc(content: string): { id: string; text: string; level: number }[] {
-  const lines = content.split("\n");
+  const lines = content.replace(/\r\n?/g, "\n").split("\n");
   const items: { id: string; text: string; level: number }[] = [];
 
   for (const line of lines) {

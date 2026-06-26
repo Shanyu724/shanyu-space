@@ -32,7 +32,7 @@ export function ScrollToTop() {
           exit={{ opacity: 0, y: 10, scale: 0.8 }}
           transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
           onClick={scrollToTop}
-          className="fixed bottom-20 right-5 z-40 w-10 h-10 rounded-full bg-white/90 backdrop-blur border border-mint-200 shadow-md flex items-center justify-center text-mint-600 hover:text-rose-400 hover:bg-mint-50 transition-colors"
+          className="fixed bottom-20 right-5 z-40 w-10 h-10 rounded-lg bg-cream-50/90 backdrop-blur border border-mint-900/12 shadow-md flex items-center justify-center text-mint-700 hover:text-rose-500 hover:bg-cream-50 transition-colors"
           aria-label="返回顶部"
         >
           <svg

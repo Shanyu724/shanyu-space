@@ -54,20 +54,20 @@ export default function Header() {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b border-mint-100/40 shadow-sm rounded-b-2xl animate-navbarDrop">
-      <div className="container max-w-[26rem] md:max-w-none flex flex-row py-3 px-6 sm:px-10 items-center justify-between text-center">
+    <header className="fixed top-0 left-0 w-full z-50 bg-cream-50/80 backdrop-blur-xl border-b border-mint-900/10 shadow-[0_16px_45px_-34px_rgba(24,53,39,0.5)] animate-navbarDrop">
+      <div className="container max-w-[26rem] md:max-w-none flex flex-row py-3 px-5 sm:px-10 items-center justify-between text-center">
         <Link
           href="/"
-          className="flex items-center gap-2 whitespace-nowrap text-2xl font-extrabold text-mint-500 tracking-tight select-none drop-shadow-sm hover:text-rose-400 transition-colors duration-200 group"
+          className="flex items-center gap-2.5 whitespace-nowrap text-2xl font-extrabold text-mint-700 tracking-tight select-none hover:text-rose-500 transition-colors duration-200 group"
         >
-          <span className="w-7 h-7 inline-flex items-center justify-center animate-gentle-spin group-hover:animate-gentle-spin-fast">
+          <span className="w-8 h-8 inline-flex items-center justify-center rounded-full border border-mint-900/15 bg-mint-50/70 animate-gentle-spin group-hover:animate-gentle-spin-fast">
             <Logo />
           </span>
-          <span
-            className="font-handwriting text-3xl"
-            style={{ fontFamily: "var(--font-handwriting)" }}
-          >
-            Wonderland
+          <span className="flex flex-col items-start leading-none">
+            <span className="font-serif text-[1.15rem] tracking-[0.18em]">山雨</span>
+            <span className="mt-1 text-[10px] uppercase tracking-[0.34em] text-mint-500">
+              field notes
+            </span>
           </span>
         </Link>
 
@@ -89,7 +89,7 @@ export default function Header() {
                   <Link
                     href={item.href}
                     title={item.description}
-                    className={`nav-dashed text-base inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}
+                    className={`nav-dashed text-[0.92rem] inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}
                   >
                     {content}
                     <svg
@@ -108,7 +108,7 @@ export default function Header() {
                     </svg>
                   </Link>
                   <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="bg-white/95 backdrop-blur rounded-xl border border-mint-100 shadow-lg py-2 min-w-[140px]">
+                    <div className="bg-cream-50/96 backdrop-blur rounded-lg border border-mint-900/10 shadow-[0_18px_50px_-28px_rgba(24,53,39,0.45)] py-2 min-w-[150px]">
                       {item.children.map((sub) => (
                         <Link
                           key={sub.href}
@@ -116,7 +116,7 @@ export default function Header() {
                           className={`block px-4 py-2 text-sm transition-colors ${
                             isActive(sub.href)
                               ? "text-rose-500 font-medium"
-                              : "text-mint-800 hover:bg-mint-50 hover:text-rose-400"
+                              : "text-mint-800 hover:bg-mint-50 hover:text-rose-500"
                           }`}
                         >
                           {sub.label}
@@ -133,7 +133,7 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 title={item.description}
-                className={`nav-dashed text-base inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}
+                className={`nav-dashed text-[0.92rem] inline-flex items-center gap-1.5 ${active ? "is-active" : ""}`}
               >
                 {content}
               </Link>
@@ -144,7 +144,7 @@ export default function Header() {
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-xl border border-mint-200/80 bg-white/80 shadow-sm"
+          className="md:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg border border-mint-900/15 bg-cream-50/85 shadow-sm"
           aria-label="Toggle menu"
         >
           <span className="relative w-5 h-3.5 inline-block">
@@ -162,7 +162,7 @@ export default function Header() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden border-t border-mint-100/60 bg-white/95 backdrop-blur px-6 py-3">
+        <div className="md:hidden border-t border-mint-900/10 bg-cream-50/96 backdrop-blur px-6 py-3">
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => (
               <Link
@@ -171,8 +171,8 @@ export default function Header() {
                 onClick={() => setMenuOpen(false)}
                 className={`flex items-center gap-2 px-2 py-2 text-base ${
                   isActive(item.href)
-                    ? "text-rose-500 font-medium border-b-2 border-dashed border-rose-400 w-fit"
-                    : "text-mint-800 hover:text-rose-400"
+                    ? "text-rose-500 font-medium border-b border-mint-800 w-fit"
+                    : "text-mint-800 hover:text-rose-500"
                 }`}
               >
                 {item.icon && <Image src={item.icon} alt="" width={22} height={22} />}

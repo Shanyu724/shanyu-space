@@ -22,6 +22,10 @@ export interface Post {
   content: string;
 }
 
+function isPublished(frontmatter: PostFrontmatter): boolean {
+  return frontmatter.published !== false;
+}
+
 const categoryLabels: Record<string, string> = {
   modeling: "数模推演",
   finance: "金融洞察",
@@ -87,11 +91,14 @@ export function getAllPosts(): Post[] {
       const raw = fs.readFileSync(filePath, "utf-8");
       const { data, content } = matter(raw);
       const slug = file.replace(/\.(md|mdx)$/, "");
+      const frontmatter = normalizePostFrontmatter(data);
+
+      if (!isPublished(frontmatter)) continue;
 
       posts.push({
         slug,
         category: cat,
-        frontmatter: normalizePostFrontmatter(data),
+        frontmatter,
         content,
       });
     }
@@ -120,11 +127,14 @@ export function getPostsByCategory(category: string): Post[] {
     const raw = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(raw);
     const slug = file.replace(/\.(md|mdx)$/, "");
+    const frontmatter = normalizePostFrontmatter(data);
+
+    if (!isPublished(frontmatter)) continue;
 
     posts.push({
       slug,
       category,
-      frontmatter: normalizePostFrontmatter(data),
+      frontmatter,
       content,
     });
   }
@@ -145,10 +155,14 @@ export function getPost(category: string, slug: string): Post | null {
     if (fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, "utf-8");
       const { data, content } = matter(raw);
+      const frontmatter = normalizePostFrontmatter(data);
+
+      if (!isPublished(frontmatter)) return null;
+
       return {
         slug,
         category,
-        frontmatter: normalizePostFrontmatter(data),
+        frontmatter,
         content,
       };
     }

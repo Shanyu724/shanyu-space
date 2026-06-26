@@ -58,56 +58,44 @@ export function BlogClient({ posts, categories, labels }: BlogClientProps) {
     filter === "all" ? posts.length : posts.filter((p) => p.category === filter).length;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-14">
-      {/* ── 顶部标题区 ── */}
-      <FadeIn>
-        <div className="text-center mb-3">
-          <span
-            className="inline-flex items-center gap-1.5 text-mint-700 px-3 py-1 rounded-full bg-mint-100/70 border border-mint-200/60"
-            style={{ fontFamily: "var(--font-handwriting)", fontSize: "0.95rem" }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
-            <span>blog</span>
-          </span>
-        </div>
-        <h1
-          className="text-center text-5xl md:text-6xl text-mint-700 leading-tight"
-          style={{ fontFamily: "var(--font-handwriting)" }}
-        >
-          博客
-        </h1>
-        <p className="mt-3 text-center text-xs text-mint-500 mb-10 tracking-wide">
-          四个方向 · 一些慢慢长出来的笔记
-        </p>
-      </FadeIn>
-
-      {/* ── 主体：两栏布局（lg+） ── */}
-      <div className="lg:flex lg:gap-8 lg:items-start">
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:py-14">
+      <div className="lg:flex lg:items-start lg:gap-8">
         {/* ── 左栏：文章列表 ── */}
-        <aside className="lg:w-[340px] lg:flex-shrink-0 mb-12 lg:mb-0">
+        <aside className="mb-12 lg:mb-0 lg:w-[25rem] lg:flex-shrink-0">
           {/* 过滤 pills */}
           <FadeIn delay={0.06}>
-            <div className="flex flex-wrap gap-1.5 mb-6">
-              <FilterPill active={filter === "all"} onClick={() => setFilter("all")}>
-                <SiteIcon name="book" className="h-4 w-4" />
-                <span>全部</span>
-                <span className="text-[10px] opacity-70">({posts.length})</span>
-              </FilterPill>
-              {categories.map((cat) => {
-                const meta = getCategoryMeta(cat.id);
-                const count = posts.filter((p) => p.category === cat.id).length;
-                return (
-                  <FilterPill
-                    key={cat.id}
-                    active={filter === cat.id}
-                    onClick={() => setFilter(cat.id)}
-                  >
-                    <SiteIcon name={meta.icon} className="h-4 w-4" />
-                    <span>{cat.label}</span>
-                    <span className="text-[10px] opacity-70">({count})</span>
-                  </FilterPill>
-                );
-              })}
+            <div className="rounded-[1.4rem] border border-mint-100/70 bg-white/78 p-4 backdrop-blur-sm">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.24em] text-earth-300">Index</p>
+                  <h2 className="mt-1 font-serif text-2xl text-mint-800">按分类阅读</h2>
+                </div>
+                <span className="rounded-full border border-mint-100/70 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-earth-300">
+                  {posts.length} notes
+                </span>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <FilterPill active={filter === "all"} onClick={() => setFilter("all")}>
+                  <SiteIcon name="book" className="h-4 w-4" />
+                  <span>全部</span>
+                  <span className="text-[10px] opacity-70">({posts.length})</span>
+                </FilterPill>
+                {categories.map((cat) => {
+                  const meta = getCategoryMeta(cat.id);
+                  const count = posts.filter((p) => p.category === cat.id).length;
+                  return (
+                    <FilterPill
+                      key={cat.id}
+                      active={filter === cat.id}
+                      onClick={() => setFilter(cat.id)}
+                    >
+                      <SiteIcon name={meta.icon} className="h-4 w-4" />
+                      <span>{cat.label}</span>
+                      <span className="text-[10px] opacity-70">({count})</span>
+                    </FilterPill>
+                  );
+                })}
+              </div>
             </div>
           </FadeIn>
 
@@ -116,29 +104,34 @@ export function BlogClient({ posts, categories, labels }: BlogClientProps) {
             {totalCount === 0 ? (
               <EmptyList />
             ) : (
-              <div className="space-y-8">
+              <div className="mt-6 space-y-5">
                 {categories.map((cat) => {
                   const list = grouped.get(cat.id);
                   if (!list || list.length === 0) return null;
                   const meta = getCategoryMeta(cat.id);
                   return (
-                    <section key={cat.id}>
-                      {/* 分组标题 */}
-                      <div className="flex items-center gap-2 mb-3">
+                    <section
+                      key={cat.id}
+                      className="rounded-[1.35rem] border border-mint-100/70 bg-white/75 p-4 backdrop-blur-sm"
+                    >
+                      <div className="mb-3 flex items-start gap-3">
                         <span
-                          className="inline-block h-2.5 w-2.5 rounded-sm"
-                          style={{ backgroundColor: `${meta.color}b0` }}
-                        />
-                        <h3
-                          className="font-handwriting text-xl text-mint-700"
-                          style={{ fontFamily: "var(--font-handwriting)" }}
+                          className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-mint-100/70 bg-mint-50/70"
+                          style={{ color: meta.color }}
                         >
-                          {cat.label}
-                        </h3>
-                        <span className="text-[11px] text-mint-400 ml-auto">{list.length} 篇</span>
+                          <SiteIcon name={meta.icon} className="h-5 w-5" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-serif text-2xl text-mint-800">{cat.label}</h3>
+                            <span className="ml-auto text-[11px] text-mint-400">
+                              {list.length} 篇
+                            </span>
+                          </div>
+                          <p className="mt-1 text-xs leading-6 text-mint-600">{cat.description}</p>
+                        </div>
                       </div>
-                      {/* 文章项 */}
-                      <ul className="space-y-3 pl-4 border-l border-dashed border-mint-200/70">
+                      <ul className="space-y-3 border-l border-dashed border-mint-200/70 pl-4">
                         {list.map((post) => (
                           <PostItem
                             key={`${post.category}/${post.slug}`}
@@ -178,10 +171,10 @@ function FilterPill({
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${
+      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
         active
-          ? "bg-mint-500 border-mint-500 text-white shadow-sm"
-          : "bg-white/70 border-mint-200 text-mint-700 hover:border-rose-300 hover:text-rose-500"
+          ? "border-mint-500 bg-mint-500 text-white shadow-sm"
+          : "border-mint-200 bg-white/70 text-mint-700 hover:border-rose-300 hover:text-rose-500"
       }`}
     >
       {children}
@@ -255,7 +248,7 @@ function WelcomeCard({ categories }: { categories: CategoryInfo[] }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-      className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-mint-100/70 p-8"
+      className="relative rounded-[1.65rem] border border-mint-100/70 bg-white/80 p-8 shadow-sm backdrop-blur-sm"
     >
       {/* 顶部胶带 */}
       <div
@@ -268,7 +261,7 @@ function WelcomeCard({ categories }: { categories: CategoryInfo[] }) {
       />
 
       {/* 标题 */}
-      <div className="text-center mb-6">
+      <div className="mb-6 text-center">
         <SiteIcon name="book" className="mb-2 inline-block h-9 w-9 text-mint-500" />
         <h2
           className="text-4xl text-mint-700 mt-2"
@@ -276,11 +269,10 @@ function WelcomeCard({ categories }: { categories: CategoryInfo[] }) {
         >
           欢迎来到山雨的 blog 区
         </h2>
-        <p className="mt-2 text-sm text-mint-500">在这里你可以读到四个方向的写作</p>
+        <p className="mt-2 text-sm text-mint-500">按分类阅读，比按时间刷过去更适合沉淀型写作。</p>
       </div>
 
-      {/* 四个方向 */}
-      <div className="grid grid-cols-2 gap-3 mb-8">
+      <div className="mb-8 grid grid-cols-2 gap-3">
         {categories.map((cat) => {
           const meta = getCategoryMeta(cat.id);
           return (

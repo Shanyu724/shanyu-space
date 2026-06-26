@@ -47,7 +47,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Amatic+SC:wght@400;700&family=Delius&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Marcellus&display=swap"
           rel="stylesheet"
         />
         {/* Theme init：首屏渲染前同步执行，避免 light → dark 闪烁。
@@ -59,8 +59,8 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-mint-100 min-h-screen">
-        {/* 半透明覆盖层（参考站结构性元素） */}
-        <div className="fixed inset-0 -z-10 bg-white/10 overflow-hidden pointer-events-none" />
+        {/* 页面光感覆盖层 */}
+        <div className="fixed inset-0 -z-10 bg-cream-50/20 overflow-hidden pointer-events-none" />
         {/* 全局圆点底纹（受 Floria 启发，与 paper noise 分层共存） */}
         <div className="dot-bg" aria-hidden="true" />
         {/* 外圈装饰 */}
@@ -69,9 +69,9 @@ export default function RootLayout({
         <Header />
 
         {/* 主浮卡：固定一屏，内部独立滚动 */}
-        <main className="main-background overflow-hidden mx-auto h-dvh p-4 sm:p-16 pt-[64px] sm:pt-[88px] print:h-auto print:overflow-visible print:p-0">
+        <main className="main-background overflow-hidden mx-auto h-dvh p-3 sm:p-10 lg:p-14 pt-[64px] sm:pt-[92px] print:h-auto print:overflow-visible print:p-0">
           <div
-            className="h-full overflow-auto print:h-auto print:overflow-visible rounded-2xl bg-white/60 backdrop-blur-sm border border-mint-100/60 shadow-sm"
+            className="h-full overflow-auto print:h-auto print:overflow-visible rounded-[1.15rem] bg-cream-50/82 backdrop-blur-md border border-mint-900/15 shadow-[0_28px_80px_-48px_rgba(24,53,39,0.65)]"
             id="main-scroll"
           >
             <RouteTransition>{children}</RouteTransition>

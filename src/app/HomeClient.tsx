@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
 import { NotebookCard } from "@/components/NotebookCard";
 import { SectionDivider } from "@/components/decorative";
@@ -44,223 +43,267 @@ const ENTRIES: { href: string; icon: string; label: string; sub: string }[] = [
 ];
 
 export function HomeClient({ me, categories, latestPosts, labels }: HomeClientProps) {
-  const [guideOpen, setGuideOpen] = useState(true);
-
   return (
     <>
-      {/* ── 第一屏：参考站式手账首页 ── */}
-      <section className="relative w-full min-h-[calc(100dvh-168px)] flex items-center justify-center px-4 py-8 overflow-hidden">
-        {/* 内层纸纹：比全局 bg 更像一张纸 */}
+      <section className="relative flex min-h-[calc(100dvh-148px)] w-full items-center justify-center overflow-hidden px-4 py-8 md:py-10">
         <div
           aria-hidden="true"
-          className="absolute inset-0 opacity-[0.35] pointer-events-none z-0"
+          className="pointer-events-none absolute inset-0 z-0 opacity-[0.52]"
           style={{
             backgroundImage:
-              "radial-gradient(var(--gradient-sage-fade) 1px, transparent 1px), linear-gradient(135deg, var(--gradient-card-from), var(--gradient-card-to))",
-            backgroundSize: "18px 18px, 100% 100%",
+              "linear-gradient(90deg, var(--luxury-line) 1px, transparent 1px), linear-gradient(0deg, var(--luxury-line) 1px, transparent 1px), linear-gradient(135deg, var(--gradient-card-from), var(--gradient-card-to))",
+            backgroundSize: "42px 42px, 42px 42px, 100% 100%",
           }}
         />
 
-        {/* Guide 浮窗：参考站首页“关于这个网站”提示卡 */}
-        <AnimatePresence>
-          {guideOpen && (
-            <motion.aside
-              initial={{ opacity: 0, y: 12, rotate: -2 }}
-              animate={{ opacity: 1, y: 0, rotate: -2 }}
-              exit={{ opacity: 0, y: 8, scale: 0.96 }}
-              transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
-              className="hidden lg:block absolute left-8 top-8 w-[300px] z-20 rounded-2xl bg-white/90 backdrop-blur-sm border border-mint-100 shadow-lg p-4"
-            >
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-4 rounded-sm opacity-60 rotate-[-4deg] bg-rose-100 shadow-sm" />
-              <div className="flex items-start gap-3 mb-3">
-                <Image
-                  src="/images/home-guide-sticker.svg"
-                  alt="guide"
-                  width={58}
-                  height={48}
-                  className="shrink-0"
-                />
-                <div className="min-w-0">
-                  <h3 className="text-sm font-medium text-mint-700 flex items-center gap-1">
-                    <SiteIcon name="spark" className="h-4 w-4 text-warm-500" />
-                    <span>关于这个网站</span>
-                  </h3>
-                  <p className="text-[11px] text-mint-500 mt-1 leading-relaxed">
-                    灵感由 AI 和我联袂赞助，托管在 Vercel 上，慢慢长成一个像 QQ
-                    空间又像手账的个人站。
-                  </p>
-                </div>
-                <button
-                  onClick={() => setGuideOpen(false)}
-                  className="ml-auto text-mint-400 hover:text-rose-400 transition-colors text-xs"
-                  aria-label="关闭指南"
-                >
-                  ×
-                </button>
-              </div>
-              <div className="pl-[70px] text-[11px] text-mint-600 leading-relaxed space-y-1">
-                <p className="inline-flex items-center gap-1.5">
-                  <SiteIcon name="code" className="h-3.5 w-3.5" />
-                  <span>Next / React / TS / Tailwind</span>
-                </p>
-                <p className="inline-flex items-center gap-1.5">
-                  <SiteIcon name="leaf" className="h-3.5 w-3.5" />
-                  <span>Blog · Portfolio · Workshop · About</span>
-                </p>
-                <p className="text-rose-400">感觉越来越像自己的小院子了……</p>
-              </div>
-            </motion.aside>
-          )}
-        </AnimatePresence>
-
-        {/* 右上/左下贴纸装饰 */}
-        <div
-          aria-hidden="true"
-          className="hidden sm:block absolute top-8 right-10 md:right-20 w-48 h-60 opacity-55 pointer-events-none -rotate-8 select-none"
-        >
-          <Image src="/images/flower-bouquet.svg" alt="" fill className="object-contain" />
-        </div>
-        <div
-          aria-hidden="true"
-          className="hidden sm:block absolute bottom-8 left-6 md:left-16 w-48 h-60 opacity-45 pointer-events-none -rotate-12 select-none"
-        >
-          <Image src="/images/hero-landscape.svg" alt="" fill className="object-contain" />
-        </div>
-
-        {/* 中心纸卡 */}
-        <div className="relative z-10 w-full max-w-[720px] mx-auto flex flex-col items-center text-center">
+        <div className="relative z-10 mx-auto w-full max-w-[88rem]">
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-            className="card-polaroid relative w-full px-6 sm:px-10 py-10"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
+            className="card-polaroid relative w-full overflow-hidden px-5 py-8 sm:px-8 md:py-10 lg:px-10 lg:py-12 xl:px-14"
           >
-            {/* 顶部胶带（参考站 Polaroid 标志性元素） */}
+            <div aria-hidden="true" className="absolute inset-x-5 top-4 h-px bg-mint-900/15" />
+            <div aria-hidden="true" className="absolute inset-x-5 bottom-4 h-px bg-mint-900/15" />
             <div
               aria-hidden="true"
-              className="absolute -top-3 left-1/2 w-20 h-4 rounded-sm pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--tape-bg-from) 0%, var(--tape-bg-to) 100%)",
-                transform: "translateX(-50%) rotate(-3deg)",
-                boxShadow: "0 1px 2px var(--tape-shadow)",
-              }}
+              className="absolute right-6 top-6 h-24 w-24 rounded-full border border-rose-300/25 opacity-50"
             />
-
-            {/* 纸张纹理 */}
             <div
               aria-hidden="true"
-              className="absolute inset-0 rounded-[2rem] pointer-events-none opacity-40"
+              className="absolute right-10 top-10 h-24 w-24 rounded-full border border-mint-900/10 opacity-50"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 rounded-[1.05rem] opacity-45"
               style={{
                 backgroundImage:
-                  "linear-gradient(90deg, transparent 0, var(--gradient-sage-fade) 1px, transparent 1px), linear-gradient(0deg, transparent 0, var(--gradient-rose-fade) 1px, transparent 1px)",
-                backgroundSize: "26px 26px",
+                  "linear-gradient(90deg, transparent 0, var(--luxury-line) 1px, transparent 1px), linear-gradient(180deg, transparent 0, rgba(255,255,255,0.44) 46%, transparent 100%)",
+                backgroundSize: "62px 100%, 100% 100%",
               }}
             />
-            <button
-              className="absolute right-4 bottom-4 w-6 h-6 rounded-full border border-mint-200 text-mint-400 hover:text-rose-400 hover:border-rose-300 transition-colors text-xs z-10"
-              onClick={() => setGuideOpen(true)}
-              aria-label="查看页面详情"
-              title="查看页面详情"
-            >
-              ⓘ
-            </button>
 
-            <div className="relative z-10">
-              <div className="avatar-frame mb-5 mx-auto">
+            <div className="relative z-10 grid items-stretch gap-8 lg:grid-cols-[0.92fr_1.08fr] xl:gap-10">
+              <div className="flex min-h-[560px] flex-col justify-between">
                 <div>
-                  <SiteIcon name="botany" className="h-9 w-9 text-sage-500" />
-                </div>
-              </div>
-              <p className="text-[11px] tracking-[0.28em] text-mint-500 uppercase">
-                Hi, this is {me.name}
-              </p>
-              <h1
-                className="mt-3 text-4xl md:text-5xl text-mint-800 leading-tight italic tracking-tight"
-                style={{ fontFamily: "var(--font-handwriting)" }}
-              >
-                {me.signature}
-              </h1>
-              <p className="mt-4 text-sm text-mint-700 max-w-[30rem] mx-auto leading-relaxed">
-                {me.about.whatIDo}
-              </p>
+                  <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.34em] text-mint-600">
+                    <span>Shanyu Space</span>
+                    <span className="h-px w-10 bg-rose-400/60" />
+                    <span>{new Date().getFullYear()}</span>
+                  </div>
 
-              <nav
-                aria-label="Main sections"
-                className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto"
-              >
-                {ENTRIES.map((e, i) => (
-                  <motion.div
-                    key={e.href}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: 0.18 + i * 0.06 }}
+                  <div className="mt-7 max-w-[40rem]">
+                    <p className="text-[11px] uppercase tracking-[0.34em] text-earth-300">
+                      Independent notes on systems, study, finance, and the age we are walking into.
+                    </p>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap items-end gap-4">
+                    <h1 className="font-serif text-[clamp(3.6rem,8vw,7.6rem)] leading-[0.84] tracking-[0.02em] text-mint-900 text-balance">
+                      山雨
+                      <span className="block text-rose-500">札记</span>
+                    </h1>
+                    <div className="hidden flex-col gap-2 pb-3 text-[10px] uppercase tracking-[0.22em] text-earth-300 md:flex">
+                      <span>No. 01</span>
+                      <span>Field Edition</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 max-w-[36rem]">
+                    <p className="max-w-[34rem] text-[1.04rem] leading-8 text-mint-800 md:text-[1.12rem]">
+                      {me.signature}
+                    </p>
+                    <p className="mt-4 max-w-[36rem] text-sm leading-7 text-earth-400 md:text-[15px]">
+                      {me.about.whatIDo}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-10">
+                  <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.24em] text-earth-300">
+                    <span>Selected Rooms</span>
+                    <span className="h-px w-12 bg-mint-900/12" />
+                  </div>
+                  <nav
+                    aria-label="Main sections"
+                    className="mt-4 grid grid-cols-1 gap-x-6 gap-y-2 border-t border-mint-900/12 pt-5 sm:grid-cols-2"
                   >
-                    <Link
-                      href={e.href}
-                      className="group flex items-center justify-start gap-3 px-3 py-3 rounded-xl hover:bg-white/60 border border-transparent hover:border-mint-100 transition-colors text-left"
-                    >
-                      <span className="flex items-center justify-center w-10 h-10 flex-shrink-0 rounded-full bg-white/80 shadow-sm border border-mint-100">
-                        <Image src={e.icon} alt="" width={28} height={28} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span
-                          className="block font-handwriting text-xl text-mint-800 group-hover:text-rose-500 transition-colors leading-tight"
-                          style={{ fontFamily: "var(--font-handwriting)" }}
+                    {ENTRIES.map((e, i) => (
+                      <motion.div
+                        key={e.href}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.45, delay: 0.16 + i * 0.06 }}
+                      >
+                        <Link
+                          href={e.href}
+                          className="group flex items-center justify-between gap-4 border-b border-mint-900/10 py-3 text-left transition-colors hover:border-rose-400/70"
                         >
-                          {e.label}
-                          <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span className="flex min-w-0 items-center gap-3">
+                            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-mint-900/10 bg-mint-50/70">
+                              <Image src={e.icon} alt="" width={24} height={24} />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block font-serif text-xl leading-tight text-mint-900 transition-colors group-hover:text-rose-500">
+                                {e.label}
+                              </span>
+                              <span className="mt-1 block text-xs leading-snug text-earth-300">
+                                {e.sub}
+                              </span>
+                            </span>
+                          </span>
+                          <span className="text-mint-500 transition-colors group-hover:text-rose-500">
                             →
                           </span>
-                        </span>
-                        <span className="block text-xs text-mint-500 leading-snug mt-0.5">
-                          {e.sub}
-                        </span>
-                      </span>
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </nav>
+                </div>
+              </div>
 
-              {/* 鼠标滚动提示：参考站标志性收束 */}
-              <div className="mt-10 flex justify-center">
-                <MouseScrollHint label="向下探索" />
+              <div className="relative min-h-[560px] overflow-hidden rounded-[1.24rem] border border-mint-900/12 bg-mint-900 text-cream-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                <Image
+                  src="/images/hero-landscape.svg"
+                  alt=""
+                  fill
+                  priority
+                  className="scale-[1.12] object-cover opacity-[0.38] mix-blend-screen"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(circle at 18% 24%, rgba(255,255,255,0.12), transparent 32%), linear-gradient(180deg, rgba(24,53,39,0.04), rgba(20,38,30,0.92)), linear-gradient(90deg, rgba(18,35,28,0.88), rgba(18,35,28,0.44) 44%, rgba(18,35,28,0.82) 100%)",
+                  }}
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 opacity-35"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(0deg, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+                    backgroundSize: "32px 32px",
+                  }}
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-y-6 left-[34%] right-6 rounded-[1.35rem] border border-cream-50/16 bg-[linear-gradient(180deg,rgba(244,236,221,0.16),rgba(244,236,221,0.07))] shadow-[0_24px_64px_rgba(7,17,13,0.28)] sm:left-[42%] lg:left-[40%]"
+                >
+                  <div className="absolute inset-3 rounded-[1.08rem] border border-cream-50/10" />
+                  <div className="absolute inset-[1.15rem] overflow-hidden rounded-[0.95rem] bg-[linear-gradient(180deg,rgba(250,245,236,0.98),rgba(239,229,211,0.86))]">
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "radial-gradient(circle at 72% 72%, rgba(255,255,255,0.75), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0) 30%), linear-gradient(135deg, rgba(193,86,58,0.05), rgba(42,68,54,0.08))",
+                      }}
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-x-5 top-5 h-px bg-mint-900/12 md:inset-x-8"
+                    />
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-x-5 bottom-5 h-px bg-mint-900/10 md:inset-x-8"
+                    />
+                    <div className="relative flex h-full flex-col px-5 py-5 md:px-8 md:py-7">
+                      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-earth-300">
+                        <span>Cover Draft</span>
+                        <span>Issue 01</span>
+                      </div>
+
+                      <div className="grid flex-1 grid-cols-[auto_1fr] items-center gap-4 pt-5">
+                        <div className="flex flex-col font-serif text-[clamp(3.2rem,6vw,5.6rem)] leading-[0.8] text-mint-900">
+                          <span>山</span>
+                          <span className="text-rose-500">雨</span>
+                          <span>札</span>
+                          <span className="text-rose-500">记</span>
+                        </div>
+
+                        <div className="self-end pb-4">
+                          <p className="text-[10px] uppercase tracking-[0.26em] text-earth-300">
+                            Notes for a slower reading life
+                          </p>
+                          <p className="mt-3 max-w-[10rem] text-sm leading-6 text-mint-700">
+                            把值得反复回看的内容，整理成更长效的个人封面与目录。
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="relative mt-auto h-44 md:h-52">
+                        <div className="absolute inset-x-4 bottom-5 top-3 rounded-full bg-white/48 blur-2xl" />
+                        <Image
+                          src="/images/hero-illustration.svg"
+                          alt=""
+                          fill
+                          priority
+                          className="object-contain object-bottom opacity-95"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative z-10 flex h-full min-h-[560px] flex-col p-6 md:p-8 xl:p-10">
+                  <div className="flex items-start justify-between gap-4 text-[11px] uppercase tracking-[0.24em] text-cream-100/76">
+                    <span>Field Notes</span>
+                    <span>AI / Finance / Study</span>
+                  </div>
+
+                  <div className="mt-auto max-w-[17rem] pb-6 pt-10 sm:pb-10 sm:pt-14">
+                    <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl border border-cream-50/22 bg-cream-50/8 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+                      <SiteIcon name="botany" className="h-7 w-7 text-warm-200" />
+                    </div>
+                    <p className="mt-6 text-[10px] uppercase tracking-[0.28em] text-cream-100/58">
+                      Cover story
+                    </p>
+                    <p className="mt-4 font-serif text-[1.55rem] leading-[1.24] text-cream-50 md:text-[1.9rem]">
+                      这一块先做成封面样张，后面再换成真正的主视觉海报。
+                    </p>
+                    <p className="mt-4 text-sm leading-7 text-cream-100/72">
+                      现在先把结构和气质立住，后面直接替换成古风少年的视觉也会很顺。
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
+
+          <div className="mt-6 flex justify-center">
+            <MouseScrollHint label="向下探索" />
+          </div>
         </div>
       </section>
 
-      {/* 下方内容保留，但弱化成“继续浏览” */}
-      <div className="max-w-4xl mx-auto px-6 pb-8">
+      <div className="mx-auto max-w-6xl px-6 pb-8">
         <FadeIn>
           <section className="mb-16">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xs uppercase tracking-widest text-mint-600">分类</h2>
-              <span
-                className="font-handwriting text-base text-rose-400"
-                style={{ fontFamily: "var(--font-handwriting)" }}
-              >
-                {categories.length} ways to wander
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-[0.24em] text-mint-700">分类索引</h2>
+              <span className="text-xs uppercase tracking-[0.18em] text-rose-500">
+                {categories.length} ways to read
               </span>
             </div>
             <StaggerContainer staggerDelay={0.08}>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                 {categories.map((cat) => {
                   const meta = getCategoryMeta(cat.id);
                   return (
                     <StaggerItem key={cat.id}>
                       <motion.div whileHover={{ y: -2, scale: 1.005 }} className="h-full">
                         <Link href={`/blog/${cat.id}`} className="block h-full">
-                          <NotebookCard accentColor={meta.color} className="p-4 h-full">
+                          <NotebookCard accentColor={meta.color} className="h-full p-4">
                             <div className="pl-2">
-                              <div className="flex items-center gap-2 mb-2">
+                              <div className="mb-2 flex items-center gap-2">
                                 <SiteIcon name={meta.icon} className="h-5 w-5" />
                                 <h3 className="font-medium text-mint-700 title-hover">
                                   {cat.label}
                                 </h3>
                               </div>
-                              <p className="text-xs text-mint-600 leading-relaxed line-clamp-3">
+                              <p className="line-clamp-3 text-xs leading-relaxed text-earth-300">
                                 {cat.description}
                               </p>
                             </div>
@@ -279,27 +322,27 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
 
         <FadeIn delay={0.15}>
           <section className="mb-16">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xs uppercase tracking-widest text-mint-600">最新文章</h2>
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-[0.24em] text-mint-700">最新文章</h2>
               <Link
                 href="/blog"
-                className="text-sm text-mint-600 hover:text-rose-400 transition-colors inline-flex items-center gap-1"
+                className="inline-flex items-center gap-1 text-sm text-mint-700 transition-colors hover:text-rose-500"
               >
                 查看全部<span>→</span>
               </Link>
             </div>
             <StaggerContainer staggerDelay={0.06}>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid gap-4 md:grid-cols-2">
                 {latestPosts.map((post) => {
                   const meta = getCategoryMeta(post.category);
                   return (
                     <StaggerItem key={`${post.category}/${post.slug}`}>
                       <Link href={`/blog/${post.category}/${post.slug}`} className="block h-full">
-                        <NotebookCard accentColor={meta.color} className="p-5 h-full">
+                        <NotebookCard accentColor={meta.color} className="h-full p-5">
                           <div className="pl-2">
-                            <div className="flex items-center gap-2 mb-3">
+                            <div className="mb-3 flex items-center gap-2">
                               <span
-                                className="text-xs px-2 py-0.5 rounded-full"
+                                className="rounded-full px-2 py-0.5 text-xs"
                                 style={{ backgroundColor: `${meta.color}18`, color: meta.color }}
                               >
                                 <span className="inline-flex items-center gap-1.5">
@@ -307,18 +350,13 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
                                   {labels[post.category] || post.category}
                                 </span>
                               </span>
-                              <span
-                                className="font-handwriting text-base text-rose-400"
-                                style={{ fontFamily: "var(--font-handwriting)" }}
-                              >
-                                {post.frontmatter.date}
-                              </span>
+                              <span className="text-xs text-rose-500">{post.frontmatter.date}</span>
                             </div>
-                            <h3 className="font-medium text-mint-800 leading-snug title-hover">
+                            <h3 className="font-medium leading-snug text-mint-800 title-hover">
                               {post.frontmatter.title}
                             </h3>
                             {post.frontmatter.description && (
-                              <p className="mt-2 text-sm text-mint-600 line-clamp-2 leading-relaxed">
+                              <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-earth-300">
                                 {post.frontmatter.description}
                               </p>
                             )}

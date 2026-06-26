@@ -1,56 +1,41 @@
-import Image from "next/image";
-
 /**
- * 角落装饰：受 Floria-Wonderland 启发的吉祥物元素。
- * - 左下：卡通小兔（呼应参考站）
- * - 右上：卡通小花
- * - 右下：玫瑰色雨滴（保留山雨主题的细节点缀）
- * 全部加 mascot-float 动画，给角落添一点呼吸感。
+ * 全局角落装饰：从卡通贴纸改成编辑册式的页码、刻度和小印章。
+ * 只承担氛围，不抢正文层级。
  */
 export function Decorations() {
   return (
     <>
-      {/* 左下角：兔子吉祥物 */}
-      <div className="fixed bottom-4 left-2 sm:left-4 pointer-events-none z-0 opacity-70 select-none mascot-float">
-        <div className="relative w-16 h-18 sm:w-[72px] sm:h-20">
-          <Image
-            src="/images/mascot-bunny.svg"
-            alt=""
-            fill
-            className="object-contain"
-            priority={false}
-          />
+      <div className="fixed bottom-5 left-3 sm:left-5 pointer-events-none z-0 select-none text-mint-900/38">
+        <div className="flex items-center gap-2">
+          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-mint-900/22 bg-cream-50/55 font-serif text-sm">
+            N
+          </span>
+          <span className="hidden sm:block h-px w-16 bg-mint-900/18" />
         </div>
       </div>
 
-      {/* 右上角：花朵吉祥物 */}
-      <div className="fixed top-20 right-2 sm:right-4 pointer-events-none z-0 opacity-65 select-none mascot-float" style={{ animationDelay: "1.2s" }}>
-        <div className="relative w-12 h-14 sm:w-14 sm:h-16">
-          <Image
-            src="/images/mascot-flower.svg"
-            alt=""
-            fill
-            className="object-contain"
-            priority={false}
-          />
+      <div className="fixed top-24 right-3 sm:right-5 pointer-events-none z-0 hidden sm:block select-none">
+        <div className="h-28 border-r border-mint-900/16 pr-2 text-[10px] uppercase tracking-[0.24em] text-mint-900/35 [writing-mode:vertical-rl]">
+          shanyu notes
         </div>
       </div>
 
-      {/* 右下角：雨滴装饰（保留山雨主题，体积小不抢戏） */}
-      <div className="fixed bottom-8 right-6 pointer-events-none z-0 opacity-30 select-none text-rose-400">
+      <div className="fixed bottom-8 right-6 pointer-events-none z-0 hidden sm:block select-none text-rose-500/35">
         <svg
-          width="36"
-          height="36"
+          width="42"
+          height="42"
           viewBox="0 0 40 40"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
+          <circle cx="20" cy="20" r="15" stroke="currentColor" strokeWidth="0.9" />
+          <path d="M11 21H29" stroke="currentColor" strokeWidth="0.9" />
+          <path d="M20 11V29" stroke="currentColor" strokeWidth="0.9" />
           <path
             d="M20 6C20 6 12 18 12 24C12 28.4183 15.5817 32 20 32C24.4183 32 28 28.4183 28 24C28 18 20 6 20 6Z"
             fill="currentColor"
-            opacity="0.6"
+            opacity="0.14"
           />
-          <circle cx="20" cy="33" r="4" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
         </svg>
       </div>
     </>

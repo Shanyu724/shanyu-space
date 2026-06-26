@@ -28,7 +28,10 @@ export function MouseScrollHint({
       className="mouse-scroll-hint"
     >
       <span className="mouse-icon" aria-hidden="true" />
-      <span className="text-xs font-handwriting tracking-wider" style={{ fontFamily: "var(--font-handwriting)" }}>
+      <span
+        className="text-[10px] uppercase tracking-[0.28em]"
+        style={{ fontFamily: "var(--font-handwriting)" }}
+      >
         {label}
       </span>
     </motion.span>
@@ -46,9 +49,5 @@ export function MouseScrollHint({
     );
   }
 
-  return (
-    <span className={`inline-block pointer-events-none ${className}`}>
-      {content}
-    </span>
-  );
+  return <span className={`inline-block pointer-events-none ${className}`}>{content}</span>;
 }

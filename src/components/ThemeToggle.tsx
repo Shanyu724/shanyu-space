@@ -67,7 +67,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       onClick={toggle}
       aria-label={label}
       title={label}
-      className={`inline-flex items-center justify-center h-8 w-8 rounded-full border border-mint-200/70 bg-white/70 hover:bg-white/95 hover:text-rose-400 hover:border-rose-300 transition-colors text-mint-700 shadow-sm ${className}`}
+      className={`inline-flex items-center justify-center h-8 w-8 rounded-lg border border-mint-900/12 bg-cream-50/76 hover:bg-cream-50 hover:text-rose-500 hover:border-rose-300 transition-colors text-mint-700 shadow-sm ${className}`}
     >
       <SiteIcon name={isDark ? "sun" : "moon"} className="h-4 w-4" />
     </button>

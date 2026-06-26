@@ -2,70 +2,70 @@
 
 /* ── Design Tokens ── */
 @theme {
-  --color-cream-50: #faf7f2;
-  --color-cream-100: #f5f0e8;
-  --color-cream-200: #ede4d6;
-  --color-cream-300: #ddd0ba;
-  --color-cream-400: #cbb59a;
-  --color-cream-500: #bc9f80;
+  --color-cream-50: #fbfaf5;
+  --color-cream-100: #f1ece1;
+  --color-cream-200: #ddd4c5;
+  --color-cream-300: #c3b49e;
+  --color-cream-400: #9f8768;
+  --color-cream-500: #7a634b;
 
-  --color-earth-50: #f2efe9;
-  --color-earth-100: #e5dfd3;
-  --color-earth-200: #ccc2b0;
-  --color-earth-300: #b3a48d;
-  --color-earth-400: #9a876a;
-  --color-earth-500: #8a7658;
+  --color-earth-50: #f0eee8;
+  --color-earth-100: #d9d2c4;
+  --color-earth-200: #b3a68f;
+  --color-earth-300: #827461;
+  --color-earth-400: #4c4438;
+  --color-earth-500: #29261f;
 
-  --color-sage-50: #f0f3ef;
-  --color-sage-100: #dce4da;
-  --color-sage-200: #bccbb7;
-  --color-sage-300: #95ad8f;
-  --color-sage-400: #6d8b67;
-  --color-sage-500: #4f6f4a;
-  --color-sage-600: #3e573a;
-  --color-sage-700: #334630;
+  --color-sage-50: #eef5ed;
+  --color-sage-100: #d8e7d3;
+  --color-sage-200: #afc9aa;
+  --color-sage-300: #7fa17b;
+  --color-sage-400: #547a56;
+  --color-sage-500: #2f5e45;
+  --color-sage-600: #244a37;
+  --color-sage-700: #183527;
 
-  --color-mist-50: #f0f2f5;
-  --color-mist-100: #d8dde6;
-  --color-mist-200: #b3bdd0;
-  --color-mist-300: #8b9bb5;
-  --color-mist-400: #6a7d9c;
-  --color-mist-500: #536685;
-  --color-mist-600: #43516b;
+  --color-mist-50: #eef4f2;
+  --color-mist-100: #d2dfdd;
+  --color-mist-200: #a9bebb;
+  --color-mist-300: #799391;
+  --color-mist-400: #526f70;
+  --color-mist-500: #385457;
+  --color-mist-600: #263d41;
 
-  --color-warm-50: #fdf8f0;
-  --color-warm-100: #faefdb;
-  --color-warm-200: #f4ddb3;
-  --color-warm-300: #ebc585;
-  --color-warm-400: #d4a76a;
-  --color-warm-500: #c08d4f;
+  --color-warm-50: #fff4e9;
+  --color-warm-100: #f8dfc2;
+  --color-warm-200: #e9bd83;
+  --color-warm-300: #d9904b;
+  --color-warm-400: #b9622f;
+  --color-warm-500: #8e432a;
 
   /* ── Mint：薄荷绿主调（受 Floria-Wonderland 启发的换肤主色） ── */
-  --color-mint-50: #f6f7f6;
-  --color-mint-100: #e8ede9;
-  --color-mint-200: #c8d5ca;
-  --color-mint-300: #a3b5a6;
-  --color-mint-400: #97ab9d;
-  --color-mint-500: #7a9482;
-  --color-mint-600: #627668;
-  --color-mint-700: #505f54;
-  --color-mint-800: #434e46;
-  --color-mint-900: #3a423c;
+  --color-mint-50: #f3f6f0;
+  --color-mint-100: #e0e9dc;
+  --color-mint-200: #bfd2b9;
+  --color-mint-300: #91ad89;
+  --color-mint-400: #6f9169;
+  --color-mint-500: #4f7352;
+  --color-mint-600: #3f5c43;
+  --color-mint-700: #334837;
+  --color-mint-800: #27372c;
+  --color-mint-900: #202b24;
 
   /* ── Rose：玫粉色 hover / accent ── */
-  --color-rose-50: #f9f6f6;
-  --color-rose-100: #f1e9e9;
-  --color-rose-300: #d2b0b0;
-  --color-rose-400: #be8b8b;
-  --color-rose-500: #a96a6a;
-  --color-rose-600: #8f5555;
-  --color-rose-700: #774545;
-  --color-rose-800: #623a3a;
+  --color-rose-50: #fff1ed;
+  --color-rose-100: #f9d9d0;
+  --color-rose-300: #e79b87;
+  --color-rose-400: #cc6751;
+  --color-rose-500: #a84535;
+  --color-rose-600: #87372d;
+  --color-rose-700: #6e2d26;
+  --color-rose-800: #55241f;
 
-  --font-serif: "Noto Serif SC", "Source Han Serif CN", "STSong", "SimSun", serif;
-  --font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-serif: "Cormorant Garamond", "Noto Serif SC", "Source Han Serif CN", "STSong", serif;
+  --font-sans: "Manrope", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
-  --font-handwriting: "Caveat", "Patrick Hand", "Comic Sans MS", cursive;
+  --font-handwriting: "Marcellus", "Cormorant Garamond", "Noto Serif SC", serif;
 }
 
 /* ── Dark Theme Tokens ──
@@ -149,90 +149,95 @@
 /* ── Runtime variables：body / prose / 装饰用的硬编码颜色全部 token 化 ── */
 :root {
   /* 页面基础 */
-  --bg-base: #f3efe6;
-  --bg-elevated: #faf7f2;
-  --bg-elevated-soft: rgba(250, 247, 242, 0.85);
-  --bg-elevated-softer: rgba(250, 247, 242, 0.6);
-  --bg-noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  --bg-base: #e6ddce;
+  --bg-elevated: #fcfbf7;
+  --bg-elevated-soft: rgba(252, 251, 247, 0.92);
+  --bg-elevated-softer: rgba(252, 251, 247, 0.72);
+  --bg-noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
 
   /* 文字层级 */
-  --text-primary: #3a342c;
-  --text-secondary: #6b6559;
-  --text-muted: #8a7658;
-  --text-subtle: #b3a48d;
+  --text-primary: #1d211d;
+  --text-secondary: #44493f;
+  --text-muted: #686a5c;
+  --text-subtle: #978d78;
 
   /* 边框 */
-  --border-default: #ede4d6;
-  --border-soft: rgba(237, 228, 214, 0.7);
-  --border-strong: #ddd0ba;
+  --border-default: #d8cfbf;
+  --border-soft: rgba(53, 64, 49, 0.14);
+  --border-strong: #a39478;
 
   /* 代码块 */
-  --code-bg: #ede4d6;
-  --pre-bg: #2c2a26;
-  --pre-text: #f5f0e8;
-  --pre-icon-color: rgba(245, 240, 232, 0.45);
+  --code-bg: #e8dfcf;
+  --pre-bg: #1d271f;
+  --pre-text: #f5f0e7;
+  --pre-icon-color: rgba(245, 240, 231, 0.42);
 
   /* 链接 */
-  --link-color: #536685;
-  --link-decoration: #b3bdd0;
-  --link-color-hover: #43516b;
+  --link-color: #2f5e45;
+  --link-decoration: rgba(204, 103, 81, 0.4);
+  --link-color-hover: #a84535;
 
   /* 引用块 */
-  --quote-border: #bccbb7;
-  --quote-text: #6b6559;
-  --quote-mark-color: #bccbb7;
+  --quote-border: #547a56;
+  --quote-text: #4c5144;
+  --quote-mark-color: #b9622f;
 
   /* 标题 */
-  --heading-h2: #3e573a;
-  --heading-h3: #334630;
+  --heading-h2: #183527;
+  --heading-h3: #2f5e45;
 
   /* 表格 */
-  --table-border: #e5dfd3;
-  --table-th-bg: #f5f0e8;
+  --table-border: #d8cfbd;
+  --table-th-bg: #efe8da;
 
   /* 分割线 */
-  --hr-color: #e5dfd3;
+  --hr-color: #c9bdab;
 
   /* 纸张纹理 */
-  --paper-line-color: rgba(139, 155, 181, 0.04);
+  --paper-line-color: rgba(47, 94, 69, 0.045);
 
   /* 装饰 */
-  --tape-bg-from: rgba(243, 239, 230, 0.92);
-  --tape-bg-to: rgba(220, 210, 190, 0.65);
-  --tape-shadow: rgba(0, 0, 0, 0.06);
-  --paper-edge-shadow: rgba(74, 82, 64, 0.1);
-  --paper-edge-shadow-hover: rgba(74, 82, 64, 0.15);
+  --tape-bg-from: rgba(47, 94, 69, 0.16);
+  --tape-bg-to: rgba(184, 98, 47, 0.16);
+  --tape-shadow: rgba(24, 53, 39, 0.14);
+  --paper-edge-shadow: rgba(24, 53, 39, 0.1);
+  --paper-edge-shadow-hover: rgba(24, 53, 39, 0.18);
 
   /* 荧光笔高亮（默认 light） */
-  --highlight-from: rgba(236, 197, 105, 0.55);
-  --highlight-to: rgba(236, 197, 105, 0.25);
+  --highlight-from: rgba(217, 144, 75, 0.5);
+  --highlight-to: rgba(217, 144, 75, 0.18);
 
   /* 浮动装饰元素 */
-  --deco-sage: #4f6f4a;
-  --deco-mist: #8b9bb5;
+  --deco-sage: #2f5e45;
+  --deco-mist: #799391;
 
   /* ── 圆点底纹（polka dot，受 Floria 启发的全局氛围） ── */
-  --dot-color: rgba(122, 148, 130, 0.18);
+  --dot-color: rgba(47, 94, 69, 0.14);
 
   /* ── 回形针 / 鼠标 / Polaroid（精致化升级用） ── */
-  --paperclip-fill: #c8d5ca;
-  --paperclip-stroke: #95ad8f;
-  --paperclip-shadow: rgba(74, 82, 64, 0.18);
-  --mouse-wheel-color: #a96a6a;
-  --polaroid-shadow: 0 18px 36px -16px rgba(74, 82, 64, 0.22);
-  --polaroid-shadow-hover: 0 24px 44px -18px rgba(74, 82, 64, 0.3);
+  --paperclip-fill: #bfd2b9;
+  --paperclip-stroke: #2f5e45;
+  --paperclip-shadow: rgba(24, 53, 39, 0.2);
+  --mouse-wheel-color: #a84535;
+  --polaroid-shadow: 0 20px 48px -28px rgba(24, 53, 39, 0.28);
+  --polaroid-shadow-hover: 0 30px 72px -30px rgba(24, 53, 39, 0.36);
 
   /* 分隔器点缀专用色 */
-  --deco-rose: #be8b8b;
-  --deco-warm: #d4a76a;
+  --deco-rose: #cc6751;
+  --deco-warm: #d9904b;
 
   /* ── 卡片装饰渐变（用于 Polaroid / 落地生花卡等内层 overlay） ──
    * 暗色下用深色玻璃质感替代原来的「白偏光」渐变。
    */
-  --gradient-rose-fade: rgba(190, 139, 139, 0.22);
-  --gradient-sage-fade: rgba(122, 148, 130, 0.22);
-  --gradient-card-from: rgba(255, 255, 255, 0.8);
-  --gradient-card-to: rgba(232, 237, 233, 0.45);
+  --gradient-rose-fade: rgba(204, 103, 81, 0.18);
+  --gradient-sage-fade: rgba(47, 94, 69, 0.16);
+  --gradient-card-from: rgba(252, 251, 247, 0.95);
+  --gradient-card-to: rgba(230, 236, 227, 0.5);
+  --luxury-line: rgba(61, 83, 67, 0.14);
+  --luxury-line-strong: rgba(61, 83, 67, 0.28);
+  --luxury-glow: rgba(255, 248, 237, 0.72);
+  --luxury-panel: rgba(255, 255, 255, 0.24);
+  --luxury-dark-panel: rgba(18, 33, 28, 0.76);
 }
 
 :root.dark {
@@ -309,9 +314,24 @@
 /* ── Paper Texture via SVG Noise ── */
 body {
   background-color: var(--bg-base);
-  background-image: var(--bg-noise-url);
+  background-image:
+    linear-gradient(90deg, rgba(24, 53, 39, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(24, 53, 39, 0.02) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 250, 242, 0.76) 0%, rgba(230, 221, 206, 0.28) 100%),
+    linear-gradient(
+      125deg,
+      rgba(255, 248, 237, 0.72) 0%,
+      transparent 44%,
+      rgba(47, 94, 69, 0.06) 100%
+    ),
+    var(--bg-noise-url);
   background-repeat: repeat;
-  background-size: 300px 300px;
+  background-size:
+    44px 44px,
+    44px 44px,
+    100% 100%,
+    100% 100%,
+    320px 320px;
   color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -1110,8 +1130,8 @@ body {
   pointer-events: none;
   z-index: -5;
   background:
-    radial-gradient(60% 40% at 12% 18%, rgba(190, 139, 139, 0.1) 0%, transparent 65%),
-    radial-gradient(50% 35% at 88% 82%, rgba(122, 148, 130, 0.12) 0%, transparent 70%);
+    linear-gradient(115deg, rgba(24, 53, 39, 0.1) 0%, transparent 40%),
+    linear-gradient(0deg, rgba(252, 251, 247, 0.32), transparent 52%);
 }
 
 /* 浮卡内部滚动容器：自定义滚动条更轻 */
@@ -1142,23 +1162,26 @@ body {
  */
 .nav-dashed {
   position: relative;
-  padding: 0.125rem 0.25rem;
+  padding: 0.2rem 0.1rem 0.35rem;
   font-weight: 500;
   color: var(--color-mint-800);
-  border-bottom: 2px dashed transparent;
+  border-bottom: 1px solid transparent;
+  letter-spacing: 0.02em;
   transition:
     color 0.2s,
-    border-color 0.2s;
+    border-color 0.2s,
+    transform 0.2s;
 }
 
 .nav-dashed:hover {
   color: var(--color-rose-400);
-  border-bottom-color: var(--color-mint-300);
+  border-bottom-color: var(--color-rose-300);
+  transform: translateY(-1px);
 }
 
 .nav-dashed.is-active {
   color: var(--color-rose-500);
-  border-bottom-color: var(--color-rose-400);
+  border-bottom-color: var(--color-mint-700);
 }
 
 /* ── 入口卡片：首页 2x2 grid 用 ── */
@@ -1271,23 +1294,25 @@ body {
 
 /* Polaroid 卡：白底 + 大圆角 + 轻微倾斜 + Polaroid 阴影 */
 .card-polaroid {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(232, 237, 233, 0.7);
-  border-radius: 1.75rem;
+  background:
+    linear-gradient(135deg, rgba(252, 251, 247, 0.98), rgba(242, 236, 225, 0.92)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 34%), var(--bg-noise-url);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(24, 53, 39, 0.14);
+  border-radius: 1.05rem;
   box-shadow: var(--polaroid-shadow);
-  transform: rotate(-1.5deg);
+  transform: rotate(-0.2deg);
   transform-origin: center;
   transition:
     transform 0.45s cubic-bezier(0.25, 0.1, 0.25, 1),
     box-shadow 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
   /* 让 JS / 父级 inline style 覆盖 rotate 时不会把整卡推崩 */
-  --card-rotate: -1.5deg;
+  --card-rotate: -0.2deg;
   transform: rotate(var(--card-rotate));
 }
 
 .card-polaroid:hover {
-  transform: rotate(0deg) translateY(-2px);
+  transform: rotate(0deg) translateY(-4px);
   box-shadow: var(--polaroid-shadow-hover);
 }
 

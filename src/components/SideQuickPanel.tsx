@@ -32,7 +32,7 @@ export function SideQuickPanel() {
         <button
           type="button"
           aria-label="快捷导航"
-          className="relative z-10 px-1.5 py-4 bg-white/90 backdrop-blur-sm rounded-l-xl border border-r-0 border-mint-200/70 shadow-md flex flex-col items-center gap-1.5 text-mint-600 hover:text-rose-400 transition-colors cursor-pointer"
+          className="relative z-10 px-1.5 py-4 bg-cream-50/90 backdrop-blur-sm rounded-l-lg border border-r-0 border-mint-900/12 shadow-md flex flex-col items-center gap-1.5 text-mint-700 hover:text-rose-500 transition-colors cursor-pointer"
         >
           <SiteIcon name="clipboard" className="h-4 w-4" />
           <span className="text-[10px] font-medium tracking-wide [writing-mode:vertical-rl] [text-orientation:mixed]">
@@ -46,8 +46,8 @@ export function SideQuickPanel() {
             open ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0"
           }`}
         >
-          <div className="bg-white/95 backdrop-blur-sm rounded-l-xl shadow-lg border border-r-0 border-mint-200/70 p-4 min-w-[200px]">
-            <div className="text-xs uppercase tracking-widest text-mint-500 mb-3 flex items-center gap-2">
+          <div className="bg-cream-50/96 backdrop-blur-sm rounded-l-lg shadow-[0_20px_48px_-30px_rgba(24,53,39,0.7)] border border-r-0 border-mint-900/12 p-4 min-w-[200px]">
+            <div className="text-xs uppercase tracking-[0.22em] text-mint-600 mb-3 flex items-center gap-2">
               <SiteIcon name="pin" className="h-3.5 w-3.5" />
               <span>quick links</span>
             </div>
@@ -56,7 +56,7 @@ export function SideQuickPanel() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-mint-800 hover:bg-mint-50 hover:text-rose-400 transition-colors"
+                  className="group flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-mint-800 hover:bg-mint-50 hover:text-rose-500 transition-colors"
                 >
                   <SiteIcon name={l.icon} className="h-4 w-4" />
                   <span>{l.label}</span>
@@ -66,10 +66,7 @@ export function SideQuickPanel() {
                 </Link>
               ))}
             </nav>
-            <p
-              className="mt-3 pt-3 border-t border-mint-100 text-[10px] text-mint-400 text-center"
-              style={{ fontFamily: "var(--font-handwriting)", fontSize: "0.85rem" }}
-            >
+            <p className="mt-3 pt-3 border-t border-mint-900/10 text-[10px] uppercase tracking-[0.18em] text-mint-500 text-center">
               hover me · explore
             </p>
           </div>

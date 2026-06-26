@@ -17,10 +17,12 @@
 shanyu-space/
 ├── content/
 │   ├── blog/
-│   │   ├── geo/          # 地缘观察
-│   │   ├── finance/      # 金融制度
-│   │   ├── study/        # 学习笔记
-│   │   └── essays/       # 随笔
+│   │   ├── modeling/     # 数模推演
+│   │   ├── finance/      # 金融洞察
+│   │   ├── study/        # 研习札记
+│   │   ├── assets/       # 标的解构
+│   │   ├── macro/        # 宏观视野
+│   │   └── essays/       # 随笔杂谈
 │   └── portfolio/
 │       └── projects.json # 作品集数据
 ├── public/
@@ -47,8 +49,10 @@ shanyu-space/
 在 `content/blog/` 下对应的分类文件夹里创建一个 `.md` 文件，例如：
 
 ```
-content/blog/geo/观察简报-202606.md
+content/blog/macro/multi-source-methodology.md
 ```
+
+> 说明：旧的 `geo/` 目录已经迁移到 `macro/`，如果你还想保留旧路径，可以单独放迁移占位文件，但网页不会展示模板文章。
 
 ### 2. 文件内容格式
 

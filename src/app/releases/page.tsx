@@ -23,7 +23,7 @@ const releases: ReleaseEntry[] = [
     title: "Blog 分类重构 · 从 4 类扩到 6 类",
     tag: "refactor",
     summary:
-      "4 类太粗——把内容切得更准：把「数模推演」和「标的解构」拆出来单立，旧 4 类保留但改名精化。现有 5 篇文章位置不动，只改 label 和目录 slug。",
+      "4 类太粗——把内容切得更准：把「数模推演」和「标的解构」拆出来单立，旧四类已迁移并精化为六类。",
     highlights: [
       { icon: "ruler", text: "新增「数模推演」(modeling) — 数学与模型推导" },
       { icon: "assets", text: "新增「标的解构」(assets) — 拆具体资产、工具与契约" },
@@ -255,7 +255,10 @@ const releases: ReleaseEntry[] = [
     summary:
       "把内容这条主线打通。Markdown 走 gray-matter + react-markdown + remark-gfm，分类做成 /blog/[category]/[slug] 的目录结构，文章卡片支持 tags / description / 日期排序。",
     highlights: [
-      { icon: "book", text: "四个分类：地缘观察 / 金融制度 / 学习笔记 / 随笔" },
+      {
+        icon: "book",
+        text: "六个分类：数模推演 / 金融洞察 / 研习札记 / 标的解构 / 宏观视野 / 随笔杂谈",
+      },
       { icon: "stairs", text: "ScrollTOC：长文章右侧锚点导航" },
       { icon: "spark", text: "MarkdownRenderer：代码块加窗口控件装饰、引用块加引号 SVG" },
     ],

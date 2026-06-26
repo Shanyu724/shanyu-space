@@ -1,29 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPost, getCategoryLabel, getPostsByCategory } from "@/lib/content";
+import { getAllPosts, getPost, getCategoryLabel, getPostsByCategory } from "@/lib/content";
 import { PostClient } from "./PostClient";
 
 export function generateStaticParams() {
-  const fs = require("fs");
-  const path = require("path");
-  const blogDir = path.join(process.cwd(), "content", "blog");
-  const params: { category: string; slug: string }[] = [];
-
-  const categories = fs.readdirSync(blogDir);
-  for (const cat of categories) {
-    const catDir = path.join(blogDir, cat);
-    if (!fs.statSync(catDir).isDirectory()) continue;
-    const files = fs.readdirSync(catDir);
-    for (const file of files) {
-      if (!file.endsWith(".md") && !file.endsWith(".mdx")) continue;
-      params.push({
-        category: cat,
-        slug: file.replace(/\.(md|mdx)$/, ""),
-      });
-    }
-  }
-
-  return params;
+  return getAllPosts().map((post) => ({
+    category: post.category,
+    slug: post.slug,
+  }));
 }
 
 export default async function PostPage({

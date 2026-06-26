@@ -44,17 +44,15 @@ export function NotebookCard({
 
   // 统一走 CSS 变量让 hover/responsive transform 不会跟内联 style 打架
   const baseStyle: CSSProperties = {
-    ...(rotate
-      ? ({ "--card-rotate": `${rotate}deg` } as CSSProperties)
-      : {}),
+    ...(rotate ? ({ "--card-rotate": `${rotate}deg` } as CSSProperties) : {}),
     ...style,
   };
 
   return (
     <div
-      className={`relative bg-cream-50/85 backdrop-blur-sm border border-cream-200 rounded-xl transition-all duration-300 ${
+      className={`relative bg-cream-50/88 backdrop-blur-sm border border-mint-900/10 rounded-xl transition-all duration-300 overflow-hidden ${
         hoverable
-          ? "hover:bg-cream-50/95 hover:border-cream-300 hover:shadow-[0_8px_24px_rgba(74,82,64,0.08)] hover:-translate-y-0.5"
+          ? "hover:bg-cream-50 hover:border-mint-900/20 hover:shadow-[0_18px_38px_-28px_rgba(24,53,39,0.42)] hover:-translate-y-0.5"
           : ""
       } ${rotate ? "rotate-[var(--card-rotate)]" : ""} ${className}`}
       style={baseStyle}
@@ -75,8 +73,7 @@ export function NotebookCard({
         <div
           className="absolute -top-2 left-1/2 w-14 h-3 rounded-sm pointer-events-none"
           style={{
-            background:
-              "linear-gradient(135deg, var(--tape-bg-from) 0%, var(--tape-bg-to) 100%)",
+            background: "linear-gradient(135deg, var(--tape-bg-from) 0%, var(--tape-bg-to) 100%)",
             transform: "translateX(-50%) rotate(-3deg)",
             boxShadow: "0 1px 2px var(--tape-shadow)",
           }}
@@ -88,8 +85,7 @@ export function NotebookCard({
         <div
           className="absolute top-0 right-0 w-5 h-5 pointer-events-none"
           style={{
-            background:
-              "linear-gradient(225deg, transparent 50%, var(--tape-bg-to) 50%)",
+            background: "linear-gradient(225deg, transparent 50%, var(--tape-bg-to) 50%)",
           }}
         />
       )}
@@ -125,8 +121,14 @@ export function NotebookCard({
       <div
         className="absolute inset-0 rounded-xl pointer-events-none"
         style={{
-          boxShadow:
-            "inset 0 1px 2px rgba(255,255,255,0.5), inset 0 -1px 1px rgba(74,82,64,0.04)",
+          boxShadow: "inset 0 1px 0 rgba(255,255,255,0.56), inset 0 -1px 1px rgba(24,53,39,0.05)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-12 pointer-events-none"
+        style={{
+          background: "linear-gradient(180deg, rgba(255,255,255,0.24), transparent)",
         }}
       />
 

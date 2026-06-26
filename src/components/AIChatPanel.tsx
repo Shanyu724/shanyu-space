@@ -238,21 +238,17 @@ export function AIChatPanel({ variant = "floating" }: AIChatPanelProps) {
         whileTap={{ scale: 0.94 }}
         animate={open ? { rotate: 0 } : { rotate: [-2, 4, -2] }}
         transition={open ? { duration: 0.2 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="relative w-12 h-12 rounded-full bg-mint-100 border border-mint-200 shadow-md flex items-center justify-center text-rose-400"
+        className="relative w-12 h-12 rounded-lg bg-cream-50 border border-mint-900/12 shadow-md flex items-center justify-center text-rose-500"
         aria-label="AI 助手"
       >
         {!open && (
-          <span
-            className="absolute -top-9 right-0 whitespace-nowrap animate-bounce text-base text-rose-500 select-none pointer-events-none inline-flex items-center gap-1"
-            style={{ fontFamily: "var(--font-handwriting)" }}
-          >
-            <span>Hey!</span>
-            <span aria-hidden="true">✨</span>
+          <span className="absolute -top-8 right-0 whitespace-nowrap text-[10px] uppercase tracking-[0.22em] text-rose-500 select-none pointer-events-none">
+            ask
           </span>
         )}
         <SiteIcon name="flower" className="h-5 w-5" title="花" />
         {!open && (
-          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-rose-400 border-2 border-mint-50 animate-pulse" />
+          <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-rose-500 border-2 border-cream-50 animate-pulse" />
         )}
       </motion.button>
     </div>
@@ -292,7 +288,7 @@ function PanelBody({
   variant,
 }: PanelBodyProps) {
   return (
-    <div className="relative h-full rounded-2xl bg-white/95 backdrop-blur-md border border-mint-100 shadow-2xl shadow-mint-200/30 flex flex-col overflow-hidden">
+    <div className="relative h-full rounded-xl bg-cream-50/96 backdrop-blur-md border border-mint-900/10 shadow-2xl shadow-mint-900/12 flex flex-col overflow-hidden">
       {/* 顶部胶带 */}
       <div
         className="absolute -top-2 left-1/2 w-16 h-3 rounded-sm pointer-events-none"
@@ -305,14 +301,14 @@ function PanelBody({
       />
 
       {/* 头部 */}
-      <header className="flex items-center justify-between px-4 py-3 border-b border-mint-100/60 bg-mint-50/50">
+      <header className="flex items-center justify-between px-4 py-3 border-b border-mint-900/10 bg-mint-50/55">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-full bg-mint-50 border border-mint-100 flex items-center justify-center shadow-sm">
-            <SiteIcon name="flower" className="h-5 w-5 text-rose-400" title="花" />
+          <div className="w-9 h-9 rounded-lg bg-cream-50 border border-mint-900/12 flex items-center justify-center shadow-sm">
+            <SiteIcon name="flower" className="h-5 w-5 text-rose-500" title="花" />
           </div>
           <div className="min-w-0">
             <h3
-              className="text-base text-mint-800 leading-tight"
+              className="text-[1.02rem] text-mint-800 leading-tight tracking-[0.06em]"
               style={{ fontFamily: "var(--font-handwriting)" }}
             >
               小花
@@ -336,8 +332,8 @@ function PanelBody({
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center text-center px-2">
             <p
-              className="text-sm text-mint-700 mb-3"
-              style={{ fontFamily: "var(--font-handwriting)" }}
+              className="text-sm text-mint-700 mb-3 leading-7"
+              style={{ fontFamily: "var(--font-serif)" }}
             >
               你好，我是小花，山雨的助手。
               <br />
@@ -351,7 +347,7 @@ function PanelBody({
                   key={s}
                   onClick={() => onSend(s)}
                   disabled={loading}
-                  className="text-xs px-3 py-1.5 rounded-full bg-mint-50 border border-mint-100 text-mint-700 hover:bg-mint-100 hover:border-mint-200 transition-colors disabled:opacity-50"
+                  className="text-xs px-3 py-1.5 rounded-full bg-mint-50 border border-mint-900/10 text-mint-700 hover:bg-mint-100 hover:border-mint-900/18 transition-colors disabled:opacity-50"
                 >
                   {s}
                 </button>
@@ -407,7 +403,7 @@ function PanelBody({
       </div>
 
       {/* 输入框 */}
-      <div className="border-t border-mint-100/60 p-3 bg-white/60">
+      <div className="border-t border-mint-900/10 p-3 bg-cream-50/68">
         <div className="flex gap-2 items-end">
           <textarea
             value={input}
@@ -420,12 +416,12 @@ function PanelBody({
             }}
             placeholder="说点什么…  (Enter 发送, Shift+Enter 换行)"
             rows={1}
-            className="flex-1 resize-none px-3 py-2 text-sm rounded-xl border border-mint-200 bg-white/80 focus:outline-none focus:border-mint-400 focus:ring-1 focus:ring-mint-300 max-h-24"
+            className="flex-1 resize-none px-3 py-2 text-sm rounded-lg border border-mint-900/15 bg-cream-50/88 focus:outline-none focus:border-mint-500 focus:ring-1 focus:ring-mint-300 max-h-24"
           />
           <button
             onClick={() => onSend()}
             disabled={!input.trim() || loading}
-            className="shrink-0 w-9 h-9 rounded-full bg-mint-500 hover:bg-mint-600 text-white flex items-center justify-center text-sm disabled:opacity-40 transition-colors"
+            className="shrink-0 w-9 h-9 rounded-lg bg-mint-700 hover:bg-mint-800 text-white flex items-center justify-center text-sm disabled:opacity-40 transition-colors"
             aria-label="发送"
           >
             ↑
