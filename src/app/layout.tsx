@@ -42,13 +42,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Amatic+SC:wght@400;700&family=Delius&display=swap"
           rel="stylesheet"
+        />
+        {/* Theme init：首屏渲染前同步执行，避免 light → dark 闪烁。
+            读 localStorage 决定显式偏好；未显式设置时跟随系统。 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('theme');var p=window.matchMedia('(prefers-color-scheme: dark)').matches;var d=s==='dark'||(s===null&&p);if(d)document.documentElement.classList.add('dark');if(s==='light')document.documentElement.classList.add('light');}catch(e){}})();`,
+          }}
         />
       </head>
       <body className="bg-mint-100 min-h-screen">

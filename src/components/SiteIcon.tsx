@@ -36,6 +36,7 @@ export type SiteIconName =
   | "layers"
   | "leaf"
   | "map-pin"
+  | "moon"
   | "palette"
   | "paperclip"
   | "pencil"
@@ -49,6 +50,7 @@ export type SiteIconName =
   | "spark"
   | "sprout"
   | "stairs"
+  | "sun"
   | "target"
   | "tea"
   | "trash"
@@ -246,6 +248,7 @@ const paths: Record<SiteIconName, SVGProps<SVGSVGElement>["children"]> = {
       <circle cx="12" cy="10" r="2" />
     </>
   ),
+  moon: <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z" />,
   palette: (
     <>
       <path d="M12 4a8 8 0 0 0 0 16h1.5a1.8 1.8 0 0 0 1.1-3.2 1.6 1.6 0 0 1 1-2.8H17a3 3 0 0 0 3-3c0-3.9-3.6-7-8-7Z" />
@@ -305,6 +308,12 @@ const paths: Record<SiteIconName, SVGProps<SVGSVGElement>["children"]> = {
     </>
   ),
   stairs: <path d="M4 18h5v-4h5v-4h6" />,
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4" />
+    </>
+  ),
   target: (
     <>
       <circle cx="12" cy="12" r="8" />

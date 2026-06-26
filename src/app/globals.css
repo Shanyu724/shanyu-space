@@ -70,76 +70,80 @@
 
 /* ── Dark Theme Tokens ──
  * Tailwind v4 的 @theme 不支持在 @media 查询中嵌套（PostCSS 会合并，
- * 最后一个 @theme 会覆盖前一个）。改为直接在 :root 上覆盖 CSS 变量，
+ * 最后一个 @theme 会覆盖前一个）。改为直接在 :root.dark 上覆盖 CSS 变量，
  * 让所有 `bg-cream-50` / `text-sage-500` 等工具类通过 var() 自动跟随。
+ *
+ * 触发条件：<html> 上有 .dark class。ThemeToggle 组件或内联 init script
+ * 会在首屏渲染前根据 localStorage / prefers-color-scheme 决定是否添加。
+ *
+ * 早期版本同时保留 @media (prefers-color-scheme: dark) 作为无 JS fallback，
+ * 现已删除 —— 现代浏览器都会执行内联脚本，OS 跟随由 JS 处理更可控。
  */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Cream：纸感中性色，dark 下作为卡片/抬升面 */
-    --color-cream-50: #252220;
-    --color-cream-100: #1f1d1b;
-    --color-cream-200: #353029;
-    --color-cream-300: #4a4239;
-    --color-cream-400: #7a7165;
-    --color-cream-500: #a89889;
+:root.dark {
+  /* Cream：纸感中性色，dark 下作为卡片/抬升面 */
+  --color-cream-50: #252220;
+  --color-cream-100: #1f1d1b;
+  --color-cream-200: #353029;
+  --color-cream-300: #4a4239;
+  --color-cream-400: #7a7165;
+  --color-cream-500: #a89889;
 
-    /* Earth：土系文字色 */
-    --color-earth-50: #2a2724;
-    --color-earth-100: #353029;
-    --color-earth-200: #4a4239;
-    --color-earth-300: #6a6359;
-    --color-earth-400: #a89682;
-    --color-earth-500: #c4b299;
+  /* Earth：土系文字色 */
+  --color-earth-50: #2a2724;
+  --color-earth-100: #353029;
+  --color-earth-200: #4a4239;
+  --color-earth-300: #6a6359;
+  --color-earth-400: #a89682;
+  --color-earth-500: #c4b299;
 
-    /* Sage：主品牌色，dark 下整体提亮一档 */
-    --color-sage-50: #1f2520;
-    --color-sage-100: #283029;
-    --color-sage-200: #3d4a3d;
-    --color-sage-300: #7a9a7a;
-    --color-sage-400: #95b395;
-    --color-sage-500: #a8c8a8;
-    --color-sage-600: #bccbb7;
-    --color-sage-700: #d4e0cf;
+  /* Sage：主品牌色，dark 下整体提亮一档 */
+  --color-sage-50: #1f2520;
+  --color-sage-100: #283029;
+  --color-sage-200: #3d4a3d;
+  --color-sage-300: #7a9a7a;
+  --color-sage-400: #95b395;
+  --color-sage-500: #a8c8a8;
+  --color-sage-600: #bccbb7;
+  --color-sage-700: #d4e0cf;
 
-    /* Mist：偏冷辅助色，dark 下也整体提亮 */
-    --color-mist-50: #1f2128;
-    --color-mist-100: #2a2d36;
-    --color-mist-200: #3a3f4d;
-    --color-mist-300: #6b7588;
-    --color-mist-400: #8a96ad;
-    --color-mist-500: #a8b3c8;
-    --color-mist-600: #c4cee0;
+  /* Mist：偏冷辅助色，dark 下也整体提亮 */
+  --color-mist-50: #1f2128;
+  --color-mist-100: #2a2d36;
+  --color-mist-200: #3a3f4d;
+  --color-mist-300: #6b7588;
+  --color-mist-400: #8a96ad;
+  --color-mist-500: #a8b3c8;
+  --color-mist-600: #c4cee0;
 
-    /* Warm：暖色装饰 */
-    --color-warm-50: #2a241d;
-    --color-warm-100: #3a3024;
-    --color-warm-200: #5a4a35;
-    --color-warm-300: #c08d4f;
-    --color-warm-400: #d4a76a;
-    --color-warm-500: #e0bb80;
+  /* Warm：暖色装饰 */
+  --color-warm-50: #2a241d;
+  --color-warm-100: #3a3024;
+  --color-warm-200: #5a4a35;
+  --color-warm-300: #c08d4f;
+  --color-warm-400: #d4a76a;
+  --color-warm-500: #e0bb80;
 
-    /* Mint：暗色下整体提亮 */
-    --color-mint-50: #1c2520;
-    --color-mint-100: #243029;
-    --color-mint-200: #3a4d40;
-    --color-mint-300: #7a9a82;
-    --color-mint-400: #95b39c;
-    --color-mint-500: #a8c8af;
-    --color-mint-600: #bcd4c0;
-    --color-mint-700: #d0e0d3;
-    --color-mint-800: #e0ece2;
-    --color-mint-900: #ecf3ee;
+  /* Mint：暗色下整体提亮 */
+  --color-mint-50: #1c2520;
+  --color-mint-100: #243029;
+  --color-mint-200: #3a4d40;
+  --color-mint-300: #7a9a82;
+  --color-mint-400: #95b39c;
+  --color-mint-500: #a8c8af;
+  --color-mint-600: #bcd4c0;
+  --color-mint-700: #d0e0d3;
+  --color-mint-800: #e0ece2;
+  --color-mint-900: #ecf3ee;
 
-    /* Rose：暗色下保留暖意但降低饱和 */
-    --color-rose-50: #2a201f;
-    --color-rose-100: #3a2828;
-    --color-rose-300: #b88a8a;
-    --color-rose-400: #cba0a0;
-    --color-rose-500: #dab8b8;
-    --color-rose-600: #e5cccc;
-    --color-rose-700: #ecd8d8;
-    --color-rose-800: #f0e0e0;
-  }
+  /* Rose：暗色下保留暖意但降低饱和 */
+  --color-rose-50: #2a201f;
+  --color-rose-100: #3a2828;
+  --color-rose-300: #b88a8a;
+  --color-rose-400: #cba0a0;
+  --color-rose-500: #dab8b8;
+  --color-rose-600: #e5cccc;
+  --color-rose-700: #ecd8d8;
+  --color-rose-800: #f0e0e0;
 }
 
 /* ── Runtime variables：body / prose / 装饰用的硬编码颜色全部 token 化 ── */
@@ -148,7 +152,7 @@
   --bg-base: #f3efe6;
   --bg-elevated: #faf7f2;
   --bg-elevated-soft: rgba(250, 247, 242, 0.85);
-  --bg-elevated-softer: rgba(250, 247, 242, 0.60);
+  --bg-elevated-softer: rgba(250, 247, 242, 0.6);
   --bg-noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
 
   /* 文字层级 */
@@ -196,7 +200,7 @@
   --tape-bg-from: rgba(243, 239, 230, 0.92);
   --tape-bg-to: rgba(220, 210, 190, 0.65);
   --tape-shadow: rgba(0, 0, 0, 0.06);
-  --paper-edge-shadow: rgba(74, 82, 64, 0.10);
+  --paper-edge-shadow: rgba(74, 82, 64, 0.1);
   --paper-edge-shadow-hover: rgba(74, 82, 64, 0.15);
 
   /* 荧光笔高亮（默认 light） */
@@ -216,78 +220,90 @@
   --paperclip-shadow: rgba(74, 82, 64, 0.18);
   --mouse-wheel-color: #a96a6a;
   --polaroid-shadow: 0 18px 36px -16px rgba(74, 82, 64, 0.22);
-  --polaroid-shadow-hover: 0 24px 44px -18px rgba(74, 82, 64, 0.30);
+  --polaroid-shadow-hover: 0 24px 44px -18px rgba(74, 82, 64, 0.3);
 
   /* 分隔器点缀专用色 */
   --deco-rose: #be8b8b;
   --deco-warm: #d4a76a;
+
+  /* ── 卡片装饰渐变（用于 Polaroid / 落地生花卡等内层 overlay） ──
+   * 暗色下用深色玻璃质感替代原来的「白偏光」渐变。
+   */
+  --gradient-rose-fade: rgba(190, 139, 139, 0.22);
+  --gradient-sage-fade: rgba(122, 148, 130, 0.22);
+  --gradient-card-from: rgba(255, 255, 255, 0.8);
+  --gradient-card-to: rgba(232, 237, 233, 0.45);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-base: #1c1a18;
-    --bg-elevated: #252220;
-    --bg-elevated-soft: rgba(37, 34, 32, 0.78);
-    --bg-elevated-softer: rgba(37, 34, 32, 0.55);
-    --bg-noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+:root.dark {
+  --bg-base: #1c1a18;
+  --bg-elevated: #252220;
+  --bg-elevated-soft: rgba(37, 34, 32, 0.78);
+  --bg-elevated-softer: rgba(37, 34, 32, 0.55);
+  --bg-noise-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
 
-    --text-primary: #e8e0d4;
-    --text-secondary: #b8b0a4;
-    --text-muted: #9a9082;
-    --text-subtle: #6a6359;
+  --text-primary: #e8e0d4;
+  --text-secondary: #b8b0a4;
+  --text-muted: #9a9082;
+  --text-subtle: #6a6359;
 
-    --border-default: rgba(232, 224, 212, 0.10);
-    --border-soft: rgba(232, 224, 212, 0.14);
-    --border-strong: rgba(232, 224, 212, 0.20);
+  --border-default: rgba(232, 224, 212, 0.1);
+  --border-soft: rgba(232, 224, 212, 0.14);
+  --border-strong: rgba(232, 224, 212, 0.2);
 
-    --code-bg: rgba(232, 224, 212, 0.08);
-    --pre-bg: #16140f;
-    --pre-text: #d8d0c4;
-    --pre-icon-color: rgba(216, 208, 196, 0.40);
+  --code-bg: rgba(232, 224, 212, 0.08);
+  --pre-bg: #16140f;
+  --pre-text: #d8d0c4;
+  --pre-icon-color: rgba(216, 208, 196, 0.4);
 
-    --link-color: #a8b3c8;
-    --link-decoration: #5a6580;
-    --link-color-hover: #c4cee0;
+  --link-color: #a8b3c8;
+  --link-decoration: #5a6580;
+  --link-color-hover: #c4cee0;
 
-    --quote-border: #4d5a4d;
-    --quote-text: #b8b0a4;
-    --quote-mark-color: #4d5a4d;
+  --quote-border: #4d5a4d;
+  --quote-text: #b8b0a4;
+  --quote-mark-color: #4d5a4d;
 
-    --heading-h2: #bccbb7;
-    --heading-h3: #95ad8f;
+  --heading-h2: #bccbb7;
+  --heading-h3: #95ad8f;
 
-    --table-border: rgba(232, 224, 212, 0.10);
-    --table-th-bg: rgba(232, 224, 212, 0.04);
+  --table-border: rgba(232, 224, 212, 0.1);
+  --table-th-bg: rgba(232, 224, 212, 0.04);
 
-    --hr-color: rgba(232, 224, 212, 0.10);
+  --hr-color: rgba(232, 224, 212, 0.1);
 
-    --paper-line-color: rgba(232, 224, 212, 0.025);
+  --paper-line-color: rgba(232, 224, 212, 0.025);
 
-    --tape-bg-from: rgba(58, 54, 49, 0.85);
-    --tape-bg-to: rgba(42, 39, 36, 0.55);
-    --tape-shadow: rgba(0, 0, 0, 0.25);
-    --paper-edge-shadow: rgba(0, 0, 0, 0.35);
-    --paper-edge-shadow-hover: rgba(0, 0, 0, 0.5);
+  --tape-bg-from: rgba(58, 54, 49, 0.85);
+  --tape-bg-to: rgba(42, 39, 36, 0.55);
+  --tape-shadow: rgba(0, 0, 0, 0.25);
+  --paper-edge-shadow: rgba(0, 0, 0, 0.35);
+  --paper-edge-shadow-hover: rgba(0, 0, 0, 0.5);
 
-    --highlight-from: rgba(236, 197, 105, 0.32);
-    --highlight-to: rgba(236, 197, 105, 0.10);
+  --highlight-from: rgba(236, 197, 105, 0.32);
+  --highlight-to: rgba(236, 197, 105, 0.1);
 
-    --deco-sage: #7a9a7a;
-    --deco-mist: #6b7588;
+  --deco-sage: #7a9a7a;
+  --deco-mist: #6b7588;
 
-    /* 暗色下圆点偏冷白、低不透明度 */
-    --dot-color: rgba(184, 200, 188, 0.10);
+  /* 暗色下圆点偏冷白、低不透明度 */
+  --dot-color: rgba(184, 200, 188, 0.1);
 
-    --paperclip-fill: #6b7580;
-    --paperclip-stroke: #8a96a3;
-    --paperclip-shadow: rgba(0, 0, 0, 0.35);
-    --mouse-wheel-color: #dab8b8;
-    --polaroid-shadow: 0 18px 36px -16px rgba(0, 0, 0, 0.55);
-    --polaroid-shadow-hover: 0 24px 44px -18px rgba(0, 0, 0, 0.7);
+  --paperclip-fill: #6b7580;
+  --paperclip-stroke: #8a96a3;
+  --paperclip-shadow: rgba(0, 0, 0, 0.35);
+  --mouse-wheel-color: #dab8b8;
+  --polaroid-shadow: 0 18px 36px -16px rgba(0, 0, 0, 0.55);
+  --polaroid-shadow-hover: 0 24px 44px -18px rgba(0, 0, 0, 0.7);
 
-    --deco-rose: #cba0a0;
-    --deco-warm: #e0bb80;
-  }
+  --deco-rose: #cba0a0;
+  --deco-warm: #e0bb80;
+
+  /* 暗色下渐变 overlay：保留色相但降低饱和 + 把白偏光换成深玻璃 */
+  --gradient-rose-fade: rgba(184, 134, 134, 0.18);
+  --gradient-sage-fade: rgba(122, 148, 130, 0.18);
+  --gradient-card-from: rgba(58, 54, 49, 0.65);
+  --gradient-card-to: rgba(42, 39, 36, 0.35);
 }
 
 /* ── Paper Texture via SVG Noise ── */
@@ -299,7 +315,9 @@ body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.4s ease, color 0.3s ease;
+  transition:
+    background-color 0.4s ease,
+    color 0.3s ease;
 }
 
 /* ── Subtle lined-paper overlay ── */
@@ -313,14 +331,13 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 31px,
-      var(--paper-line-color) 31px,
-      var(--paper-line-color) 32px
-    );
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 31px,
+    var(--paper-line-color) 31px,
+    var(--paper-line-color) 32px
+  );
 }
 
 /* ── Sticky Note Styles ── */
@@ -329,13 +346,12 @@ body {
   box-shadow:
     /* 顶部胶带阴影 */
     0 1px 2px rgba(0, 0, 0, 0.04),
-    /* 主阴影 */
-    0 4px 12px var(--paper-edge-shadow),
+    /* 主阴影 */ 0 4px 12px var(--paper-edge-shadow),
     0 1px 2px rgba(74, 82, 64, 0.05),
-    /* 底部卷起阴影（更深的羽化） */
-    0 12px 28px -8px var(--paper-edge-shadow);
-  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
-              box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+    /* 底部卷起阴影（更深的羽化） */ 0 12px 28px -8px var(--paper-edge-shadow);
+  transition:
+    transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .sticky-note::after {
@@ -398,14 +414,24 @@ body {
 
 /* ── Logo 轻旋转 ── */
 @keyframes gentle-spin {
-  0% { transform: rotate(0deg); }
-  50% { transform: rotate(6deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 @keyframes gentle-spin-fast {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-gentle-spin {
@@ -421,16 +447,17 @@ body {
 /* ── Releases 时间线 ── */
 .release-card {
   position: relative;
-  transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
-              box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
-              border-color 0.3s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.3s ease;
 }
 
 .release-card:hover {
   transform: translateY(-3px);
   box-shadow:
     0 10px 28px -10px rgba(122, 148, 130, 0.28),
-    0 4px 10px -2px rgba(122, 148, 130, 0.10);
+    0 4px 10px -2px rgba(122, 148, 130, 0.1);
 }
 
 .release-card::before {
@@ -444,7 +471,9 @@ body {
   background: var(--color-mint-200);
   border: 3px solid var(--color-mint-500);
   box-shadow: 0 0 0 3px var(--color-mint-50);
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
 .release-card:hover::before {
@@ -486,7 +515,12 @@ body {
 
 /* ── 手绘下划线 ── */
 .hand-underline {
-  background-image: linear-gradient(transparent 88%, rgba(143, 165, 124, 0.45) 88%, rgba(143, 165, 124, 0.45) 96%, transparent 96%);
+  background-image: linear-gradient(
+    transparent 88%,
+    rgba(143, 165, 124, 0.45) 88%,
+    rgba(143, 165, 124, 0.45) 96%,
+    transparent 96%
+  );
   background-repeat: no-repeat;
   background-size: 100% 100%;
   padding-bottom: 2px;
@@ -494,18 +528,18 @@ body {
 
 /* ── 便条纸缝合边 ── */
 .stitched {
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 4px,
-      rgba(139, 118, 88, 0.4) 4px,
-      rgba(139, 118, 88, 0.4) 5px
-    );
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 4px,
+    rgba(139, 118, 88, 0.4) 4px,
+    rgba(139, 118, 88, 0.4) 5px
+  );
 }
 
 /* ── 文章正文 heading 锚点偏移 ── */
-.prose h2, .prose h3 {
+.prose h2,
+.prose h3 {
   scroll-margin-top: 80px;
 }
 
@@ -581,13 +615,14 @@ body {
   pointer-events: none;
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .prose blockquote::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 8C5.5 9.5 3 12.5 3 16.5C3 20 5.5 22.5 8.5 22.5C11 22.5 13 20.5 13 18C13 15.5 11 13.5 9 14C9 11.5 10.5 9.5 13 8.5L12 6C11 6.3 10 7 9 8ZM22 8C18.5 9.5 16 12.5 16 16.5C16 20 18.5 22.5 21.5 22.5C24 22.5 26 20.5 26 18C26 15.5 24 13.5 22 14C22 11.5 23.5 9.5 26 8.5L25 6C24 6.3 23 7 22 8Z' fill='%237a9a7a' fill-opacity='0.55'/%3E%3C/svg%3E");
   }
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   margin: 1em 0;
   padding-left: 1.5em;
 }
@@ -661,7 +696,8 @@ body {
   font-size: 0.9375rem;
 }
 
-.prose th, .prose td {
+.prose th,
+.prose td {
   border: 1px solid var(--table-border);
   padding: 0.6em 0.8em;
   text-align: left;
@@ -730,10 +766,14 @@ body {
 .btn-primary {
   background-color: var(--color-sage-500);
   color: #ffffff;
-  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .btn-primary {
     background-color: var(--color-sage-400);
     color: #1c1a18;
@@ -772,25 +812,13 @@ body {
   bottom: 0.5rem;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    #95ad8f 20%,
-    #95ad8f 80%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg, transparent 0%, #95ad8f 20%, #95ad8f 80%, transparent 100%);
   opacity: 0.85;
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .now-line::before {
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      #7a9a7a 20%,
-      #7a9a7a 80%,
-      transparent 100%
-    );
+    background: linear-gradient(180deg, transparent 0%, #7a9a7a 20%, #7a9a7a 80%, transparent 100%);
   }
 }
 
@@ -807,16 +835,12 @@ body {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(
-    90deg,
-    #6d8b67 0%,
-    #8a9c89 30%,
-    #b3a48d 60%,
-    #d4a76a 100%
-  );
+  background: linear-gradient(90deg, #6d8b67 0%, #8a9c89 30%, #b3a48d 60%, #d4a76a 100%);
   border-radius: 12px 12px 0 0;
   opacity: 0.85;
-  transition: opacity 0.3s ease, height 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    height 0.3s ease;
 }
 
 .deco-gradient-bar:hover::before {
@@ -892,7 +916,7 @@ body {
   flex-shrink: 0;
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .section-divider {
     opacity: 0.45;
   }
@@ -921,7 +945,7 @@ body {
   opacity: 0.7;
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .dot-row {
     opacity: 0.45;
   }
@@ -932,19 +956,47 @@ body {
  * 这里专门覆盖直接写在 className 上的硬编码颜色，以及
  * 带透明度修饰的类（Tailwind 生成的类选择器需要用 \/ 转义斜杠）。
  */
-@media (prefers-color-scheme: dark) {
+:root.dark {
   body {
     background-color: #1c1a18;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
     color: #d9d0c4;
   }
 
+  .bg-white\/10 {
+    background-color: rgba(232, 224, 212, 0.04) !important;
+  }
+  .bg-white\/35 {
+    background-color: rgba(232, 224, 212, 0.07) !important;
+  }
   .bg-white\/60 {
     background-color: rgba(44, 42, 38, 0.5) !important;
+  }
+  .bg-white\/70 {
+    background-color: rgba(37, 34, 32, 0.55) !important;
+  }
+  .bg-white\/75 {
+    background-color: rgba(37, 34, 32, 0.62) !important;
+  }
+  .bg-white\/78 {
+    background-color: rgba(37, 34, 32, 0.66) !important;
+  }
+  .bg-white\/80 {
+    background-color: rgba(37, 34, 32, 0.7) !important;
+  }
+  .bg-white\/90 {
+    background-color: rgba(37, 34, 32, 0.82) !important;
+  }
+  .bg-white\/95 {
+    background-color: rgba(37, 34, 32, 0.9) !important;
   }
 
   .border-cream-200 {
     border-color: #3a342c !important;
+  }
+
+  .border-white\/70 {
+    border-color: rgba(232, 224, 212, 0.12) !important;
   }
 
   .text-earth-400 {
@@ -987,7 +1039,9 @@ body {
     color: #d9d0c4;
   }
 
-  .prose h2, .prose h3, .prose h4 {
+  .prose h2,
+  .prose h3,
+  .prose h4 {
     color: #95ad8f;
   }
 
@@ -1009,7 +1063,8 @@ body {
     background: #3a342c;
   }
 
-  .prose th, .prose td {
+  .prose th,
+  .prose td {
     border-color: #4a4438;
   }
 
@@ -1055,7 +1110,7 @@ body {
   pointer-events: none;
   z-index: -5;
   background:
-    radial-gradient(60% 40% at 12% 18%, rgba(190, 139, 139, 0.10) 0%, transparent 65%),
+    radial-gradient(60% 40% at 12% 18%, rgba(190, 139, 139, 0.1) 0%, transparent 65%),
     radial-gradient(50% 35% at 88% 82%, rgba(122, 148, 130, 0.12) 0%, transparent 70%);
 }
 
@@ -1078,7 +1133,7 @@ body {
 }
 
 #main-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(122, 148, 130, 0.30);
+  background: rgba(122, 148, 130, 0.3);
 }
 
 /* ── 导航虚线下划线（参考站最有辨识度的细节） ──
@@ -1091,7 +1146,9 @@ body {
   font-weight: 500;
   color: var(--color-mint-800);
   border-bottom: 2px dashed transparent;
-  transition: color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 
 .nav-dashed:hover {
@@ -1116,17 +1173,19 @@ body {
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(232, 237, 233, 0.7);
-  box-shadow: 0 2px 8px -2px rgba(122, 148, 130, 0.10);
-  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
-              box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
-              border-color 0.3s ease;
+  box-shadow: 0 2px 8px -2px rgba(122, 148, 130, 0.1);
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.3s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.3s ease;
 }
 
 .entry-card:hover {
   transform: translateY(-4px) rotate(-0.5deg);
   border-color: var(--color-rose-300);
-  box-shadow: 0 10px 24px -8px rgba(190, 139, 139, 0.25),
-              0 2px 6px -1px rgba(122, 148, 130, 0.12);
+  box-shadow:
+    0 10px 24px -8px rgba(190, 139, 139, 0.25),
+    0 2px 6px -1px rgba(122, 148, 130, 0.12);
 }
 
 .entry-card-title {
@@ -1149,8 +1208,9 @@ body {
   height: 96px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 25px -10px rgba(122, 148, 130, 0.35),
-              0 4px 10px -3px rgba(190, 139, 139, 0.15);
+  box-shadow:
+    0 10px 25px -10px rgba(122, 148, 130, 0.35),
+    0 4px 10px -3px rgba(190, 139, 139, 0.15);
   padding: 0.5rem;
 }
 
@@ -1203,7 +1263,7 @@ body {
   border: 1.5px dashed var(--color-mint-200);
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .stitched-border {
     border-color: rgba(232, 224, 212, 0.18) !important;
   }
@@ -1231,7 +1291,7 @@ body {
   box-shadow: var(--polaroid-shadow-hover);
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .card-polaroid {
     background: rgba(58, 54, 49, 0.85);
     border-color: rgba(232, 224, 212, 0.12);
@@ -1250,8 +1310,13 @@ body {
 }
 
 @keyframes mouse-hint-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .mouse-scroll-hint .mouse-icon {
@@ -1276,14 +1341,44 @@ body {
 }
 
 @keyframes mouse-wheel {
-  0% { opacity: 0; transform: translateY(0); }
-  20% { opacity: 1; }
-  80% { opacity: 0.4; transform: translateY(8px); }
-  100% { opacity: 0; transform: translateY(10px); }
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.4;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
-@media (prefers-color-scheme: dark) {
+:root.dark {
   .mouse-scroll-hint {
+    color: var(--color-mint-300);
+  }
+
+  /* ── 全局组件的硬编码白底 ── */
+  .entry-card {
+    background: rgba(58, 54, 49, 0.6);
+    border-color: rgba(232, 224, 212, 0.12);
+  }
+
+  .avatar-frame {
+    background: rgba(58, 54, 49, 0.85);
+    box-shadow:
+      0 10px 25px -10px rgba(0, 0, 0, 0.55),
+      0 4px 10px -3px rgba(190, 139, 139, 0.12);
+  }
+
+  .welcome-sticker {
+    background: rgba(58, 54, 49, 0.92);
+    border-color: rgba(232, 224, 212, 0.18);
     color: var(--color-mint-300);
   }
 }
@@ -1292,4 +1387,3 @@ body {
 .mascot-float {
   animation: float-slow 5s ease-in-out infinite;
 }
-

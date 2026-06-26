@@ -28,7 +28,14 @@ export function WorkshopClient({ tools }: WorkshopClientProps) {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-14">
       <FadeIn>
         <section className="relative min-h-[330px] flex flex-col items-center justify-center text-center overflow-hidden rounded-3xl bg-white/70 border border-mint-100/70 backdrop-blur-sm mb-14 px-6">
-          <div className="absolute inset-0 opacity-[0.35] pointer-events-none bg-[radial-gradient(circle_at_18%_20%,rgba(190,139,139,0.20),transparent_30%),radial-gradient(circle_at_82%_76%,rgba(122,148,130,0.24),transparent_36%)]" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.35] pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 18% 20%, var(--gradient-rose-fade), transparent 30%), radial-gradient(circle at 82% 76%, var(--gradient-sage-fade), transparent 36%)",
+            }}
+          />
           <span className="relative z-10 text-xs tracking-[0.35em] text-rose-400 mb-3">小工具</span>
           <h1 className="relative z-10 text-5xl md:text-7xl font-serif font-bold text-mint-800 tracking-tight">
             AI 工具坊
@@ -118,7 +125,14 @@ function ToolShowCard({ tool, index }: { tool: Tool; index: number }) {
       className={`group relative rounded-3xl bg-white/78 border border-mint-100/80 backdrop-blur-sm overflow-hidden shadow-sm hover:shadow-xl hover:shadow-rose-200/20 hover:border-rose-300 transition-all ${rotate}`}
     >
       <div className="relative h-48 overflow-hidden bg-mint-50">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_24%,rgba(190,139,139,0.36),transparent_30%),radial-gradient(circle_at_78%_72%,rgba(122,148,130,0.35),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.85),rgba(232,237,233,0.45))]" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 24%, var(--gradient-rose-fade), transparent 30%), radial-gradient(circle at 78% 72%, var(--gradient-sage-fade), transparent 34%), linear-gradient(135deg, var(--gradient-card-from), var(--gradient-card-to))",
+          }}
+        />
         <div className="absolute inset-5 rounded-2xl border border-white/70 bg-white/35 backdrop-blur-[1px]" />
         <div className="absolute inset-0 flex items-center justify-center">
           {tool.icon ? (

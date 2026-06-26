@@ -71,7 +71,14 @@ export function PortfolioClient({ projects }: PortfolioClientProps) {
             }}
           />
 
-          <div className="absolute inset-0 opacity-[0.35] pointer-events-none rounded-[1.75rem] bg-[radial-gradient(circle_at_20%_20%,rgba(190,139,139,0.22),transparent_32%),radial-gradient(circle_at_80%_70%,rgba(122,148,130,0.22),transparent_36%)]" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-[0.35] pointer-events-none rounded-[1.75rem]"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 20% 20%, var(--gradient-rose-fade), transparent 32%), radial-gradient(circle at 80% 70%, var(--gradient-sage-fade), transparent 36%)",
+            }}
+          />
 
           {/* 共创小标签（黄底贴纸感） */}
           <span
@@ -150,7 +157,14 @@ function ProjectShowCard({ project, index }: { project: Project; index: number }
     >
       {/* 海报区：没有真实截图时用手账渐变 + emoji 做"项目封面" */}
       <div className="relative h-48 overflow-hidden bg-mint-50">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_25%,rgba(190,139,139,0.38),transparent_30%),radial-gradient(circle_at_78%_70%,rgba(122,148,130,0.35),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.8),rgba(232,237,233,0.45))]" />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 22% 25%, var(--gradient-rose-fade), transparent 30%), radial-gradient(circle at 78% 70%, var(--gradient-sage-fade), transparent 34%), linear-gradient(135deg, var(--gradient-card-from), var(--gradient-card-to))",
+          }}
+        />
         <div className="absolute inset-5 rounded-2xl border border-white/70 bg-white/35 backdrop-blur-[1px]" />
         <div className="absolute inset-0 flex items-center justify-center">
           {project.icon && (

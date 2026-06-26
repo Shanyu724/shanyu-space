@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface NavLink {
   href: string;
@@ -138,6 +139,7 @@ export default function Header() {
               </Link>
             );
           })}
+          <ThemeToggle className="ml-1" />
         </nav>
 
         <button
@@ -177,6 +179,10 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            <div className="flex items-center gap-2 px-2 py-2 text-base text-mint-800">
+              <span>主题</span>
+              <ThemeToggle />
+            </div>
           </nav>
         </div>
       )}

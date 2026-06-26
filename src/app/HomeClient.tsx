@@ -56,7 +56,7 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
           className="absolute inset-0 opacity-[0.35] pointer-events-none z-0"
           style={{
             backgroundImage:
-              "radial-gradient(rgba(122,148,130,0.08) 1px, transparent 1px), linear-gradient(135deg, rgba(255,255,255,0.45), rgba(232,237,233,0.2))",
+              "radial-gradient(var(--gradient-sage-fade) 1px, transparent 1px), linear-gradient(135deg, var(--gradient-card-from), var(--gradient-card-to))",
             backgroundSize: "18px 18px, 100% 100%",
           }}
         />
@@ -153,7 +153,7 @@ export function HomeClient({ me, categories, latestPosts, labels }: HomeClientPr
               className="absolute inset-0 rounded-[2rem] pointer-events-none opacity-40"
               style={{
                 backgroundImage:
-                  "linear-gradient(90deg, transparent 0, rgba(122,148,130,0.04) 1px, transparent 1px), linear-gradient(0deg, transparent 0, rgba(190,139,139,0.035) 1px, transparent 1px)",
+                  "linear-gradient(90deg, transparent 0, var(--gradient-sage-fade) 1px, transparent 1px), linear-gradient(0deg, transparent 0, var(--gradient-rose-fade) 1px, transparent 1px)",
                 backgroundSize: "26px 26px",
               }}
             />
