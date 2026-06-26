@@ -51,14 +51,10 @@ export default function BehindPage() {
                 >
                   Floria Wonderland
                 </a>{" "}
-                构建的个人数字花园。集博客、作品集、关于页于一体。
+                构建的个人网站。集博客、作品集、关于页于一体。
               </p>
-              <p>
-                设计上追求纸张质感的温暖感与阅读舒适度——暖色调、柔和边界、留白呼吸。
-              </p>
-              <p className="text-xs text-earth-300">
-                本页内容由 Claude 协助生成，它很懂我 hh
-              </p>
+              <p>设计上追求纸张质感的温暖感与阅读舒适度——暖色调、柔和边界、留白呼吸。</p>
+              <p className="text-xs text-earth-300">本页内容由 Claude 协助生成，它很懂我 hh</p>
             </div>
           </section>
         </FadeIn>
@@ -69,7 +65,9 @@ export default function BehindPage() {
             <h2 className="text-xl font-semibold text-sage-600 mb-4">💭 设计理念</h2>
             <div className="space-y-3 text-sm text-earth-400">
               <div className="flex items-start gap-3">
-                <span className="shrink-0 w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">1</span>
+                <span className="shrink-0 w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">
+                  1
+                </span>
                 <div>
                   <p className="font-medium text-sage-600">纸质质感 · Journal Aesthetic</p>
                   <p className="text-earth-400 mt-0.5">
@@ -78,7 +76,9 @@ export default function BehindPage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="shrink-0 w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">2</span>
+                <span className="shrink-0 w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">
+                  2
+                </span>
                 <div>
                   <p className="font-medium text-sage-600">内容优先 · Content First</p>
                   <p className="text-earth-400 mt-0.5">
@@ -87,7 +87,9 @@ export default function BehindPage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="shrink-0 w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">3</span>
+                <span className="shrink-0 w-6 h-6 rounded-full bg-sage-100 text-sage-600 flex items-center justify-center text-xs font-medium">
+                  3
+                </span>
                 <div>
                   <p className="font-medium text-sage-600">简单运维 · Low Maintenance</p>
                   <p className="text-earth-400 mt-0.5">
@@ -104,7 +106,7 @@ export default function BehindPage() {
           <section className="deco-top-line p-6 md:p-8 rounded-xl bg-cream-50/60 border border-cream-200">
             <h2 className="text-xl font-semibold text-sage-600 mb-4">📁 项目结构</h2>
             <div className="bg-cream-100 rounded-lg p-4 text-xs font-mono text-earth-400 leading-relaxed whitespace-pre overflow-x-auto">
-{`shanyu-space/
+              {`shanyu-space/
 ├── content/           # 内容层（Markdown）
 │   ├── blog/
 │   │   ├── geo/       # 地缘观察
@@ -132,15 +134,22 @@ export default function BehindPage() {
               <div>
                 <h3 className="font-medium text-sage-500 mb-1">文章发布流程</h3>
                 <p className="leading-relaxed">
-                  在 <code className="text-xs bg-cream-100 px-1.5 py-0.5 rounded">content/blog/</code> 下对应的分类目录新建 <code className="text-xs bg-cream-100 px-1.5 py-0.5 rounded">.md</code> 文件，
-                  头部填写标题、日期、描述、标签，正文用 Markdown 书写。
-                  推送到 GitHub，Vercel 自动检测并部署，全程无需触碰代码。
+                  在{" "}
+                  <code className="text-xs bg-cream-100 px-1.5 py-0.5 rounded">content/blog/</code>{" "}
+                  下对应的分类目录新建{" "}
+                  <code className="text-xs bg-cream-100 px-1.5 py-0.5 rounded">.md</code> 文件，
+                  头部填写标题、日期、描述、标签，正文用 Markdown 书写。 推送到 GitHub，Vercel
+                  自动检测并部署，全程无需触碰代码。
                 </p>
               </div>
               <div>
                 <h3 className="font-medium text-sage-500 mb-1">作品集维护</h3>
                 <p className="leading-relaxed">
-                  编辑 <code className="text-xs bg-cream-100 px-1.5 py-0.5 rounded">content/portfolio/projects.json</code>，添加或修改项目条目即可。
+                  编辑{" "}
+                  <code className="text-xs bg-cream-100 px-1.5 py-0.5 rounded">
+                    content/portfolio/projects.json
+                  </code>
+                  ，添加或修改项目条目即可。
                 </p>
               </div>
             </div>
@@ -217,9 +226,12 @@ export default function BehindPage() {
             <p className="text-sm text-earth-400 mb-4 leading-relaxed">
               整体调色经过一次温和转向：从奶纸 + 鼠尾草绿，调成
               <strong className="text-mint-700">薄荷绿 + 玫粉</strong>
-              作主调，奶米色退到正文阅读区当背景。山色蒙尘、雨色清透，
-              再加一点玫粉做 hover 高光——这套色板的来历在
-              <a href="/releases" className="link-underline mx-1">/releases</a>里。
+              作主调，奶米色退到正文阅读区当背景。山色蒙尘、雨色清透， 再加一点玫粉做 hover
+              高光——这套色板的来历在
+              <a href="/releases" className="link-underline mx-1">
+                /releases
+              </a>
+              里。
             </p>
             <div className="flex gap-3 flex-wrap">
               {colorSwatches.map((c) => (

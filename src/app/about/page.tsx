@@ -129,10 +129,7 @@ export default function AboutPage() {
       <FadeIn delay={0.3} y={12}>
         <section className="mt-6 p-6 rounded-xl bg-cream-50/60 border border-cream-200">
           <h2 className="text-sm font-semibold text-sage-600 mb-3">🌱 关于这个站</h2>
-          <p className="text-sm text-earth-400 leading-relaxed">
-            {me.tagline}一个数字花园，存放学习中的沉淀、研究中的发现，以及日常的思考碎片。
-            不追热点，只想保持深度、真诚和独立思考的底色。
-          </p>
+          <p className="text-sm text-earth-400 leading-relaxed">{me.tagline}</p>
           <p className="mt-2 text-sm text-earth-400 leading-relaxed">
             受 Floria Wonderland 启发构建。
           </p>

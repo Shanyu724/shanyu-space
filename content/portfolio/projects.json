@@ -53,7 +53,7 @@
     "id": "personal-website",
     "emoji": "🌿",
     "title": "山雨·个人站",
-    "description": "基于 Next.js 16 搭建的个人数字花园。Markdown 驱动内容，Framer Motion 驱动动画，Vercel 免费托管。设计上追求薄荷色毛玻璃浮卡 + 手账质感，内容上承载地缘、金融、学习、随笔四块输出。",
+    "description": "基于 Next.js 16 搭建的个人网站。Markdown 驱动内容，Framer Motion 驱动动画，Vercel 免费托管。设计上追求薄荷色毛玻璃浮卡 + 手账质感，内容上承载地缘、金融、学习、随笔四块输出。",
     "status": "in-production",
     "tags": ["Next.js", "Tailwind CSS", "TypeScript", "Framer Motion"],
     "highlights": [

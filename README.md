@@ -1,6 +1,6 @@
 # 山雨·个人站 🌿
 
-一个集博客、作品集、关于页于一体的个人数字花园。
+一个集博客、作品集、关于页于一体的个人网站。
 
 基于 Next.js 15 + Tailwind CSS v4 + TypeScript 构建，Markdown 驱动内容，Vercel 免费托管。
 
